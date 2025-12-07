@@ -42,7 +42,7 @@ This project uses a standard, logical file organization commonly found in web ap
 │   ├── responsive.css
 │   └── footer.css
 ├── /js/
-│   ├── script.js                    
+│   ├── script.js                           <-- Scripts supporting the main layout
 │   ├── number-guessing.js
 │   ├── rock-paper-scissors.js  
 │   ├── clicker.js  
@@ -67,8 +67,6 @@ The RevoFun Gaming Hub features a minimum of three fully implemented, browser-ba
 * **Rock, Paper, Scissors:** A digitized version of the beloved hand game, where the player competes against a random choice made by the computer. The game determines the winner based on the classic rules and keeps track of the match scores.
 * **Clicker Game:** This quick and addictive game presents a large button, requiring players to click it as rapidly as possible within a set time limit. Upon expiration of the timer, the player's final click score is displayed.
 * **Cosmic Dodge (Falling Objects) Game:** A fast-paced, action-based game where the player controls a ship/character to avoid randomly generated objects (e.g., meteors or space debris) that fall from the top of the screen. The goal is to survive as long as possible while the game increases in speed and difficulty.
-
-* **Memory Card Game (Optional Game 4)**: This game involves matching pairs of hidden cards. Players flip two cards per turn; if they match, they stay open, and the goal is to successfully match all pairs.
 
 ### ✨ User Experience & Optional Features
 * **Game Instructions:** Clear, concise instructions are provided on each dedicated game page.
@@ -118,7 +116,7 @@ Since this is a static front-end portfolio site, it can be viewed directly after
 
 ---
 
-## Contact
+## Connect with Me
 
 If you'd like to chat, network, or discuss my journey, please feel free to reach out!
 
