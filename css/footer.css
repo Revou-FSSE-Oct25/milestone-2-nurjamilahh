@@ -1,0 +1,115 @@
+/* --- Main Footer Styles (footer.css) --- */
+
+.main-footer {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    padding: 40px 20px;
+}
+
+.footer-content-grid {
+    /* Uses the existing grid-4 definition from styles.css */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-col {
+    padding: 10px;
+}
+
+.footer-col h5 {
+    font-family: 'Bungee', cursive;
+    color: var(--color-secondary-yellow);
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 0.95em;
+    display: block;
+    padding: 4px 0;
+    transition: color 0.2s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--color-primary-blue);
+}
+
+.footer-branding .logo {
+    color: var(--color-secondary-yellow);
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.footer-branding p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.copyright {
+    margin-top: 15px;
+    font-size: 0.8em;
+    color: #99aab5; /* Lighter text for copyright */
+}
+
+/* Anda menambahkan ini di bagian tengah file CSS Anda */
+
+.footer-social {
+    /* Tambahkan ini untuk menengahkan judul H5 dan elemen blok/inline-block lainnya */
+    text-align: center; 
+}
+
+.footer-social .social-icons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: center; 
+}
+
+.newsletter-btn {
+    /* Inherits button styles from styles.css */
+    width: 100%; 
+    text-align: center;
+}
+
+/* --- Responsive Adjustments for Footer --- */
+@media (max-width: 992px) {
+    .footer-content-grid {
+        /* 2 columns on tablets */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-content-grid {
+        /* 1 column on mobile */
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .footer-col h5, .footer-branding .logo {
+        text-align: center;
+    }
+    
+    .footer-col ul {
+        text-align: center;
+    }
+    
+    .footer-branding, .footer-social {
+        text-align: center;
+    }
+    
+    .footer-social .social-icons {
+        justify-content: center;
+    }
+}

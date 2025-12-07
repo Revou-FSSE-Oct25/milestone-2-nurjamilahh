@@ -31,21 +31,22 @@ This project uses a standard, logical file organization commonly found in web ap
 ```text
 
 /milestone-2-nurjamilahh/
-├── index.html                      <-- Main landing page
+├── revofun_home.html                      <-- Main landing page
 ├── /games/
 │   ├── number-guessing.html                    
 │   ├── rock-paper-scissors.html
 │   ├── clicker.html    
-│   └── memory-card.html
+│   └── dodge.html
 ├── /css/
-│   ├── main.css                    <-- Core layout and component styles
-│   └── game-style.css
+│   ├── styles.css                          <-- Core layout and component styles
+│   ├── responsive.css
+│   └── footer.css
 ├── /js/
 │   ├── script.js                    
 │   ├── number-guessing.js
 │   ├── rock-paper-scissors.js  
 │   ├── clicker.js  
-│   └── memory-card.js
+│   └── dodge.js
 └── README.md
 
 ```

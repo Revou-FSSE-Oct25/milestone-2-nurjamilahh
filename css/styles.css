@@ -1,0 +1,448 @@
+/* --- 🎨 Kid-Friendly Color Palette --- */
+:root {
+    --color-primary-blue: #0077ff;    /* Bright Blue */
+    --color-secondary-yellow: #ffc107; /* Sunny Yellow */
+    --color-accent-green: #28a745;    /* Vibrant Green */
+    --color-accent-red: #dc3545;      /* Fun Red */
+    --color-light-pink: #ffdae3;      /* Pastel Pink */
+    --color-background-dark: #2c3e50; /* Dark Navy for contrast */
+    --color-text-light: #ecf0f1;      /* Light Text */
+    --color-white: #ffffff;
+}
+
+/* --- Global Styles & Fonts --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--color-light-pink);
+    color: var(--color-background-dark);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Bungee', cursive; /* Playful Title Font */
+    color: var(--color-primary-blue);
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+.page-section {
+    padding: 60px 20px;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* --- 🌟 Navigation Bar --- */
+.navbar {
+    background-color: var(--color-background-dark);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    color: var(--color-secondary-yellow);
+    font-size: 1.8em;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text-light);
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: var(--color-primary-blue);
+}
+
+/* --- 🏠 Hero Section (Home) --- */
+.hero-section {
+    background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-yellow));
+    color: var(--color-white);
+}
+
+.hero-content h2 {
+    font-size: 3em;
+    color: var(--color-white);
+    text-shadow: 3px 3px 0 var(--color-background-dark);
+}
+
+/* --- 🎮 Game Cards Overview (CSS Grid System) --- */
+.games-overview {
+    background-color: var(--color-white);
+}
+
+.grid-4 {
+    display: grid;
+    /* Uses CSS Grid with 4 columns */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.card {
+    background-color: var(--color-light-pink);
+    border: 5px solid var(--color-accent-green);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 8px 8px 0 var(--color-primary-blue);
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 0 var(--color-primary-blue);
+}
+
+.card-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: var(--color-accent-red);
+}
+
+/* --- General Button Styling --- */
+.btn, .btn-small, .btn-large, .btn-tiny {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, transform 0.1s;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn {
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+}
+
+.btn-small {
+    background-color: var(--color-secondary-yellow);
+    color: var(--color-background-dark);
+    padding: 8px 15px;
+}
+
+.btn-large {
+    background-color: var(--color-accent-red);
+    color: var(--color-white);
+    font-size: 1.5em;
+    padding: 20px 40px;
+}
+
+.btn-tiny {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.btn:hover, .btn-small:hover, .btn-large:hover, .btn-tiny:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* --- Game Page Layouts --- */
+.game-page {
+    background-color: var(--color-light-pink);
+}
+
+.game-container {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    border: 3px solid var(--color-primary-blue);
+}
+
+input[type="number"], input[type="text"] {
+    padding: 10px;
+    margin: 8px 0;
+    width: 80%;
+    border-radius: 5px;
+    border: 2px solid var(--color-accent-green);
+    font-size: 1em;
+}
+
+.message-box {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    min-height: 40px;
+}
+
+/* RPS Specific Styles */
+.rps-choices {
+    /* display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0; #1 20251207*/
+
+    /* #2 20251207 1. Activate CSS Grid */
+    display: grid;
+    
+    /* 2. Define 4 equal columns (4 x 1 fraction) */
+    grid-template-columns: repeat(4, 1fr); 
+    
+    /* 3. Add space between columns/rows */
+    gap: 1.5rem; 
+    
+    /* Center the choice items within the container's available space */
+    justify-content: center;
+    
+    /* Ensure choice buttons don't hit the edges */
+    margin: 1.5rem 0;
+}
+
+.choice-btn {
+    /* background-color: var(--color-primary-blue);
+    width: 70px;
+    height: 70px;
+    font-size: 2em;
+    border-radius: 50%; #1 20251207 */
+
+    /* #2 20251207 Use 'calc' to ensure the button is a perfect circle and responsive */
+    /* 10vw is 10% of the viewport width - a good responsive size */
+    width: 7vw; 
+    height: 7vw; 
+
+    /* add #4 20251207 to limit max size */
+    max-width: 12rem;
+    max-height: 12rem;
+    /* font-size: 0.9rem; */
+    border-radius: 50%; /* Makes it a circle */
+    border: none;
+    background-color: #007bff;
+    color: white;
+    
+    /* Center content (emoji) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    /* Responsive font size based on viewport width */
+    font-size: 1.2rem; 
+    cursor: pointer;
+    line-height: 1;
+    
+    /* Ensure the button spans only 1 column */
+    /* grid-column-end: span 1; #3 20251207 */
+}
+
+/* Styling for the emoji inside the button */
+.choice-btn > span {
+    /* Note: Use this selector if you wrap the emoji inside a <span> tag in your HTML */
+    font-size: 3vw; 
+    margin-bottom: 0.2rem; /* Spacing between the emoji (top) and the text (bottom) */
+}
+
+/* #2 20251207 Specific centering for the first button */
+/* We start the first button (Rock) in the second column to achieve a centered layout (Empty, Rock, Paper, Scissors) */
+/* .rps-choices .choice-btn:first-child {
+    grid-column-start: 2; 
+} */
+
+/* Media Query for Mobile/Smaller Screens (e.g., viewport width less than 600px) */
+@media (max-width: 600px) {
+    .rps-choices {
+        /* Switch to a single column to stack the buttons */
+        grid-template-columns: 1fr; 
+        gap: 1rem;
+    }
+    
+    .choice-btn {
+        /* Make buttons fill the width of the container */
+        width: 100%;
+        height: 15vh; /* Use viewport height for a fixed minimum size */
+        font-size: 1.5rem;
+        
+        /* Reset centering from the 4-column layout */
+        grid-column-start: unset
+    }
+    
+    /* Ensure the buttons are stacked vertically and centered */
+    .rps-choices .choice-btn {
+        margin: 0.5rem 0;
+    }
+}
+
+/* --- Media Query for Desktop --- */
+@media (min-width: 1024px) {
+    .choice-btn > span {
+        font-size: 3rem; 
+    }
+    .rps-choices .choice-btn:first-child {
+    grid-column-start: 2;
+    }
+}
+
+/* Clicker Specific Styles */
+.click-area {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: var(--color-accent-red);
+    color: var(--color-white);
+    font-size: 2em;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 0 var(--color-background-dark);
+}
+
+.click-area:active {
+    transform: translateY(8px);
+    box-shadow: none;
+}
+
+/* --- Dodge Game Styles --- */
+.dodge-game-container {
+    background-color: var(--color-background-dark);
+    color: var(--color-white);
+}
+
+.instruction-box {
+    background-color: var(--color-secondary-yellow);
+    color: var(--color-background-dark);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.game-canvas-area {
+    padding: 10px;
+    background-color: #1a1a1a;
+    border: 5px solid var(--color-accent-green);
+    margin: 20px auto;
+}
+
+#game-screen {
+    position: relative;
+    width: 480px; 
+    height: 320px; 
+    background-color: #000022; 
+    overflow: hidden; 
+}
+
+.player {
+    position: absolute;
+    bottom: 5px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-primary-blue);
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.5em;
+    z-index: 10;
+}
+
+.object {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-accent-red);
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.game-stats {
+    padding: 10px 0;
+    color: var(--color-text-light);
+}
+
+/* Leaderboard Styles */
+.leaderboard-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #3e536b;
+    border-radius: 8px;
+    color: var(--color-text-light);
+}
+
+#dodge-leaderboard-list {
+    list-style: none;
+    padding: 0;
+}
+
+#dodge-leaderboard-list li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #5a748f;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* --- Utility Classes --- */
+.hidden { display: none !important; }
+.winner { background-color: var(--color-accent-green); color: var(--color-white); }
+.loser { background-color: var(--color-accent-red); color: var(--color-white); }
+.draw { background-color: var(--color-secondary-yellow); color: var(--color-background-dark); }
+
+
+/* ---  Why Choose RevoFun --- */
+.why-us-section {
+    background-color: var(--color-white);
+    /* Override min-height for feature display */
+    min-height: auto; 
+    padding-bottom: 80px;
+}
+
+.features-grid {
+    margin-top: 30px;
+}
+
+.feature-card {
+    background-color: var(--color-light-pink);
+    border: 2px solid var(--color-secondary-yellow);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 4px 4px 0 var(--color-accent-green);
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.feature-card h4 {
+    color: var(--color-background-dark);
+    margin-top: 0;
+}

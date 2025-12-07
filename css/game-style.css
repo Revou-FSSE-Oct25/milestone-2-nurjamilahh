@@ -1,0 +1,18 @@
+/* game-style.css */
+
+.game-box-center {
+    /* Untuk menengahkan box secara horizontal dan vertikal */
+    width: 90%; 
+    max-width: 500px; /* Batasi lebar agar tidak terlalu lebar di layar besar */
+    margin: 50px auto; /* Margin atas/bawah 50px, auto untuk senter horizontal */
+    padding: 30px;
+    background-color: white; /* Atau warna box game Anda */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Menengahkan teks di dalam box */
+}
+
+/* Dan pastikan tombol Anda memiliki styling yang sesuai (misalnya, btn-small) */
+.game-btn {
+    /* Style tombol Anda */
+}

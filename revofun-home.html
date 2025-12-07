@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevoFun - Timeless Interactive Fun</title>
+
+    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/footer.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1 class="logo">RevoFun</h1>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#guess-game-page">Guess</a></li>
+            <li><a href="#rps-game-page">RPS</a></li>
+            <li><a href="#clicker-game-page">Clicker</a></li>
+            <li><a href="#dodge-game-page">Dodge</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero-section page-section">
+        <header class="hero-content">
+            <h2>Welcome to RevoFun!</h2>
+            <p>Where Revolutionary Fun meets simple, engaging games for all ages. Play, challenge yourself, and laugh!</p>
+            <a href="#games" class="btn">Explore Our Games!</a>
+        </header>
+    </section>
+
+    <section id="games" class="games-overview page-section">
+        <h3>Our Awesome Games</h3>
+        <div class="game-cards grid-4">
+            <div class="card">
+                <div class="card-icon">#</div>
+                <h4>Number Guessing</h4>
+                <p>Guess the secret number in just 5 tries! Test your luck and logic.</p>
+                <a href="#guess-game-page" class="btn-small">Play Now</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">✂️</div>
+                <h4>RPS Showdown</h4>
+                <p>The classic battle of Rock, Paper, Scissors. Will you beat the computer?</p>
+                <a href="#rps-game-page" class="btn-small">Play Now</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">👆</div>
+                <h4>Turbo Clicker</h4>
+                <p>Click as fast as you can in 10 seconds! Challenge your reaction time.</p>
+                <a href="games/clicker.html" class="btn-small">Play Now</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌠</div>
+                <h4>Cosmic Dodge</h4>
+                <p>Move fast and avoid the falling space rocks! How long can you survive?</p>
+                <a href="#dodge-game-page" class="btn-small">Play Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="guess-game-page" class="game-page hidden page-section">
+        <div class="game-container guess-game-container">
+
+            <h2>🔢 Number Guessing Game</h2>
+            <p>Guess a number between 1 and 100</p>
+            <p>Attempts Left: <span id="guess-attempts">5</span></p>
+            <form id="guess-form" class="game-form">
+                <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100" required>
+                <button type="submit" id="guess-submit-btn" class="btn">Submit Guess</button>
+            </form>
+            <p id="guess-message" class="message-box"></p>
+            <button id="guess-reset-btn" class="btn-small hidden">Play Again</button>
+            <button onclick="window.location.href='revofun-home.html'" class="btn btn-dark">
+                <i class="fas fa-home"></i>Home
+            </button>
+          
+        </div>
+    </section>
+
+    <section id="rps-game-page" class="game-page hidden page-section">
+        <div class="game-container rps-game-container">
+            <h2>✂️ Rock, Paper, Scissors</h2>
+            <div class="rps-score-board">
+                <p>Player Score: <span id="player-score">0</span></p>
+                <p>Computer Score: <span id="computer-score">0</span></p>
+            </div>
+            <div class="rps-choices">
+                <button class="choice-btn" data-choice="rock">
+                    <span>✊</span>
+                </button>
+                <button class="choice-btn" data-choice="paper">
+                    <span>🖐️</span>
+                </button>
+                <button class="choice-btn" data-choice="scissors">
+                    <span>✌️</span>
+                </button>
+            </div>
+            <p id="rps-round-result" class="message-box">Make your move!</p>
+            <button id="rps-reset-btn" class="btn-small">Reset Score</button>
+            <button onclick="window.location.href='revofun-home.html'" class="btn btn-dark">
+                <i class="fas fa-home"></i>Home
+            </button>
+        </div>
+    </section>
+
+    <section id="clicker-game-page" class="game-page hidden page-section">
+        <div class="game-container clicker-game-container">
+            <h2>👆 Turbo Clicker Game</h2>
+            <p>Time Left: <span id="clicker-timer">10</span> seconds</p>
+            <p>Clicks: <span id="clicker-score">0</span></p>
+
+            <button id="clicker-start-btn" class="btn-large">START GAME!</button>
+            <button id="click-button" class="click-area hidden">CLICK ME!</button>
+
+            <p id="clicker-message" class="message-box"></p>
+            <button onclick="window.location.href='revofun-home.html'" class="btn btn-dark">
+                <i class="fas fa-home"></i>Home
+            </button>
+        </div>
+    </section>
+    
+    <section id="dodge-game-page" class="game-page hidden page-section">
+        <div class="game-container dodge-game-container">
+            <h2>🌠 Cosmic Dodge Game</h2>
+            
+            <div id="nickname-setup" class="game-setup">
+                <label for="nickname-input">Enter your Nickname:</label>
+                <input type="text" id="nickname-input" placeholder="Star Commander" maxlength="15">
+                <button id="start-dodge-btn" class="btn">Start Adventure</button>
+            </div>
+
+            <div id="dodge-instructions" class="hidden instruction-box">
+                <h4>How to Play:</h4>
+                <p>Use the Left (←) and Right (→) arrow keys to move your ship and avoid the falling space rocks.</p>
+                <p>Current Player: <span id="current-player-name" style="font-weight: bold; color: var(--color-background-dark);"></span></p>
+                <button id="start-round-btn" class="btn">Ready to Dodge!</button>
+            </div>
+            
+            <div id="game-display" class="game-canvas-area hidden">
+                <div id="game-screen"></div>
+                <div class="game-stats">
+                    Score: <span id="dodge-score">0</span> | High Score: <span id="dodge-high-score">0</span>
+                </div>
+            </div>
+
+            <div id="dodge-game-over" class="hidden message-box loser">
+                <h3>Game Over!</h3>
+                <p id="final-score-message"></p>
+                <button id="play-again-dodge-btn" class="btn-small">Play Again</button>
+            </div>
+
+            <div class="leaderboard-section">
+                <h4>🚀 Hall of Fame</h4>
+                <ul id="dodge-leaderboard-list"></ul>
+            </div>
+            
+            <button onclick="window.location.href='revofun-home.html'" class="btn btn-dark">
+                <i class="fas fa-home"></i>Home
+            </button>
+        </div>
+    </section>
+
+
+    <section id="why-us" class="page-section why-us-section">
+    <h3>Why Choose RevoFun?</h3>
+    <div class="features-grid grid-4">
+        <div class="feature-card">
+            <span class="feature-icon">🎮</span>
+            <h4>Always Free</h4>
+            <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🛡️</span>
+            <h4>Kid-Safe Design</h4>
+            <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">💡</span>
+            <h4>Learn While Playing</h4>
+            <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">✨</span>
+            <h4>Pure Fun</h4>
+            <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="footer-content-grid grid-4">
+        <div class="footer-col footer-branding">
+            <h4 class="logo">RevoFun</h4>
+            <p>Revolutionary Fun for the next generation of gamers.</p>
+            <p class="copyright">&copy; 2025 RevoFun Gaming Co.</p>
+        </div>
+
+        <div class="footer-col">
+            <h5>Games Hub</h5>
+            <ul>
+                <li><a href="#guess-game-page">Number Guess</a></li>
+                <li><a href="#rps-game-page">RPS Showdown</a></li>
+                <li><a href="#clicker-game-page">Turbo Clicker</a></li>
+                <li><a href="#dodge-game-page">Cosmic Dodge</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h5>Company</h5>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Newsroom</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col footer-social">
+            <h5>Connect & The Source</h5>
+            <div class="social-icons">
+
+                <a href="https://www.linkedin.com/in/nurjamilah-h/" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-blue-700 hover:text-blue-500"></i></a>
+                <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope text-yellow-700 hover:text-yellow-500"></i></a>
+                <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github text-white-900 hover:text-gray-400"></i></a>
+    
+            </div>
+            <a href="#" class="btn-small newsletter-btn">Join Newsletter</a>
+        </div>
+    </div>
+</footer>
+    <script src="js/script.js"></script>
+    <script src="js/number-guessing.js"></script>
+    <script src="js/rock-paper-scissors.js"></script>
+    <script src="js/clicker.js"></script>
+    <script src="js/dodge.js"></script>
+
+</body>
+</html>
