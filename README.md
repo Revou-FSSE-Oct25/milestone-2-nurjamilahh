@@ -38,7 +38,7 @@ This project uses a standard, logical file organization commonly found in web ap
 │   ├── clicker.html    
 │   └── dodge.html
 ├── /css/
-│   ├── styles.css                          <-- Core layout and component styles
+│   ├── styles.css                  <-- Core layout and component styles
 │   ├── responsive.css
 │   └── footer.css
 ├── /images/                                <-- Assets specific to each game                         
@@ -121,7 +121,7 @@ Since this is a static front-end portfolio site, it can be viewed directly after
 
 ---
 
-## Connect with Me
+## Contact
 
 If you'd like to chat, network, or discuss my journey, please feel free to reach out!
 

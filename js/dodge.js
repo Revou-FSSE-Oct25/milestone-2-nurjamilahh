@@ -1,6 +1,6 @@
 /**
  * ================================================
- * 4. 🌠 Cosmic Dodge (Falling Objects) Game Logic
+ *  🌠 Cosmic Dodge (Falling Objects) Game Logic
  * ================================================
  */
 // The initialization for this game is called from games-basic.js window.onload
