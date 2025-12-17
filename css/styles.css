@@ -83,14 +83,38 @@ h1, h2, h3, h4 {
 
 /* --- 🏠 Hero Section (Home) --- */
 .hero-section {
-    background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-yellow));
+    /* added on 20251217#2 */  
+    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), 
+                url('../images/bg-image.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: var(--color-white);
+    /* added on 20251217#1 */
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;       
+    text-align: center;
 }
-
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll; 
+        background-position: 70% center; 
+    }
+}
+.hero-content {
+    display: flex;
+    flex-direction: column;  
+    align-items: center;     
+    gap: 20px;               
+}
 .hero-content h2 {
     font-size: 3em;
     color: var(--color-white);
     text-shadow: 3px 3px 0 var(--color-background-dark);
+    /* added on 20251217#1 */
+    margin: 0;
 }
 
 /* --- 🎮 Game Cards Overview (CSS Grid System) --- */
@@ -213,11 +237,11 @@ input[type="number"], input[type="text"] {
     gap: 15px;
     margin: 20px 0; #1 20251207*/
 
-    /* #2 20251207 1. Activate CSS Grid */
+    /* 20251217 #2 20251207 1. Activate CSS Grid */
     display: grid;
     
     /* 2. Define 4 equal columns (4 x 1 fraction) */
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(3, 1fr); 
     
     /* 3. Add space between columns/rows */
     gap: 1.5rem; 
@@ -269,6 +293,7 @@ input[type="number"], input[type="text"] {
 .choice-btn > span {
     /* Note: Use this selector if you wrap the emoji inside a <span> tag in your HTML */
     font-size: 3vw; 
+    /* 20251217 
     margin-bottom: 0.2rem; /* Spacing between the emoji (top) and the text (bottom) */
 }
 
@@ -303,14 +328,14 @@ input[type="number"], input[type="text"] {
 }
 
 /* --- Media Query for Desktop --- */
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     .choice-btn > span {
         font-size: 3rem; 
     }
     .rps-choices .choice-btn:first-child {
     grid-column-start: 2;
     }
-}
+} */
 
 /* Clicker Specific Styles */
 .click-area {
