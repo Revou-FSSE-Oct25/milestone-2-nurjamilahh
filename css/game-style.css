@@ -1,18 +1,197 @@
 /* game-style.css */
 
+/* --- 1. Container Utama --- */
 .game-box-center {
-    /* Untuk menengahkan box secara horizontal dan vertikal */
-    width: 90%; 
-    max-width: 500px; /* Batasi lebar agar tidak terlalu lebar di layar besar */
-    margin: 50px auto; /* Margin atas/bawah 50px, auto untuk senter horizontal */
-    padding: 30px;
-    background-color: white; /* Atau warna box game Anda */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Menengahkan teks di dalam box */
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    max-width: 544px; 
+    margin: 48px auto;
+    padding: 32px;
+    background-color: #24344d;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    /* color: white; */
+    box-sizing: border-box;
 }
 
-/* Dan pastikan tombol Anda memiliki styling yang sesuai (misalnya, btn-small) */
-.game-btn {
-    /* Style tombol Anda */
+/* --- 2. Typography & Headers --- */
+.game-box-center h2 {
+    font-family: 'Bungee', cursive;
+    color: #f1c40f; 
+    margin-bottom: 24px;
+    text-shadow: 2px 2px #000;
+}
+
+/* --- 3. Buttons (RevoFun Styles) --- */
+.btn, .btn-small, .btn-dark {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.btn {
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0 4px 0 #2980b9;
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #2980b9; }
+.btn:active { transform: translateY(2px); box-shadow: 0 0 0 #2980b9; }
+
+.btn-small {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 0 #c0392b;
+}
+
+.btn-dark {
+    padding: 12px;
+    background-color: #1a1a1a;
+    color: white;
+    margin-top: 24px;
+}
+
+/* --- 4. Special Boxes (Instructions & Game Over) --- */
+.instruction-box, .message-box {
+    width: 100%;
+    padding: 24px;
+    border-radius: 12px;
+    margin: 16px 0;
+    text-align: center;
+}
+
+.instruction-box {
+    background-color: rgba(241, 196, 15, 0.1);
+    border: 2px dashed #f1c40f;
+    color: #f1c40f;
+}
+
+.message-box.loser {
+    background-color: rgba(231, 76, 60, 0.2);
+    border: 2px solid #e74c3c;
+}
+
+/* --- 5. Game Screen & Stats --- */
+#game-screen {
+    width: 480px;
+    height: 320px;
+    background-color: #000b1e;
+    border: 4px solid #1e293b;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.game-stats {
+    width: 480px;
+    padding: 12px;
+    background-color: #1a2638;
+    border-radius: 0 0 8px 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- 6. Leaderboard Section --- */
+.leaderboard-section {
+    width: 100%;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-section h4 {
+    font-family: 'Bungee', cursive;
+    color: #f1c40f;
+    margin-bottom: 16px;
+}
+
+#dodge-leaderboard-list {
+    list-style: none;
+    padding: 0;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+#dodge-leaderboard-list li {
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 4px;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* --- 7. Input Nickname --- */
+#nickname-input {
+    width: 80%;
+    max-width: 300px;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    display: block;
+    margin: 0 auto;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+.game-setup {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 280px; 
+    align-items: center;
+}
+
+#game-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Audio Controls Styles --- */
+.music-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100; /* Memastikan tombol di atas elemen lain */
+}
+
+.btn-music {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-music:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1); /* Efek membesar sedikit saat disentuh */
+}
+
+.btn-music i {
+    font-size: 1.2rem;
 }

@@ -16,14 +16,14 @@
 }
 
 .footer-col {
-    padding: 10px;
+    padding: 8px;
 }
 
-.footer-col h5 {
+.footer-col h3 {
     font-family: 'Bungee', cursive;
     color: var(--color-secondary-yellow);
     font-size: 1.2em;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     text-align: left;
 }
 
@@ -59,12 +59,10 @@
 .copyright {
     margin-top: 16px;
     font-size: 0.8em;
-    color: #99aab5; /* Lighter text for copyright */
+    color: #99aab5;
 }
 
-
 .footer-social {
-    /* Tambahkan ini untuk menengahkan judul H5 dan elemen blok/inline-block lainnya */
     text-align: center; 
 }
 
@@ -96,7 +94,7 @@
         gap: 20px;
     }
     
-    .footer-col h5, .footer-branding .logo {
+    .footer-col h3, .footer-branding .logo {
         text-align: center;
     }
     
