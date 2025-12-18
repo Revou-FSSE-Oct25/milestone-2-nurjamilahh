@@ -3,50 +3,60 @@
  * 🚀 RevoFun Main Navigation & Page Handler
  * ==========================================
  */
-// Use window.onload for initialization
 window.onload = function() {
-    // 1. Get all page sections and navigation links
     const navLinks = document.querySelectorAll('.navbar a');
     const allPages = document.querySelectorAll('.page-section');
 
-    /**
-     * Hides all game pages and shows the selected section.
-     * @param {string} targetId - The ID of the section to show (e.g., '#home', '#guess-game-page').
-     */
     function showPage(targetId) {
+        // PROTEKSI: Jika targetId bukan berupa ID (misal: path file .html), jangan jalankan querySelector
+        if (!targetId.startsWith('#')) return;
+
         allPages.forEach(page => {
             page.classList.add('hidden');
         });
         
-        const targetPage = document.querySelector(targetId);
-        if (targetPage) {
-            targetPage.classList.remove('hidden');
-        }
+        try {
+            const targetPage = document.querySelector(targetId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
 
-        // For the home page, we show both the hero and the games overview
-        if (targetId === '#home') {
-            document.querySelector('.hero-section').classList.remove('hidden');
-            document.querySelector('.games-overview').classList.remove('hidden');
+            if (targetId === '#home') {
+                const hero = document.querySelector('.hero-section');
+                const overview = document.querySelector('.games-overview');
+                if (hero) hero.classList.remove('hidden');
+                if (overview) overview.classList.remove('hidden');
+            }
+        } catch (e) {
+            console.error("Invalid selector:", targetId);
         }
     }
 
-    // Handle initial page load and navigation clicks
+    // Handle initial page load
     const initialHash = window.location.hash || '#home';
     showPage(initialHash);
 
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
+            const target = link.getAttribute('href');
+
+            // Jika link mengarah ke file .html lain (bukan ID internal)
+            if (!target.startsWith('#')) {
+                // Biarkan browser pindah halaman secara normal
+                return; 
+            }
+
+            // Jika link internal (#home, dll)
             event.preventDefault();
-            const targetId = event.currentTarget.getAttribute('href');
-            window.location.hash = targetId;
-            showPage(targetId);
+            window.location.hash = target;
+            showPage(target);
         });
     });
 
-
-    // --- Initialize Game Logic ---
-    initNumberGuessingGame();
-    initRPSGame();
-    initClickerGame();
+    // --- Initialize Game Logic dengan Safety Check ---
+    // Pastikan fungsi ini ada sebelum dipanggil agar tidak error jika file JS tidak dimuat
+    if (typeof initNumberGuessingGame === 'function') initNumberGuessingGame();
+    if (typeof initRPSGame === 'function') initRPSGame();
+    if (typeof initClickerGame === 'function') initClickerGame();
+    if (typeof initCosmicDodgeGame === 'function') initCosmicDodgeGame();
 };
-

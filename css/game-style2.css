@@ -1,8 +1,8 @@
-/* game-style.css - Global Version untuk Dodge, Clicker, Guess, & RPS */
+/* game-style.css */
 
 /* --- 1. Container Utama --- */
 .game-box-center {
-    position: relative;
+    position:relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,8 +13,8 @@
     background-color: #24344d;
     border-radius: 16px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    /* color: white; */
     box-sizing: border-box;
-    color: white; /* Default text color */
 }
 
 /* --- 2. Typography & Headers --- */
@@ -23,11 +23,10 @@
     color: #f1c40f; 
     margin-bottom: 24px;
     text-shadow: 2px 2px #000;
-    text-align: center;
 }
 
 /* --- 3. Buttons (RevoFun Styles) --- */
-.btn, .btn-small, .btn-dark, .btn-action {
+.btn, .btn-small, .btn-dark {
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
     cursor: pointer;
@@ -36,8 +35,6 @@
     border-radius: 8px;
     text-transform: uppercase;
     display: inline-block;
-    text-decoration: none;
-    text-align: center;
 }
 
 .btn {
@@ -47,17 +44,8 @@
     box-shadow: 0 4px 0 #2980b9;
 }
 
-/* Variasi Hijau untuk Clicker atau Jawaban Benar */
-.btn-action {
-    padding: 15px 30px;
-    background-color: #2ecc71;
-    color: white;
-    box-shadow: 0 4px 0 #27ae60;
-    font-size: 1.2rem;
-}
-
-.btn:hover, .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #2980b9; }
-.btn:active, .btn-action:active { transform: translateY(2px); box-shadow: 0 0 0 #2980b9; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #2980b9; }
+.btn:active { transform: translateY(2px); box-shadow: 0 0 0 #2980b9; }
 
 .btn-small {
     padding: 8px 16px;
@@ -72,17 +60,15 @@
     background-color: #1a1a1a;
     color: white;
     margin-top: 24px;
-    width: 100%;
 }
 
-/* --- 4. Special Boxes (Instructions & Messages) --- */
+/* --- 4. Special Boxes (Instructions & Game Over) --- */
 .instruction-box, .message-box {
     width: 100%;
-    padding: 20px;
+    padding: 24px;
     border-radius: 12px;
     margin: 16px 0;
     text-align: center;
-    box-sizing: border-box;
 }
 
 .instruction-box {
@@ -94,19 +80,11 @@
 .message-box.loser {
     background-color: rgba(231, 76, 60, 0.2);
     border: 2px solid #e74c3c;
-    color: #ff9f93;
 }
 
-.message-box.winner {
-    background-color: rgba(46, 204, 113, 0.2);
-    border: 2px solid #2ecc71;
-    color: #2ecc71;
-}
-
-/* --- 5. Game Screen & Stats (Responsive) --- */
+/* --- 5. Game Screen & Stats --- */
 #game-screen {
-    width: 100%;
-    max-width: 480px;
+    width: 480px;
     height: 320px;
     background-color: #000b1e;
     border: 4px solid #1e293b;
@@ -117,18 +95,16 @@
 }
 
 .game-stats {
-    width: 100%;
-    max-width: 480px;
+    width: 480px;
     padding: 12px;
     background-color: #1a2638;
     border-radius: 0 0 8px 8px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
     text-align: center;
-    box-sizing: border-box;
 }
 
-/* --- 6. Leaderboard Section (General Class) --- */
+/* --- 6. Leaderboard Section --- */
 .leaderboard-section {
     width: 100%;
     margin-top: 32px;
@@ -140,17 +116,16 @@
     font-family: 'Bungee', cursive;
     color: #f1c40f;
     margin-bottom: 16px;
-    text-align: center;
 }
 
-.leaderboard-list {
+#dodge-leaderboard-list {
     list-style: none;
     padding: 0;
     max-height: 160px;
     overflow-y: auto;
 }
 
-.leaderboard-list li {
+#dodge-leaderboard-list li {
     background: rgba(255, 255, 255, 0.05);
     margin-bottom: 4px;
     padding: 8px 16px;
@@ -160,26 +135,26 @@
     font-size: 0.9rem;
 }
 
-/* --- 7. Input & Setup --- */
+/* --- 7. Input Nickname --- */
 #nickname-input {
-    width: 100%;
+    width: 80%;
     max-width: 300px;
     padding: 12px;
     text-align: center;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #ccc;
     display: block;
-    margin: 10px auto;
+    margin: 0 auto;
     background-color: #ffffff;
     color: #000000;
 }
+
 
 .game-setup {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 100%;
-    max-width: 280px;
+    width: 280px; 
     align-items: center;
 }
 
@@ -190,12 +165,12 @@
     width: 100%;
 }
 
-/* --- Audio Controls --- */
+/* --- Audio Controls Styles --- */
 .music-controls {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    z-index: 100;
+    z-index: 100; /* Memastikan tombol di atas elemen lain */
 }
 
 .btn-music {
@@ -212,26 +187,11 @@
     transition: all 0.3s ease;
 }
 
-/* --- Game Dodge Only --- */
-.player {
-    position: absolute;
-    bottom: 10px; 
-    width: 40px;
-    height: 40px;
-    font-size: 30px; /* Rocket size 🚀 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: left 0.1s ease-out; 
-    z-index: 10;
+.btn-music:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1); /* Efek membesar sedikit saat disentuh */
 }
 
-.object {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #e74c3c; 
-    border-radius: 50%; 
-    box-shadow: 0 0 10px #ff0000;
-    z-index: 5;
+.btn-music i {
+    font-size: 1.2rem;
 }

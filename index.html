@@ -27,7 +27,7 @@
             <li><a href="#guess-game-page">Guess</a></li>
             <li><a href="#rps-game-page">RPS</a></li>
             <li><a href="#clicker-game-page">Clicker</a></li>
-            <li><a href="#dodge-game-page">Dodge</a></li>
+            <li><a href="games/dodge.html">Dodge</a></li>
         </ul>
     </nav>
 
@@ -65,7 +65,7 @@
                     <div class="card-icon">🌠</div>
                     <h4>Cosmic Dodge</h4>
                     <p>Move fast and avoid the falling space rocks! How long can you survive?</p>
-                    <a href="games/dodge.html" class="btn-small">Play Now</a>
+                    <a href="../milestone-2-nurjamilahh/games/dodge.html" class="btn-small">Play Now</a>
                 </div>
             </div>
         </section>
@@ -125,47 +125,6 @@
                 <button id="click-button" class="click-area hidden">CLICK ME!</button>
 
                 <p id="clicker-message" class="message-box"></p>
-                <button onclick="window.location.href='index.html'" class="btn btn-dark">
-                    <i class="fas fa-home"></i>
-                </button>
-            </div>
-        </section>
-        
-        <section id="dodge-game-page" class="game-page hidden page-section">
-            <div class="game-container dodge-game-container">
-                <h2>🌠 Cosmic Dodge Game</h2>
-                
-                <div id="nickname-setup" class="game-setup">
-                    <label for="nickname-input">Enter your Nickname:</label>
-                    <input type="text" id="nickname-input" placeholder="Star Commander" maxlength="15">
-                    <button id="start-dodge-btn" class="btn">Start Adventure</button>
-                </div>
-
-                <div id="dodge-instructions" class="hidden instruction-box">
-                    <h4>How to Play:</h4>
-                    <p>Use the Left (←) and Right (→) arrow keys to move your ship and avoid the falling space rocks.</p>
-                    <p>Current Player: <span id="current-player-name" style="font-weight: bold; color: var(--color-background-dark);"></span></p>
-                    <button id="start-round-btn" class="btn">Ready to Dodge!</button>
-                </div>
-                
-                <div id="game-display" class="game-canvas-area hidden">
-                    <div id="game-screen"></div>
-                    <div class="game-stats">
-                        Score: <span id="dodge-score">0</span> | High Score: <span id="dodge-high-score">0</span>
-                    </div>
-                </div>
-
-                <div id="dodge-game-over" class="hidden message-box loser">
-                    <h3>Game Over!</h3>
-                    <p id="final-score-message"></p>
-                    <button id="play-again-dodge-btn" class="btn-small">Play Again</button>
-                </div>
-
-                <div class="leaderboard-section">
-                    <h4>🚀 Hall of Fame</h4>
-                    <ul id="dodge-leaderboard-list"></ul>
-                </div>
-                
                 <button onclick="window.location.href='index.html'" class="btn btn-dark">
                     <i class="fas fa-home"></i>
                 </button>
@@ -247,7 +206,6 @@
     <script src="js/guess-logic.js"></script>
     <script src="js/rps-logic.js"></script>
     <script src="js/clicker-logic.js"></script>
-    <script src="js/dodge-logic.js"></script>
 
 </body>
 </html>
