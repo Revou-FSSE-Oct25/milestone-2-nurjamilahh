@@ -133,20 +133,23 @@ h1, h2, h3, h4 {
 }
 
 .card {
-    background-color: var(--color-light-pink);
+    /* background-color: var(--color-light-pink); */
     border: 5px solid var(--color-accent-green);
     border-radius: 15px;
     padding: 25px;
     box-shadow: 8px 8px 0 var(--color-primary-blue);
-    transition: transform 0.3s;
+   
     text-align: center;
     flex: 0 0 auto; 
     scroll-snap-align: center; 
+    transition: transform 0.4s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+  
     box-shadow: 10px 10px 0 var(--color-primary-blue);
+    transform: scale(1.02);
+    z-index: 10;
 }
 
 .card-icon {
@@ -173,13 +176,7 @@ h1, h2, h3, h4 {
 .game-4 { background-image: url('../images/dodge-400.webp'); background-size: cover; background-position: center; }
 
 /* 3. Efek Hover agar kartu sedikit membesar saat disentuh mouse */
-.card {
-    transition: transform 0.4s ease;
-}
-.card:hover {
-    transform: scale(1.02);
-    z-index: 10;
-}
+
 
 .slider-container {
     display: flex;
