@@ -140,6 +140,8 @@ h1, h2, h3, h4 {
     box-shadow: 8px 8px 0 var(--color-primary-blue);
     transition: transform 0.3s;
     text-align: center;
+    flex: 0 0 auto; 
+    scroll-snap-align: center; 
 }
 
 .card:hover {
@@ -152,6 +154,41 @@ h1, h2, h3, h4 {
     margin-bottom: 10px;
     color: var(--color-accent-red);
 }
+
+/* --- Bagian Carousel Baru --- */
+
+/* 1. Menghilangkan Scrollbar agar terlihat bersih seperti di gambar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 2. Memasukkan Gambar Background ke masing-masing kartu */
+.game-1 { background-image: url('../images/guess-image.webp'); background-size: cover; background-position: center; }
+.game-2 { background-image: url('../images/rps-400.webp'); background-size: cover; background-position: center; }
+.game-3 { background-image: url('../images/clicker-image.webp'); background-size: cover; background-position: center; }
+.game-4 { background-image: url('../images/dodge-400.webp'); background-size: cover; background-position: center; }
+
+/* 3. Efek Hover agar kartu sedikit membesar saat disentuh mouse */
+.card {
+    transition: transform 0.4s ease;
+}
+.card:hover {
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+.slider-container {
+    display: flex;
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+}
+
 
 /* --- General Button Styling --- */
 .btn, .btn-small, .btn-large, .btn-tiny {
@@ -286,28 +323,3 @@ input[type="number"], input[type="text"] {
     margin-top: 0;
 }
 
-/* --- Bagian Carousel Baru --- */
-
-/* 1. Menghilangkan Scrollbar agar terlihat bersih seperti di gambar */
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* 2. Memasukkan Gambar Background ke masing-masing kartu */
-.game-1 { background-image: url('../images/guess-image.webp'); background-size: cover; background-position: center; }
-.game-2 { background-image: url('../images/rps-400.webp'); background-size: cover; background-position: center; }
-.game-3 { background-image: url('../images/clicker-image.webp'); background-size: cover; background-position: center; }
-.game-4 { background-image: url('../images/dodge-400.webp'); background-size: cover; background-position: center; }
-
-/* 3. Efek Hover agar kartu sedikit membesar saat disentuh mouse */
-.card {
-    transition: transform 0.4s ease;
-}
-.card:hover {
-    transform: scale(1.02);
-    z-index: 10;
-}
