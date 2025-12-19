@@ -8,6 +8,7 @@
     --color-background-dark: #2c3e50; /* Dark Navy for contrast */
     --color-text-light: #ecf0f1;      /* Light Text */
     --color-white: #ffffff;
+    /* #5a4b77; lilac -- #d4af37; gold -- #e6e0eb; Light lilac -- #f2f2f2; grey */
 }
 
 /* --- Global Styles & Fonts --- */
@@ -19,7 +20,7 @@
 
 body {
     font-family: 'Nunito', sans-serif;
-    background-color: var(--color-light-pink);
+    /* background-color: var(--color-light-pink); */
     color: var(--color-background-dark);
     line-height: 1.6;
     scroll-behavior: smooth;
@@ -201,9 +202,9 @@ h1, h2, h3, h4 {
 }
 
 /* --- Game Page Layouts --- */
-.game-page {
+/* .game-page {
     background-color: var(--color-light-pink);
-}
+} */
 
 .game-container {
     background-color: var(--color-white);

@@ -1,10 +1,8 @@
-"use strict";
 /**
- * ================================================
- * 🌠 Cosmic Dodge - TypeScript Final Clean Version
- * ================================================
+ * ==============================
+ * 🌠 Cosmic Dodge - TypeScript
+ * ==============================
  */
-// 1. Enums & Interfaces (Mencegah error 'any' dan mempermudah kontrol)
 var AudioConfig;
 (function (AudioConfig) {
     AudioConfig[AudioConfig["QUIET"] = 0.1] = "QUIET";
@@ -236,4 +234,5 @@ function initCosmicDodgeGame() {
 }
 // Inisialisasi
 window.addEventListener('load', initCosmicDodgeGame);
+export {};
 //# sourceMappingURL=dodge-logic.js.map

@@ -10,11 +10,11 @@
     max-width: 544px; 
     margin: 48px auto;
     padding: 32px;
-    background-color: #24344d;
+    background-color: #ffdae3; 
     border-radius: 16px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
-    color: white; /* Default text color */
+    color: white; 
 }
 
 /* --- 2. Typography & Headers --- */
@@ -170,7 +170,7 @@
     border: none;
     display: block;
     margin: 10px auto;
-    background-color: #ffffff;
+    background-color: #ffff;
     color: #000000;
 }
 
@@ -212,6 +212,64 @@
     transition: all 0.3s ease;
 }
 
+/* --- Game Clicker Only --- */
+/* Container Utama Clicker */
+#main-content .click-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px; /* Memberikan efek 3D saat tombol ditekan */
+}
+
+/* Tombol Klik Utama (Bulat & Mengkilap) */
+.click-target-btn {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /* Membuat tombol bulat sempurna */
+    border: 8px solid #334155; 
+    background: radial-gradient(circle at 30% 30%, #f87171, #dc2626); /* Efek cahaya mengkilap */
+    color: white;
+    font-family: 'Bungee', cursive;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 
+        0 15px 0 #991b1b, /* Kedalaman tombol (efek 3D) */
+        0 20px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.1s ease;
+    outline: none;
+    user-select: none; /* Mencegah teks terpilih saat diklik cepat */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Efek Saat Tombol Ditekan (Active) */
+.click-target-btn:active {
+    transform: translateY(10px); /* Tombol turun ke bawah */
+    box-shadow: 
+        0 5px 0 #991b1b, /* Bayangan menipis seolah tertekan */
+        0 10px 15px rgba(0, 0, 0, 0.5);
+    background: radial-gradient(circle at 30% 30%, #ef4444, #b91c1c);
+}
+
+/* Animasi Berdenyut agar pemain tahu itu bisa diklik */
+@keyframes pulse-btn {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#main-click-btn:not(:active) {
+    animation: pulse-btn 2s infinite ease-in-out;
+}
+
+/* Gaya Teks Statistik */
+.stat span {
+    display: block;
+    line-height: 1;
+}
+
 /* --- Game Dodge Only --- */
 .player {
     position: absolute;
@@ -235,3 +293,20 @@
     box-shadow: 0 0 10px #ff0000;
     z-index: 5;
 }
+
+.game-canvas-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    min-height: 300px;
+}
+
+.game-stats {
+    margin-top: auto; 
+    padding-top: 15px;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+}
+

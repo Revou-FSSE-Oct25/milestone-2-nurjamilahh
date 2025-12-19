@@ -1,10 +1,12 @@
 /**
- * ================================================
- * 🌠 Cosmic Dodge - TypeScript Final Clean Version
- * ================================================
+ * ==============================
+ * 🌠 Cosmic Dodge - TypeScript 
+ * ==============================
  */
 
 // 1. Enums & Interfaces (Mencegah error 'any' dan mempermudah kontrol)
+export {};
+
 enum AudioConfig {
     QUIET = 0.1,
     FADE_STEP = 0.01,

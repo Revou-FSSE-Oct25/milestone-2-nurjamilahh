@@ -17,11 +17,14 @@ interface LeaderboardEntry {
     name: string;
     score: number;
 }
-    // CONSOLE.LOG TESTING
-    let gameState: GameState;
 
+// 1. DEKLARASI VARIABEL GLOBAL (Wajib di paling atas)
+let gameState: GameState;
+
+// 2. SEMUA LOGIKA HARUS DI DALAM DOMContentLoaded AGAR ELEMEN HTML TERBACA
 document.addEventListener('DOMContentLoaded', () => {
-    // INITIAL VALUE TO TEST
+
+    // A. INISIALISASI gameState (Harus paling pertama!)
     gameState = {
         playerName: '',
         secretNumber: 0,
@@ -30,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         gameActive: false,
         highScore: Number(localStorage.getItem('guessHighScore')) || 0
     };
-    // Elements: Setup & Navigation
+
+    // B. AMBIL ELEMEN HTML
     const nicknameSetup = document.getElementById('nickname-setup') as HTMLElement;
     const nicknameInput = document.getElementById('nickname-input') as HTMLInputElement;
     const startGuessBtn = document.getElementById('start-guess-btn') as HTMLButtonElement;
@@ -38,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const startRoundBtn = document.getElementById('start-round-btn') as HTMLButtonElement;
     const currentPlayerName = document.getElementById('current-player-name') as HTMLElement;
     
-    // Elements: Game Display
     const gameDisplay = document.getElementById('game-display') as HTMLElement;
     const guessForm = document.getElementById('guess-form') as HTMLFormElement;
     const guessInput = document.getElementById('guess-input') as HTMLInputElement;
@@ -46,28 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const attemptsSpan = document.getElementById('guess-attempts') as HTMLElement;
     const highScoreSpan = document.getElementById('guess-high-score') as HTMLElement;
     
-    // Elements: Game Over & Leaderboard
     const gameOverSection = document.getElementById('guess-game-over') as HTMLElement;
     const statusTitle = document.getElementById('status-title') as HTMLElement;
     const finalScoreMsg = document.getElementById('final-score-message') as HTMLElement;
     const resetBtn = document.getElementById('guess-reset-btn') as HTMLButtonElement;
     const leaderboardList = document.getElementById('guess-leaderboard-list') as HTMLUListElement;
 
-    // Music Elements
     const gameMusic = document.getElementById('gameMusic') as HTMLAudioElement;
     const musicToggle = document.getElementById('musicToggle') as HTMLButtonElement;
     const musicIcon = document.getElementById('musicIcon') as HTMLElement;
 
-    let gameState: GameState = {
-        playerName: '',
-        secretNumber: 0,
-        attemptsLeft: 5,
-        totalAttemptsUsed: 0,
-        gameActive: false,
-        highScore: Number(localStorage.getItem('guessHighScore')) || 0
-    };
-
-    // Initialize Displays
+    // C. UPDATE TAMPILAN AWAL
     if (highScoreSpan) highScoreSpan.textContent = gameState.highScore.toString();
     updateLeaderboard();
 
@@ -76,11 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = nicknameInput.value.trim();
         if (name) {
             gameState.playerName = name;
-            currentPlayerName.textContent = name;
+            if (currentPlayerName) currentPlayerName.textContent = name;
             nicknameSetup.classList.add('hidden');
             instructionBox.classList.remove('hidden');
         } else {
-            alert("Please enter your name, Commander!");
+            alert("Please enter your name!");
         }
     });
 
@@ -98,11 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.totalAttemptsUsed = 0;
         gameState.gameActive = true;
 
-        attemptsSpan.textContent = gameState.attemptsLeft.toString();
-        guessMessage.textContent = 'Waiting for your guess...';
-        guessMessage.className = 'message-box';
-        guessInput.value = '';
-        guessInput.disabled = false;
+        if (attemptsSpan) attemptsSpan.textContent = gameState.attemptsLeft.toString();
+        if (guessMessage) {
+            guessMessage.textContent = 'Waiting for your guess...';
+            guessMessage.className = 'message-box';
+        }
+        if (guessInput) {
+            guessInput.value = '';
+            guessInput.disabled = false;
+        }
         gameOverSection.classList.add('hidden');
     }
 
@@ -116,14 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         gameState.attemptsLeft--;
         gameState.totalAttemptsUsed++;
-        attemptsSpan.textContent = gameState.attemptsLeft.toString();
+        if (attemptsSpan) attemptsSpan.textContent = gameState.attemptsLeft.toString();
 
         if (guess === gameState.secretNumber) {
             endGame(true);
         } else if (gameState.attemptsLeft === 0) {
             endGame(false);
         } else {
-            guessMessage.textContent = guess < gameState.secretNumber ? "📉 Too Low!" : "📈 Too High!";
+            if (guessMessage) {
+                guessMessage.textContent = guess < gameState.secretNumber ? "📉 Too Low!" : "📈 Too High!";
+            }
         }
         guessInput.value = '';
     });
@@ -137,12 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isWin) {
             statusTitle.textContent = "🎉 Excellent Guess!";
-            statusTitle.style.color = "#22c55e"; // Green
+            statusTitle.style.color = "#22c55e"; 
             finalScoreMsg.innerHTML = `The number was <b>${gameState.secretNumber}</b>.<br>You found it in ${gameState.totalAttemptsUsed} attempts!`;
             saveScore(gameState.playerName, gameState.totalAttemptsUsed);
         } else {
             statusTitle.textContent = "😭 Mission Failed!";
-            statusTitle.style.color = "#ef4444"; // Red
+            statusTitle.style.color = "#ef4444"; 
             finalScoreMsg.textContent = `You ran out of juice! The number was ${gameState.secretNumber}.`;
         }
     }
@@ -158,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameState.highScore === 0 || score < gameState.highScore) {
             localStorage.setItem('guessHighScore', score.toString());
             gameState.highScore = score;
-            highScoreSpan.textContent = score.toString();
+            if (highScoreSpan) highScoreSpan.textContent = score.toString();
         }
         updateLeaderboard(); 
     }
@@ -167,10 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const leaderboard: LeaderboardEntry[] = JSON.parse(localStorage.getItem('guessLeaderboard') || '[]');
         if (leaderboardList) {
             if (leaderboard.length === 0) {
-                // No scores yet...
                 leaderboardList.innerHTML = `<li style="color: #ccc; list-style: none; text-align: center;">No scores yet...</li>`;
             } else {
-                // Score list with yellow (ffeb3b)
                 leaderboardList.innerHTML = leaderboard
                     .map(entry => `<li style="color: #ffeb3b; list-style: none; margin-bottom: 5px; text-align: center;">
                                     🌟 ${entry.name}: ${entry.score} attempts
@@ -196,4 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameDisplay.classList.remove('hidden');
         initGame();
     });
+
+    // Menempelkan fungsi ke window agar bisa dipanggil dari Console (F12)
+    (window as any).endGame = endGame;
 });

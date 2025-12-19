@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rock, Paper, or Scissors? Make your choice and see if you can outsmart the computer. A quick, fun, and free way to settle any score or pass the time!">
+
+    <title>Rock Paper Scissors - RevoFun</title>
+
+    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/game-style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/footer.css">
+   
+</head>
+<body style="background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('../images/rps-image.webp') no-repeat center/cover;">
+
+     <nav class="navbar">
+        <h1 class="logo">RevoFun</h1>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="guess.html">Guess</a></li>
+            <li><a href="rps.html">RPS</a></li>
+            <li><a href="clicker.html">Clicker</a></li>
+            <li><a href="dodge.html">Dodge</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
+            
+            <header>
+                <h2 class="text-3xl font-bold"><span role="img" aria-label="numbers">✂️</span>Rock, Paper, Scissors</h2>
+            </header>
+
+            <section id="nickname-setup" class="game-setup">
+                <label for="nickname-input">Contender's Name</label>
+                <input type="text" id="nickname-input" placeholder="Enter Champion Name" maxlength="15">
+                <button id="start-rps-btn" class="btn">Enter Arena</button>
+            </section>
+
+            <aside id="rps-instructions" class="hidden instruction-box">
+                <h4>How to Play:</h4>
+                <p>Choose your hand: Rock beats Scissors, Scissors beats Paper, and Paper beats Rock.</p>
+                <p>Current Fighter: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
+                <button id="start-round-btn" class="btn">Ready to Duel!</button>
+            </aside>
+
+            <div id="game-display" class="hidden">
+                <footer class="game-stats">
+                    Player: <span id="player-score">0</span> | Computer: <span id="computer-score">0</span>
+                </footer>
+
+                <div class="rps-choices" style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+                    <button class="btn-action choice-btn" data-choice="rock">
+                        <span>✊</span>
+                    </button>
+                    <button class="btn-action choice-btn" data-choice="paper">
+                        <span>🖐️</span>
+                    </button>
+                    <button class="btn-action choice-btn" data-choice="scissors">
+                        <span>✌️</span>
+                    </button>
+                </div>
+
+                <p id="rps-round-result" class="message-box">Pick your weapon!</p>
+                
+                <div style="text-align: center;">
+                    <button id="rps-reset-btn" class="btn-small">Reset Score</button>
+                </div>
+            </div>
+
+            <aside class="leaderboard-section">
+                <h4>🏆 Hall of Fame</h4>
+                <ul class="leaderboard-list" id="rps-leaderboard-list">
+                    </ul>
+            </aside>
+            
+            <nav>
+                <a href="../index.html" class="btn-dark"><i class="fas fa-home"></i>
+                </a>
+            </nav>
+
+            <audio id="gameMusic" loop>
+                <source src="../audio/rps-451590.mp3" type="audio/mpeg">
+            </audio>
+
+            <div class="music-controls">
+                <button id="musicToggle" class="btn-music">
+                    <i id="musicIcon" class="fas fa-volume-up"></i>
+                </button>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="main-footer">
+    <div class="footer-content-grid grid-4">
+
+        <section class="footer-col">
+            <h3>Games Hub</h3>
+            <ul>
+                <li><a href="guess.html">Number Guess</a></li>
+                <li><a href="rps.html">RPS Showdown</a></li>
+                <li><a href="clicker.html">Turbo Clicker</a></li>
+                <li><a href="dodge.html">Cosmic Dodge</a></li>
+            </ul>
+        </section>
+
+        <section class="footer-col">
+            <h3>Studio</h3>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+        </section>
+
+        <section class="footer-col">
+            <h3>Press</h3>
+            <ul>
+                <li><a href="news.html">Newsroom</a></li>
+            </ul>
+        </section>
+
+        <section class="footer-col footer-social">
+            <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+            
+            <nav class="social-icons" aria-label="Social Media">
+                <a href="https://www.linkedin.com/in/nurjamilah-h/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                 <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </nav>
+            
+            <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
+        </section>
+        
+    </div>
+</footer>
+
+    <script type="module" src="../js/rps-logic.js"></script>
+
+</body>
+</html>
