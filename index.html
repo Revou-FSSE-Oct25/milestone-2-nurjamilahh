@@ -25,44 +25,69 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="games/guess.html">Guess</a></li>
-            <li><a href="#rps-game-page">RPS</a></li>
-            <li><a href="#clicker-game-page">Clicker</a></li>
+            <li><a href="games/rps.html">RPS</a></li>
+            <li><a href="games/clicker.html">Clicker</a></li>
             <li><a href="games/dodge.html">Dodge</a></li>
         </ul>
     </nav>
 
-    <main id="main-content">
-        <section id="home" class="hero-section page-section">
-            <header class="hero-content">
-                <h2>Welcome to RevoFun!</h2>
-                <p>Where Revolutionary Fun meets simple, engaging games for all ages. Play, challenge yourself, and laugh!</p>
-                <a href="#games" class="btn">Explore Our Games!</a>
-            </header>
+    <main class="main-content min-h-screen bg-gradient-to-b from-blue-100 via-purple-50 to-pink-100">
+
+        <section id="home" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+    
+            <picture class="absolute inset-0 z-0"> 
+                <source srcset="images/bg-image-large.webp" media="(min-width: 1024px)">
+                <source srcset="images/bg-image-medium.webp" media="(min-width: 600px)">
+                <img src="images/bg-image-small.webp" 
+                    alt="RevoFun Background" 
+                    class="w-full h-full object-cover brightness-90"> </picture>
+
+            <div class="absolute inset-0 bg-black/20 z-10"></div>
+
+            <div class="hero-content relative z-20 text-center px-4 max-w-4xl animate-float"> 
+                <h2 class="text-5xl md:text-8xl font-black text-white drop-shadow-2xl mb-6">
+                    WELCOME TO REVOFUN!
+                </h2>
+                <p class="text-xl md:text-2xl text-white font-medium drop-shadow-md mb-8">
+                    Where Revolutionary Fun meets simple, engaging games for all ages.
+                </p>
+                <a href="#games" class="btn bg-green-500 hover:bg-green-400 text-white text-xl font-bold py-4 px-10 rounded-full shadow-2xl transition-all transform hover:scale-110">
+                    Explore Our Games!
+                </a>
+            </div>
+
         </section>
 
-        <section id="games" class="games-overview page-section">
-            <h3>Our Awesome Games</h3>
+        <section id="games" class="games-overview page-section bg-gradient-to-b from-cyan-100 to-white">
+            <h3 class="text-2xl">Our Awesome Games</h3>
             <div class="game-cards grid-4">
-                <div class="card">
-                    <div class="card-icon">#</div>
+                <div class="card relative p-8 rounded-3xl shadow-md overflow-hidden 
+                            bg-[url('images/guess-image.webp')] bg-cover bg-center 
+                            bg-blend-overlay bg-slate-200">
                     <h4>Number Guessing</h4>
                     <p>Guess the secret number in just 5 tries! Test your luck and logic.</p>
                     <a href="../milestone-2-nurjamilahh/games/guess.html" class="btn-small">Play Now</a>
                 </div>
-                <div class="card">
-                    <div class="card-icon">✂️</div>
+
+                <div class="card relative p-8 rounded-3xl shadow-md overflow-hidden 
+                            bg-[url('images/rps-400.webp')] bg-cover bg-center 
+                            bg-blend-overlay bg-slate-200">
                     <h4>RPS Showdown</h4>
                     <p>The classic battle of Rock, Paper, Scissors. Will you beat the computer?</p>
                     <a href="../milestone-2-nurjamilahh/games/rps.html" class="btn-small">Play Now</a>
                 </div>
-                <div class="card">
-                    <div class="card-icon">👆</div>
+
+                <div class="card relative p-8 rounded-3xl shadow-md overflow-hidden 
+                            bg-[url('images/clicker-image.webp')] bg-cover bg-center 
+                            bg-blend-overlay bg-slate-200">
                     <h4>Turbo Clicker</h4>
                     <p>Click as fast as you can in 10 seconds! Challenge your reaction time.</p>
                     <a href="../milestone-2-nurjamilahh/games/clicker.html" class="btn-small">Play Now</a>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🌠</div>
+
+                <div class="card relative p-8 rounded-3xl shadow-md overflow-hidden 
+                            bg-[url('images/dodge-400.webp')] bg-cover bg-center 
+                            bg-blend-overlay bg-slate-200">
                     <h4>Cosmic Dodge</h4>
                     <p>Move fast and avoid the falling space rocks! How long can you survive?</p>
                     <a href="../milestone-2-nurjamilahh/games/dodge.html" class="btn-small">Play Now</a>
@@ -70,8 +95,8 @@
             </div>
         </section>
 
-        <section id="why-us" class="page-section why-us-section">
-        <h3>Why Choose RevoFun?</h3>
+        <section id="why-us" class="page-section why-us-section bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
+        <h3 class="text-2xl">Why Choose RevoFun?</h3>
             <div class="features-grid grid-4">
                 <div class="feature-card">
                     <span class="feature-icon">🎮</span>
