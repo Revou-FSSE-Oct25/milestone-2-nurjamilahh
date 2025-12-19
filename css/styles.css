@@ -248,16 +248,6 @@ input[type="number"], input[type="text"] {
     }
 }
 
-/* --- Media Query for Desktop --- */
-/* @media (min-width: 1024px) {
-    .choice-btn > span {
-        font-size: 3rem; 
-    }
-    .rps-choices .choice-btn:first-child {
-    grid-column-start: 2;
-    }
-} */
-
 /* --- Utility Classes --- */
 .hidden { display: none !important; }
 .winner { background-color: var(--color-accent-green); color: var(--color-white); }
@@ -294,4 +284,30 @@ input[type="number"], input[type="text"] {
 .feature-card h4 {
     color: var(--color-background-dark);
     margin-top: 0;
+}
+
+/* --- Bagian Carousel Baru --- */
+
+/* 1. Menghilangkan Scrollbar agar terlihat bersih seperti di gambar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 2. Memasukkan Gambar Background ke masing-masing kartu */
+.game-1 { background-image: url('../images/guess-image.webp'); background-size: cover; background-position: center; }
+.game-2 { background-image: url('../images/rps-400.webp'); background-size: cover; background-position: center; }
+.game-3 { background-image: url('../images/clicker-image.webp'); background-size: cover; background-position: center; }
+.game-4 { background-image: url('../images/dodge-400.webp'); background-size: cover; background-position: center; }
+
+/* 3. Efek Hover agar kartu sedikit membesar saat disentuh mouse */
+.card {
+    transition: transform 0.4s ease;
+}
+.card:hover {
+    transform: scale(1.02);
+    z-index: 10;
 }
