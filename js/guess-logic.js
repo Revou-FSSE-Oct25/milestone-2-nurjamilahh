@@ -1,91 +1,168 @@
 /**
- * ==============================
- * 🔢 Number Guessing Game Logic
- * ==============================
+ * ========================================
+ * 🔢 Number Guessing Game Logic (Enhanced)
+ * ========================================
  */
-function initNumberGuessingGame() {
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Elements: Setup & Navigation
+    const nicknameSetup = document.getElementById('nickname-setup');
+    const nicknameInput = document.getElementById('nickname-input');
+    const startGuessBtn = document.getElementById('start-guess-btn');
+    const instructionBox = document.getElementById('guess-instructions');
+    const startRoundBtn = document.getElementById('start-round-btn');
+    const currentPlayerName = document.getElementById('current-player-name');
+    
+    // Elements: Game Display
+    const gameDisplay = document.getElementById('game-display');
     const guessForm = document.getElementById('guess-form');
     const guessInput = document.getElementById('guess-input');
     const guessMessage = document.getElementById('guess-message');
     const attemptsSpan = document.getElementById('guess-attempts');
-    const submitBtn = document.getElementById('guess-submit-btn');
+    const highScoreSpan = document.getElementById('guess-high-score');
+    
+    // Elements: Game Over & Leaderboard
+    const gameOverSection = document.getElementById('guess-game-over');
+    const statusTitle = document.getElementById('status-title');
+    const finalScoreMsg = document.getElementById('final-score-message');
     const resetBtn = document.getElementById('guess-reset-btn');
+    const leaderboardList = document.getElementById('guess-leaderboard-list');
 
-    // Uses arrays and objects to store and manipulate game data
+    // Music Elements
+    const gameMusic = document.getElementById('gameMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+
     let gameState = {
+        playerName: '',
         secretNumber: 0,
         attemptsLeft: 5,
-        min: 1,
-        max: 100,
-        gameActive: true
+        totalAttemptsUsed: 0,
+        gameActive: false,
+        highScore: localStorage.getItem('guessHighScore') || 0
     };
 
-    /** Generates a new random secret number and resets the game state. */
-    function startGame() {
-        // Implements simple mathematical operations
-        gameState.secretNumber = Math.floor(Math.random() * gameState.max) + gameState.min;
+    // Initialize High Score Display
+    highScoreSpan.textContent = gameState.highScore;
+
+    /** 1. Handle Nickname Setup */
+    startGuessBtn.addEventListener('click', () => {
+        const name = nicknameInput.value.trim();
+        if (name) {
+            gameState.playerName = name;
+            currentPlayerName.textContent = name;
+            nicknameSetup.classList.add('hidden');
+            instructionBox.classList.remove('hidden');
+        } else {
+            alert("Please enter your name, Commander!");
+        }
+    });
+
+    /** 2. Start Round (Show Game Canvas) */
+    startRoundBtn.addEventListener('click', () => {
+        instructionBox.classList.add('hidden');
+        gameDisplay.classList.remove('hidden');
+        initGame();
+    });
+
+    /** 3. Initialize Game Logic */
+    function initGame() {
+        gameState.secretNumber = Math.floor(Math.random() * 100) + 1;
         gameState.attemptsLeft = 5;
+        gameState.totalAttemptsUsed = 0;
         gameState.gameActive = true;
-        
-        // Updates textContent and uses class toggling
+
         attemptsSpan.textContent = gameState.attemptsLeft;
-        guessMessage.textContent = 'Guess a number...';
+        guessMessage.textContent = 'Waiting for your guess...';
         guessMessage.className = 'message-box';
         guessInput.value = '';
         guessInput.disabled = false;
-        submitBtn.disabled = false;
-        resetBtn.classList.add('hidden');
+        gameOverSection.classList.add('hidden');
+        updateLeaderboard();
     }
 
-    /** Handles the player's guess submission. */
-    function handleGuess(event) {
-        event.preventDefault();
-        
+    /** 4. Handle Guess Submission */
+    guessForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         if (!gameState.gameActive) return;
 
-        // Handles form inputs and retrieves values correctly
-        const guess = parseInt(guessInput.value.trim());
-
-        // Uses logical operators correctly in decision-making
-        if (isNaN(guess) || guess < gameState.min || guess > gameState.max) {
-            guessMessage.textContent = `Please enter a number between ${gameState.min} and ${gameState.max}.`;
-            return;
-        }
+        const guess = parseInt(guessInput.value);
+        if (isNaN(guess) || guess < 1 || guess > 100) return;
 
         gameState.attemptsLeft--;
+        gameState.totalAttemptsUsed++;
+        attemptsSpan.textContent = gameState.attemptsLeft;
 
-        // Uses basic conditional statements
         if (guess === gameState.secretNumber) {
-            // Uses template literals for dynamic string construction
-            guessMessage.textContent = `🎉 You WIN! The number was ${gameState.secretNumber}.`;
             endGame(true);
         } else if (gameState.attemptsLeft === 0) {
-            guessMessage.textContent = `😭 Game Over! The number was ${gameState.secretNumber}.`;
             endGame(false);
-        } else if (guess < gameState.secretNumber) {
-            guessMessage.textContent = `📉 Too LOW. Attempts left: ${gameState.attemptsLeft}`;
         } else {
-            guessMessage.textContent = `📈 Too HIGH. Attempts left: ${gameState.attemptsLeft}`;
+            guessMessage.textContent = guess < gameState.secretNumber ? "📉 Too Low!" : "📈 Too High!";
+            guessMessage.classList.add('shake'); // Optional: add animation
+            setTimeout(() => guessMessage.classList.remove('shake'), 500);
         }
-
-        attemptsSpan.textContent = gameState.attemptsLeft;
         guessInput.value = '';
-    }
+    });
 
-    /** Ends the game, updates message style, and handles button visibility. */
+    /** 5. End Game Logic */
     function endGame(isWin) {
         gameState.gameActive = false;
         guessInput.disabled = true;
-        submitBtn.disabled = true;
-        
-        guessMessage.classList.add(isWin ? 'winner' : 'loser');
-        resetBtn.classList.remove('hidden'); // Changes element visibility dynamically
+        gameDisplay.classList.add('hidden');
+        gameOverSection.classList.remove('hidden');
+
+        if (isWin) {
+            statusTitle.textContent = "🎉 Excellent Guess!";
+            statusTitle.className = "text-2xl font-bold text-green-500";
+            finalScoreMsg.innerHTML = `The number was <b>${gameState.secretNumber}</b>.<br>You found it in ${gameState.totalAttemptsUsed} attempts!`;
+            saveScore(gameState.playerName, gameState.totalAttemptsUsed);
+        } else {
+            statusTitle.textContent = "😭 Mission Failed!";
+            statusTitle.className = "text-2xl font-bold text-red-500";
+            finalScoreMsg.textContent = `You ran out of juice! The number was ${gameState.secretNumber}.`;
+        }
     }
 
-    // Adds event listeners (click, submit)
-    guessForm.addEventListener('submit', handleGuess);
-    resetBtn.addEventListener('click', startGame);
+    /** 6. Leaderboard & Storage */
+    function saveScore(name, score) {
+        let leaderboard = JSON.parse(localStorage.getItem('guessLeaderboard')) || [];
+        leaderboard.push({ name, score });
+        // Sort by fewest attempts (ascending)
+        leaderboard.sort((a, b) => a.score - b.score);
+        leaderboard = leaderboard.slice(0, 5); // Keep top 5
+        localStorage.setItem('guessLeaderboard', JSON.stringify(leaderboard));
+        
+        // Update High Score if better
+        if (gameState.highScore === 0 || score < gameState.highScore) {
+            localStorage.setItem('guessHighScore', score);
+            gameState.highScore = score;
+            highScoreSpan.textContent = score;
+        }
+        updateLeaderboard();
+    }
 
-    startGame();
-}
+    function updateLeaderboard() {
+        const leaderboard = JSON.parse(localStorage.getItem('guessLeaderboard')) || [];
+        leaderboardList.innerHTML = leaderboard
+            .map(entry => `<li>${entry.name}: ${entry.score} attempts</li>`)
+            .join('');
+    }
 
+    /** 7. Music Controls */
+    musicToggle.addEventListener('click', () => {
+        if (gameMusic.paused) {
+            gameMusic.play();
+            musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+        } else {
+            gameMusic.pause();
+            musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+        }
+    });
+
+    resetBtn.addEventListener('click', () => {
+        gameOverSection.classList.add('hidden');
+        gameDisplay.classList.remove('hidden');
+        initGame();
+    });
+});

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Play Cosmic Dodge on RevoFun - Dodge meteors and survive in outer space!">
+    <meta name="description" content="Test your intuition with the Number Guessing Game! Challenge yourself to find the hidden number between 1 and 100 in limited attempts. Track your scores and climb the Hall of Fame.">
 
-    <title>Cosmic Dodge - RevoFun</title>
+    <title>Number Guessing - RevoFun</title>
 
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/game-style.css">```
+    <link rel="stylesheet" href="../css/game-style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/footer.css">
 
@@ -35,40 +35,48 @@
     <article class="game-box-center">
         
         <header>
-            <h2 class="text-3xl font-bold"><span role="img" aria-label="star">🌠</span> Cosmic Dodge</h2>
+            <h2 class="text-3xl font-bold"><span role="img" aria-label="numbers">🔢</span> Number Guessing</h2>
         </header>
 
         <section id="nickname-setup" class="game-setup">
-            <label for="nickname-input" class="block mb-2 font-bold">Commander's Name</label>
-            <input type="text" id="nickname-input" placeholder="Star Commander" maxlength="15">
-            <button id="start-dodge-btn" class="btn">Start Adventure</button>
+            <label for="nickname-input" class="block mb-2 font-bold">Player Name</label>
+            <input type="text" id="nickname-input" placeholder="Lucky Guesser" maxlength="15">
+            <button id="start-guess-btn" class="btn">Start Game</button>
         </section>
-        
 
-        <aside id="dodge-instructions" class="hidden instruction-box">
+        <aside id="guess-instructions" class="hidden instruction-box">
             <h4 class="font-bold text-xl mb-2">How to Play:</h4>
-            <p>Use the Left (←) and Right (→) arrow keys to move your ship and avoid the falling space rocks.</p>
+            <p>I am thinking of a number between 1 and 100. Can you find it before your attempts run out?</p>
             <p class="mt-2">Current Player: <span id="current-player-name" style="font-weight: bold; color: var(--color-secondary-yellow);"></span></p>
-            <button id="start-round-btn" class="btn">Ready to Dodge!</button>
+            <button id="start-round-btn" class="btn">I'm Ready!</button>
         </aside>
         
         <div id="game-display" class="game-canvas-area hidden">
-            <div id="game-screen"></div>
+            <div id="game-screen" class="p-6 text-center">
+                <p class="mb-4">Guess a number between 1 and 100</p>
+                
+                <form id="guess-form" class="game-form">
+                    <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100" required>
+                    <button type="submit" id="guess-submit-btn" class="btn">Submit Guess</button>
+                </form>
+
+                <p id="guess-message" class="message-box mt-4 min-h-[1.5rem]"></p>
+            </div>
             
             <footer class="game-stats">
-                Score: <span id="dodge-score">0</span> | High Score: <span id="dodge-high-score">0</span>
+                Attempts Left: <span id="guess-attempts">5</span> | High Score: <span id="guess-high-score">0</span>
             </footer>
         </div>
 
-        <section id="dodge-game-over" class="hidden message-box loser">
-            <h3 class="text-2xl font-bold">Game Over!</h3>
+        <section id="guess-game-over" class="hidden message-box">
+            <h3 id="status-title" class="text-2xl font-bold">Game Over!</h3>
             <p id="final-score-message" class="my-4 text-lg"></p>
-            <button id="play-again-dodge-btn" class="btn-small">Play Again</button>
+            <button id="guess-reset-btn" class="btn-small">Play Again</button>
         </section>
 
         <aside class="leaderboard-section">
-            <h4>🚀 Hall of Fame</h4>
-            <ul id="dodge-leaderboard-list">
+            <h4>🏆 Hall of Fame</h4>
+            <ul id="guess-leaderboard-list">
                 </ul>
         </aside>
         
@@ -79,7 +87,7 @@
         </nav>
 
         <audio id="gameMusic" loop>
-            <source src="../audio/dodge-396890.mp3" type="audio/mpeg">
+            <source src="../audio/guess-131047.mp3" type="audio/mpeg">
         </audio>
 
         <div class="music-controls">
@@ -135,7 +143,7 @@
     </div>
 </footer>
 
-    <script src="../js/dodge-logic.js"></script>
+    <script src="../js/guess-logic.js"></script>
 
 </body>
 </html>

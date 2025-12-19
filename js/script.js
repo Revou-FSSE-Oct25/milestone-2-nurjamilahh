@@ -8,29 +8,32 @@ window.onload = function() {
     const allPages = document.querySelectorAll('.page-section');
 
     function showPage(targetId) {
-        // PROTEKSI: Jika targetId bukan berupa ID (misal: path file .html), jangan jalankan querySelector
-        if (!targetId.startsWith('#')) return;
+    if (!targetId.startsWith('#')) return;
 
-        allPages.forEach(page => {
-            page.classList.add('hidden');
-        });
-        
-        try {
-            const targetPage = document.querySelector(targetId);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-            }
-
-            if (targetId === '#home') {
-                const hero = document.querySelector('.hero-section');
-                const overview = document.querySelector('.games-overview');
-                if (hero) hero.classList.remove('hidden');
-                if (overview) overview.classList.remove('hidden');
-            }
-        } catch (e) {
-            console.error("Invalid selector:", targetId);
+    allPages.forEach(page => {
+        page.classList.add('hidden');
+    });
+    
+    try {
+        const targetPage = document.querySelector(targetId);
+        if (targetPage) {
+            targetPage.classList.remove('hidden');
         }
+
+        if (targetId === '#home') {
+            const hero = document.querySelector('.hero-section');
+            const overview = document.querySelector('.games-overview');
+            const whyUs = document.querySelector('#why-us'); 
+
+            if (hero) hero.classList.remove('hidden');
+            if (overview) overview.classList.remove('hidden');
+            if (whyUs) whyUs.classList.remove('hidden'); 
+        }
+
+    } catch (e) {
+        console.error("Invalid selector:", targetId);
     }
+}
 
     // Handle initial page load
     const initialHash = window.location.hash || '#home';
@@ -42,7 +45,7 @@ window.onload = function() {
 
             // Jika link mengarah ke file .html lain (bukan ID internal)
             if (!target.startsWith('#')) {
-                // Biarkan browser pindah halaman secara normal
+                // Browser to another page
                 return; 
             }
 
@@ -54,7 +57,6 @@ window.onload = function() {
     });
 
     // --- Initialize Game Logic dengan Safety Check ---
-    // Pastikan fungsi ini ada sebelum dipanggil agar tidak error jika file JS tidak dimuat
     if (typeof initNumberGuessingGame === 'function') initNumberGuessingGame();
     if (typeof initRPSGame === 'function') initRPSGame();
     if (typeof initClickerGame === 'function') initClickerGame();

@@ -65,6 +65,7 @@ This project was built using core web development technologies, focusing on foun
 * **HTML5:** Used for structuring the content, ensuring semantic and accessible markup.
 * **CSS3:** Used for styling, layout, visual appeal, and ensuring responsiveness across different devices.
 * **Tailwind CSS:** Used minimally for styling the footer section, providing utility-first classes to optimize rapid layout development for that specific component.
+* **TypeScript:** Utilized to manage game settings and audio logic. By implementing Type Safety, it ensures reliable volume control and state management, reducing potential runtime errors.
 * **JavaScript (ES6+):** The primary language used to handle all game logic, interactivity, DOM manipulation, and user input.
 * **Google Fonts & Font Awesome:** for typography and icons.
 * **Deployment:** GitHub Pages.

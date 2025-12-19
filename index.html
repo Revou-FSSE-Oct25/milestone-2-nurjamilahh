@@ -24,9 +24,9 @@
         <h1 class="logo">RevoFun</h1>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#guess-game-page">Guess</a></li>
-            <li><a href="#rps-game-page">RPS</a></li>
-            <li><a href="#clicker-game-page">Clicker</a></li>
+            <li><a href="games/guess.html">Guess</a></li>
+            <li><a href="games/rps.html">RPS</a></li>
+            <li><a href="games/clicker.html">Clicker</a></li>
             <li><a href="games/dodge.html">Dodge</a></li>
         </ul>
     </nav>
@@ -47,19 +47,19 @@
                     <div class="card-icon">#</div>
                     <h4>Number Guessing</h4>
                     <p>Guess the secret number in just 5 tries! Test your luck and logic.</p>
-                    <a href="#guess-game-page" class="btn-small">Play Now</a>
+                    <a href="../milestone-2-nurjamilahh/games/guess.html" class="btn-small">Play Now</a>
                 </div>
                 <div class="card">
                     <div class="card-icon">✂️</div>
                     <h4>RPS Showdown</h4>
                     <p>The classic battle of Rock, Paper, Scissors. Will you beat the computer?</p>
-                    <a href="#rps-game-page" class="btn-small">Play Now</a>
+                    <a href="../milestone-2-nurjamilahh/games/rps.html" class="btn-small">Play Now</a>
                 </div>
                 <div class="card">
                     <div class="card-icon">👆</div>
                     <h4>Turbo Clicker</h4>
                     <p>Click as fast as you can in 10 seconds! Challenge your reaction time.</p>
-                    <a href="games/clicker.html" class="btn-small">Play Now</a>
+                    <a href="../milestone-2-nurjamilahh/games/clicker.html" class="btn-small">Play Now</a>
                 </div>
                 <div class="card">
                     <div class="card-icon">🌠</div>
@@ -67,25 +67,6 @@
                     <p>Move fast and avoid the falling space rocks! How long can you survive?</p>
                     <a href="../milestone-2-nurjamilahh/games/dodge.html" class="btn-small">Play Now</a>
                 </div>
-            </div>
-        </section>
-
-        <section id="guess-game-page" class="game-page hidden page-section">
-            <div class="game-container guess-game-container">
-
-                <h2>🔢 Number Guessing Game</h2>
-                <p>Guess a number between 1 and 100</p>
-                <p>Attempts Left: <span id="guess-attempts">5</span></p>
-                <form id="guess-form" class="game-form">
-                    <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100" required>
-                    <button type="submit" id="guess-submit-btn" class="btn">Submit Guess</button>
-                </form>
-                <p id="guess-message" class="message-box"></p>
-                <button id="guess-reset-btn" class="btn-small hidden">Play Again</button>
-                <button onclick="window.location.href='index.html'" class="btn btn-dark">
-                    <i class="fas fa-home"></i>
-                </button>
-            
             </div>
         </section>
 
@@ -133,30 +114,30 @@
 
         <section id="why-us" class="page-section why-us-section">
         <h3>Why Choose RevoFun?</h3>
-        <div class="features-grid grid-4">
-            <div class="feature-card">
-                <span class="feature-icon">🎮</span>
-                <h4>Always Free</h4>
-                <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
+            <div class="features-grid grid-4">
+                <div class="feature-card">
+                    <span class="feature-icon">🎮</span>
+                    <h4>Always Free</h4>
+                    <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <h4>Kid-Safe Design</h4>
+                    <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💡</span>
+                    <h4>Learn While Playing</h4>
+                    <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">✨</span>
+                    <h4>Pure Fun</h4>
+                    <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
+                </div>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">🛡️</span>
-                <h4>Kid-Safe Design</h4>
-                <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">💡</span>
-                <h4>Learn While Playing</h4>
-                <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">✨</span>
-                <h4>Pure Fun</h4>
-                <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
-            </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 
 <footer class="main-footer">
     <div class="footer-content-grid grid-4">
@@ -191,7 +172,7 @@
             <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
             
             <nav class="social-icons" aria-label="Social Media">
-                <a href="https://www.linkedin.com/..." aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                  <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
             </nav>
@@ -203,9 +184,6 @@
 </footer>
 
     <script src="js/script.js"></script>
-    <script src="js/guess-logic.js"></script>
-    <script src="js/rps-logic.js"></script>
-    <script src="js/clicker-logic.js"></script>
-
+    
 </body>
 </html>
