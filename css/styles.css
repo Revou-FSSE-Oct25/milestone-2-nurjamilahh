@@ -71,41 +71,215 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-/* --- 🎮 Game Cards Grid --- */
-.grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 30px;
-    margin-top: 30px;
-    width: 100%;
-    max-width: 1200px;
+/* --- OUR AWESOME GAMES --- */
+/* --- Global Container & Judul --- */
+.games-overview {
+    padding: 20px 0;
 }
 
-.card {
-    border: 5px solid var(--color-accent-green);
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 8px 8px 0 var(--color-primary-blue);
+.section-title {
     text-align: center;
-    transition: transform 0.4s ease;
-    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    color: #333;
+}
+
+/* --- Carousel Logic (Fungsi Geser) --- */
+.slider-container {
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Firefox */
+}
+.slider-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.game-cards {
+    display: flex;
+    list-style: none;
+    padding: 0 40px;
+    gap: 20px;
+}
+
+/* --- Desain Kartu Landscape --- */
+.card {
+    flex: 0 0 auto;
+    width: 550px; 
+    height: 320px; /* Sedikit lebih tinggi agar teks & tombol lega */
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: center;
+    transition: transform 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    border: none; /* Memastikan tidak ada garis pink/hijau */
+    filter: brightness(1.1) contrast(1.05); /* Menaikkan kecerahan sedikit */
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .card:hover {
-    box-shadow: 10px 10px 0 var(--color-primary-blue);
-    transform: scale(1.05);
+    transform: scale(1.02);
+    filter: brightness(1.2); /* Lebih terang lagi saat kursor di atasnya */
 }
 
-/* Gambar Background untuk kartu game */
-.game-1 { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/guess-image.webp'); }
-.game-2 { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/rps-400.webp'); }
-.game-3 { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/clicker-image.webp'); }
-.game-4 { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/dodge-400.webp'); }
+/* --- Gambar Background (Pastikan Path Benar) --- */
+.game-1 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/guess-image.webp'); }
+.game-2 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/rps-image.webp'); }
+.game-3 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/clicker-image.webp'); }
+.game-4 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/dodge-image.webp'); }
 
-.game-1, .game-2, .game-3, .game-4 {
-    background-size: cover;
-    background-position: center;
+/* --- Konten di Dalam Kartu (Teks & Tombol) --- */
+.card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 25px;
     color: white;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Rata kiri seperti referensi */
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.game-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.game-description {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    max-width: 75%;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- Base Button --- */
+.btn { 
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+/* --- Tombol Utama di Hero/Halaman Lain --- */
+.btn-large { 
+    background-color: var(--color-accent-red); 
+    color: var(--color-white); 
+    font-size: 1.5em; 
+    padding: 20px 40px; 
+    border-radius: 12px; 
+    font-weight: 900; 
+}
+
+/* --- Pill Shape Button --- */
+.btn-small {
+    display: inline-block;
+    padding: 10px 28px;
+    border: none; 
+    border-radius: 50px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.25); 
+    backdrop-filter: blur(10px);
+}
+
+.btn-small:hover {
+    background: #ffffff;
+    color: #333;
+    transform: translateY(-2px);
+}
+
+/* --- Utility --- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+
+/* --- Dots Navigasi --- */
+.slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
+
+.dot { 
+    width: 8px; 
+    height: 8px; 
+    border-radius: 50%; 
+    border: none; 
+    background: #ddd; 
+    cursor: pointer; 
+    padding: 0; 
+    transition: all 0.3s ease; 
+}
+
+.dot.active { width: 22px; border-radius: 10px; background: #333; }
+
+
+/* --- WHY CHOOSE REVOFUN? --- */
+.why-us-section {
+    padding: 60px 0;
+    background-color: #f9f9f9; /* Beri warna dasar tipis agar beda dengan section lain */
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #eee; /* Garis sangat tipis */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Shadow halus */
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    border-color: var(--color-secondary-yellow);
+}
+
+/* --- Icon Styling --- */
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--color-secondary-yellow); 
+    margin-bottom: 20px;
+    display: block;
+}
+
+.feature-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 700;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* --- Responsif --- */
+@media (max-width: 992px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); } /* Jadi 2 kolom di tablet */
+}
+
+@media (max-width: 600px) {
+    .grid-4 { grid-template-columns: 1fr; } /* Jadi 1 kolom di HP */
 }
 
 /* --- RESPONSIVE COMBINED --- */
@@ -120,6 +294,11 @@ h1, h2, h3, h4 {
     .hero-content h2 {
         font-size: 2.5em;
     }
+
+    /* Kartu Game Slider di Tablet */
+    .card {
+        width: 450px; /* Perkecil sedikit lebar landscape di tablet */
+    }
 }
 
 /* Mobile (Max Width 600px) */
@@ -133,6 +312,7 @@ h1, h2, h3, h4 {
         font-size: 2rem;
     }
 
+    /* Grid Why Us jadi 1 kolom */
     .grid-4 {
         grid-template-columns: 1fr; 
         padding: 0 10px;
@@ -143,12 +323,18 @@ h1, h2, h3, h4 {
         padding: 15px 30px;
     }
 
+    /* Kartu Game Slider di HP */
     .card {
-        padding: 40px 20px;
+        width: 85vw; /* Lebar hampir memenuhi layar HP */
+        height: 250px; /* Pendekkan sedikit di HP */
+    }
+
+    /* Feature Card di HP */
+    .feature-card {
+        padding: 25px 15px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
     }
 }
-
-/* --- Button & Feature  --- */
-.btn { background-color: var(--color-accent-green); color: var(--color-white); border-radius: 8px; padding: 12px 20px; text-decoration: none; font-weight: 700; display: inline-block; cursor: pointer; border: none; }
-.btn-large { background-color: var(--color-accent-red); color: var(--color-white); font-size: 1.5em; padding: 20px 40px; border-radius: 12px; text-decoration: none; font-weight: 900; }
-.no-scrollbar::-webkit-scrollbar { display: none; }

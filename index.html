@@ -18,168 +18,225 @@
 </head>
 
 <body>
-    <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
-        <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
-            
-            <a href="#home" class="shrink-0">
-                <h1 class="text-lg md:text-xl font-black tracking-tighter bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">RevoFun
-                </h1>
-            </a>
-
-            <ul class="flex items-center gap-2 md:gap-5">
-                <li><a href="games/guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Guess</a></li>
-                <li><a href="games/rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">RPS</a></li>
-                <li><a href="games/clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Clicker</a></li>
-                <li><a href="games/dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition whitespace-nowrap">Dodge</a></li>
-            </ul>
-
-        </nav>
-    </header>
+    <header class="sticky top-0 z-50 w-full px-4 md:px-10 py-3 bg-[#121212]/80 backdrop-blur-md border-b border-white/5">
+    <nav class="flex items-center justify-between max-w-7xl mx-auto">
         
-    <main>
+        <a href="#home" class="shrink-0 hover:opacity-80 transition">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter uppercase italic bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">
+                RevoFun
+            </h1>
+        </a>
 
-        <section id="home">
-            <!-- <section id="home" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden"> -->
-    
-            <picture> 
-                <source srcset="images/bg-image-large.webp" media="(min-width: 1024px)">
-                <source srcset="images/bg-image-medium.webp" media="(min-width: 600px)">
-                <img src="images/bg-image-small.webp" 
-                    alt="RevoFun Background" 
-                    class="w-full h-full object-cover brightness-90"> </picture>
+        <ul id="nav-links" class="flex items-center gap-4 md:gap-8">
 
-            <!-- <div class="absolute inset-0 bg-black/20 z-10"></div> -->
+            <li class="flex flex-col items-center gap-1">
+                <a href="games/guess.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
+                    Guessing
+                </a>
+                <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
+            </li>
 
-            <div class="hero-content relative z-20 text-center px-4 max-w-4xl animate-float"> 
-                <h2 class="text-5xl md:text-8xl font-black text-white drop-shadow-2xl mb-6">
-                    WELCOME TO REVOFUN!
-                </h2>
-                <p class="text-xl md:text-2xl text-white font-medium drop-shadow-md mb-8">
-                    Where Revolutionary Fun meets simple, engaging games for all ages.
+            <li class="flex flex-col items-center gap-1">
+                <a href="games/rps.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
+                    RPS
+                </a>
+                <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
+            </li>
+
+            <li class="flex flex-col items-center gap-1">
+                <a href="games/clicker.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
+                    Clicker
+                </a>
+                <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
+            </li>
+
+            <li class="flex flex-col items-center gap-1">
+                <a href="games/dodge.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
+                    Dodge
+                </a>
+                <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
+            </li>
+        </ul>
+
+        <div class="hidden lg:block">
+            <a href="#play" class="px-5 py-2 text-[11px] font-black uppercase tracking-tighter bg-white text-black rounded-full hover:bg-yellow-400 transition-all">
+                Play Now
+            </a>
+        </div>
+
+    </nav>
+    </header>
+
+    <main class="bg-[#121212] min-h-screen text-white px-10 py-20 flex flex-col items-center">
+
+        <header class="w-full text-center mb-16">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase italic">
+            <span class="text-blue-500">Welcome</span> to 
+            <span class="text-yellow-400">Revofun!</span>
+            </h1>
+        </header>
+
+        <section class="max-w-7xl w-full flex flex-col md:flex-row items-center justify-center gap-16">
+            
+            <figure class="w-full md:w-1/2 flex justify-center">
+            <div class="relative w-full aspect-square max-w-[550px] overflow-hidden rounded-3xl border border-white/10 shadow-2xl group">
+                <iframe 
+                src="https://fe29ae58-a63a-42a9-aab3-2c2e21340903-render.magicpatterns.app/" 
+                class="w-full h-full scale-[1.05] transition-transform duration-700 group-hover:scale-110" 
+                frameborder="0"
+                scrolling="no">
+                </iframe>
+                <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(18,18,18,0.8)]"></div>
+                <div class="absolute inset-0 pointer-events-none bg-blue-500/5 mix-blend-overlay"></div>
+            </div>
+            </figure>
+
+            <article class="w-full md:w-1/2 flex flex-col items-start space-y-8">
+            <div class="space-y-4">
+                <h2 class="text-3xl font-bold text-gray-200">Revolutionary Fun</h2>
+                <p class="text-gray-400 text-xl leading-relaxed max-w-md">
+                Where simplicity meets engagement. We create interactive experiences that inspire human connection for all ages.
                 </p>
-                <a href="#games" class="btn bg-green-500 hover:bg-green-400 text-white text-xl font-bold py-4 px-10 rounded-full shadow-2xl transition-all transform hover:scale-110">
-                    Explore Our Games!
+            </div>
+            
+            <div class="flex flex-wrap gap-5">
+                <a href="#games" class="px-10 py-4 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-all shadow-lg shadow-white/5">
+                Our Games
+                </a>
+                <a href="#about" class="px-10 py-4 border-2 border-white/20 text-white rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all">
+                About Us
                 </a>
             </div>
+            </article>
 
         </section>
 
-        <section id="games" class="games-overview page-section bg-gradient-to-b from-cyan-100 to-white">
-            <h3 class="text-2xl text-center mb-6">Our Awesome Games</h3>
-
-            <div class="slider-container flex overflow-x-auto gap-6 px-10 pb-10 snap-x snap-mandatory no-scrollbar">
+        <section id="games" class="games-overview">
+            <div class="container">
+                <h3 class="section-title">OUR AWESOME GAMES</h3>
                 
-                <div class="card game-1 snap-center shrink-0 w-[80vw] md:w-[400px] h-[500px] relative rounded-3xl overflow-hidden shadow-xl">
-                    <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <h4 class="text-3xl font-bold mb-2">Number Guessing</h4>
-                        <p class="mb-4 opacity-90">Guess the secret number in just 5 tries! Test your luck and logic.</p>
-                        <a href="games/guess.html" class="btn-small">Play Now</a>
-                    </div>
+                <div class="slider-container no-scrollbar">
+                    <ul class="game-cards" role="list">
+                        
+                        <li class="card game-1" role="listitem">
+                            <article class="card-content">
+                                <h4 class="game-title">Number Guessing</h4>
+                                <p class="game-description">Guess the secret number in just 5 tries!<br>Test your luck and logic.</p>
+                                <a href="games/guess.html" class="btn-small">Play Now</a>
+                            </article>
+                        </li>
+
+                        <li class="card game-2" role="listitem">
+                            <article class="card-content">
+                                <h4 class="game-title">RPS Showdown</h4>
+                                <p class="game-description">The classic battle of Rock, Paper, Scissors.<br>Will you beat the computer?</p>
+                                <a href="games/rps.html" class="btn-small">Play Now</a>
+                            </article>
+                        </li>
+
+                        <li class="card game-3" role="listitem">
+                            <article class="card-content">
+                                <h4 class="game-title">Turbo Clicker</h4>
+                                <p class="game-description">Click as fast as you can in 10 seconds!<br>Challenge your reaction time.</p>
+                                <a href="games/clicker.html" class="btn-small">Play Now</a>
+                            </article>
+                        </li>
+                        
+                        <li class="card game-4" role="listitem">
+                            <article class="card-content">
+                                <h4 class="game-title">Cosmic Dodge</h4>
+                                <p class="game-description">Move fast and avoid the falling space rocks!<br>How long can you survive?</p>
+                                <a href="games/dodge.html" class="btn-small">Play Now</a>
+                            </article>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="card game-2 snap-center shrink-0 w-[80vw] md:w-[400px] h-[500px] relative rounded-3xl overflow-hidden shadow-xl">
-                    <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <h4 class="text-3xl font-bold mb-2">RPS Showdown</h4>
-                        <p class="mb-4 opacity-90">The classic battle of Rock, Paper, Scissors.</p>
-                        <a href="games/rps.html" class="btn-small">Play Now</a>
-                    </div>
-                </div>
-
-                <div class="card game-3 snap-center shrink-0 w-[80vw] md:w-[400px] h-[500px] relative rounded-3xl overflow-hidden shadow-xl">
-                    <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <h4 class="text-3xl font-bold mb-2">Turbo Clicker</h4>
-                        <p class="mb-4 opacity-90">Click as fast as you can in 10 seconds!</p>
-                        <a href="games/clicker.html" class="btn-small">Play Now</a>
-                    </div>
-                </div>
-
-                <div class="card game-4 snap-center shrink-0 w-[80vw] md:w-[400px] h-[500px] relative rounded-3xl overflow-hidden shadow-xl">
-                    <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <h4 class="text-3xl font-bold mb-2">Cosmic Dodge</h4>
-                        <p class="mb-4 opacity-90">Move fast and avoid the falling space rocks!</p>
-                        <a href="games/dodge.html" class="btn-small">Play Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slider-dots flex justify-center gap-2 mt-4">
-                <span class="dot active w-3 h-3 rounded-full bg-cyan-500"></span>
-                <span class="dot w-3 h-3 rounded-full bg-slate-300"></span>
-                <span class="dot w-3 h-3 rounded-full bg-slate-300"></span>
-                <span class="dot w-3 h-3 rounded-full bg-slate-300"></span>
+                <nav class="slider-dots" aria-label="Game Slider Navigation">
+                    <button class="dot active" aria-label="Game 1"></button>
+                    <button class="dot" aria-label="Game 2"></button>
+                    <button class="dot" aria-label="Game 3"></button>
+                    <button class="dot" aria-label="Game 4"></button>
+                </nav>
             </div>
         </section>
 
-        <section id="why-us" class="page-section why-us-section">
-        <h3 class="text-2xl">Why Choose RevoFun?</h3>
-            <div class="features-grid grid-4">
-                <div class="feature-card">
-                    <span class="feature-icon">🎮</span>
-                    <h4>Always Free</h4>
-                    <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-icon">🛡️</span>
-                    <h4>Kid-Safe Design</h4>
-                    <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-icon">💡</span>
-                    <h4>Learn While Playing</h4>
-                    <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-icon">✨</span>
-                    <h4>Pure Fun</h4>
-                    <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
+        <section id="why-us" class="why-us-section">
+            <div class="container">
+                <h3 class="section-title">Why Choose RevoFun?</h3>
+                
+                <div class="features-grid grid-4">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-gamepad feature-icon"></i>
+                        <h4>Always Free</h4>
+                        <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fa-solid fa-shield-halved feature-icon"></i>
+                        <h4>Kid-Safe Design</h4>
+                        <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fa-solid fa-lightbulb feature-icon"></i>
+                        <h4>Learn While Playing</h4>
+                        <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fa-solid fa-sparkles feature-icon"></i>
+                        <h4>Pure Fun</h4>
+                        <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-<footer class="main-footer">
-    <div class="footer-content-grid grid-4">
+    <footer class="main-footer">
+        <div class="footer-content-grid grid-4">
 
-        <section class="footer-col">
-            <h3>Games Hub</h3>
-            <ul>
-                <li><a href="../games/guess.html">Number Guess</a></li>
-                <li><a href="../games/rps.html">RPS Showdown</a></li>
-                <li><a href="../games/clicker.html">Turbo Clicker</a></li>
-                <li><a href="../games/dodge.html">Cosmic Dodge</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Games Hub</h3>
+                <ul>
+                    <li><a href="games/guess.html">Number Guessing</a></li>
+                    <li><a href="games/rps.html">Rock-Paper-Scissor</a></li>
+                    <li><a href="games/clicker.html">Turbo Clicker</a></li>
+                    <li><a href="games/dodge.html">Cosmic Dodge</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col">
-            <h3>Studio</h3>
-            <ul>
-                <li><a href="company.html#about">About Us</a></li>
-                <li><a href="company.html#careers">Careers</a></li>
-                <li><a href="company.html#support">Support</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Studio</h3>
+                <ul>
+                    <li><a href="company.html#about">About Us</a></li>
+                    <li><a href="company.html#careers">Careers</a></li>
+                    <li><a href="company.html#support">Support</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col">
-            <h3>Press</h3>
-            <ul>
-                <li><a href="company.html#newsroom">Newsroom</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Press</h3>
+                <ul>
+                    <li><a href="company.html#newsroom">Newsroom</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col footer-social">
-            <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+            <section class="footer-col footer-social">
+                <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+                
+                <nav class="social-icons" aria-label="Social Media">
+                    <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </nav>
+                
+                <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
+            </section>
             
-            <nav class="social-icons" aria-label="Social Media">
-                <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                 <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </nav>
-            
-            <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
-        </section>
-        
-    </div>
-</footer>
+        </div>
+    </footer>
 
     <script src="js/script.js"></script>
     

@@ -26,12 +26,12 @@ The platform is designed for casual gamers, focusing on a fun, intuitive user ex
 
 ## Features Implemented
 
-### 🏡Core Landing Page
+### Core Landing Page
 * **Company Introduction**: A compelling homepage introducing the RevoFun brand and mission.
 * **Game Directory**: A brief overview and directory of all available games.
 * **Responsive Navigation**: A clear and intuitive navigation menu linking directly to individual game pages.
 
-### 🕹️ Interactive Games
+### Interactive Games
 The RevoFun Gaming Hub features a minimum of three fully implemented, browser-based JavaScript games, each hosted on a dedicated page to provide a focused and engaging experience.
 
 * **Number Guessing Game:** This classic game challenges the player to guess a random number selected by the computer (e.g., between 1-100). The game provides immediate feedback ("Too high" or "Too low") to guide the player, who is limited to five attempts to successfully find the correct number.
@@ -39,14 +39,14 @@ The RevoFun Gaming Hub features a minimum of three fully implemented, browser-ba
 * **Clicker Game:** This quick and addictive game presents a large button, requiring players to click it as rapidly as possible within a set time limit. Upon expiration of the timer, the player's final click score is displayed.
 * **Cosmic Dodge (Falling Objects) Game:** A fast-paced, action-based game where the player controls a ship/character to avoid randomly generated objects (e.g., meteors or space debris) that fall from the top of the screen. The goal is to survive as long as possible while the game increases in speed and difficulty.
 
-### ✨ User Experience & Optional Features
+### User Experience & Optional Features
 * **Game Instructions:** Clear, concise instructions are provided on each dedicated game page.
 * **Seamless Navigation:** A dedicated "Back to Home" button on every game page.
 * **High Scores:** High scores and user nicknames are persisted using localStorage, creating a simple leaderboard experience.
 
 ---
 
-## 🖼️ Demo & Screenshots of Interactive Website
+## Demo & Screenshots of Interactive Website
 
 ### 1. Mobile View
 ![Screenshot of the project on a mobile view](https://raw.githubusercontent.com/Revou-FSSE-Oct25/milestone-2-nurjamilahh/main/mobile-view.png)
