@@ -12,43 +12,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/footer.css"> 
     
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
-        <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
-            
-            <a href="#home" class="shrink-0">
-                <h1 class="text-lg md:text-xl font-black tracking-tighter bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">RevoFun
-                </h1>
-            </a>
 
-            <ul class="flex items-center gap-2 md:gap-5">
-                <li><a href="games/guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Guess</a></li>
-                <li><a href="games/rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">RPS</a></li>
-                <li><a href="games/clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Clicker</a></li>
-                <li><a href="games/dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition whitespace-nowrap">Dodge</a></li>
-            </ul>
+    <nav class="navbar">
+        <h1 class="logo">RevoFun</h1>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="games/guess.html">Guess</a></li>
+            <li><a href="games/rps.html">RPS</a></li>
+            <li><a href="games/clicker.html">Clicker</a></li>
+            <li><a href="games/dodge.html">Dodge</a></li>
+        </ul>
+    </nav>
 
-        </nav>
-    </header>
-        
-    <main>
+    <main class="main-content min-h-screen bg-gradient-to-b from-blue-100 via-purple-50 to-pink-100">
 
-        <section id="home">
-            <!-- <section id="home" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden"> -->
+        <section id="home" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
     
-            <picture> 
+            <picture class="absolute inset-0 z-0"> 
                 <source srcset="images/bg-image-large.webp" media="(min-width: 1024px)">
                 <source srcset="images/bg-image-medium.webp" media="(min-width: 600px)">
                 <img src="images/bg-image-small.webp" 
                     alt="RevoFun Background" 
                     class="w-full h-full object-cover brightness-90"> </picture>
 
-            <!-- <div class="absolute inset-0 bg-black/20 z-10"></div> -->
+            <div class="absolute inset-0 bg-black/20 z-10"></div>
 
             <div class="hero-content relative z-20 text-center px-4 max-w-4xl animate-float"> 
                 <h2 class="text-5xl md:text-8xl font-black text-white drop-shadow-2xl mb-6">
@@ -73,7 +67,7 @@
                     <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
                         <h4 class="text-3xl font-bold mb-2">Number Guessing</h4>
                         <p class="mb-4 opacity-90">Guess the secret number in just 5 tries! Test your luck and logic.</p>
-                        <a href="games/guess.html" class="btn-small">Play Now</a>
+                        <a href="#guess-game-page" class="btn-small">Play Now</a>
                     </div>
                 </div>
 
@@ -81,7 +75,7 @@
                     <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
                         <h4 class="text-3xl font-bold mb-2">RPS Showdown</h4>
                         <p class="mb-4 opacity-90">The classic battle of Rock, Paper, Scissors.</p>
-                        <a href="games/rps.html" class="btn-small">Play Now</a>
+                        <a href="#rps-game-page" class="btn-small">Play Now</a>
                     </div>
                 </div>
 
@@ -97,7 +91,7 @@
                     <div class="card-content absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent text-white">
                         <h4 class="text-3xl font-bold mb-2">Cosmic Dodge</h4>
                         <p class="mb-4 opacity-90">Move fast and avoid the falling space rocks!</p>
-                        <a href="games/dodge.html" class="btn-small">Play Now</a>
+                        <a href="#dodge-game-page" class="btn-small">Play Now</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +104,7 @@
             </div>
         </section>
 
-        <section id="why-us" class="page-section why-us-section">
+        <section id="why-us" class="page-section why-us-section bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
         <h3 class="text-2xl">Why Choose RevoFun?</h3>
             <div class="features-grid grid-4">
                 <div class="feature-card">
@@ -143,10 +137,10 @@
         <section class="footer-col">
             <h3>Games Hub</h3>
             <ul>
-                <li><a href="../games/guess.html">Number Guess</a></li>
-                <li><a href="../games/rps.html">RPS Showdown</a></li>
-                <li><a href="../games/clicker.html">Turbo Clicker</a></li>
-                <li><a href="../games/dodge.html">Cosmic Dodge</a></li>
+                <li><a href="../milestone-2-nurjamilahh/games/guess.html">Number Guess</a></li>
+                <li><a href="../milestone-2-nurjamilahh/games/rps.html">RPS Showdown</a></li>
+                <li><a href="../milestone-2-nurjamilahh/games/clicker.html">Turbo Clicker</a></li>
+                <li><a href="../milestone-2-nurjamilahh/games/dodge.html">Cosmic Dodge</a></li>
             </ul>
         </section>
 

@@ -13,57 +13,29 @@
 
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/game-style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/footer.css">
 
    
 </head>
-<body>
-    <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
-        <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
-            
-            <a href="../index.html" class="shrink-0">
-                <h1 class="text-lg md:text-xl font-black tracking-tighter bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">RevoFun
-                </h1>
-            </a>
+<body style="background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('../images/guess-image.webp') no-repeat center/cover;">
 
-            <ul class="flex items-center gap-2 md:gap-5">
-                <li><a href="guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Guess</a></li>
-                <li><a href="rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">RPS</a></li>
-                <li><a href="clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Clicker</a></li>
-                <li><a href="dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition whitespace-nowrap">Dodge</a></li>
-            </ul>
-
-        </nav>
-    </header>
+     <nav class="navbar">
+        <h1 class="logo">RevoFun</h1>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="guess.html">Guess</a></li>
+            <li><a href="rps.html">RPS</a></li>
+            <li><a href="clicker.html">Clicker</a></li>
+            <li><a href="dodge.html">Dodge</a></li>
+        </ul>
+    </nav>
 
     <main id="main-content">
-        <!-- <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;"> -->
-        <article class="game-box-center" style="
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('../images/guess-image.webp');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(6px);
-            border-radius: 24px; 
-            padding: 36px; 
-            /* box-shadow: 0 15px 35px rgba(200, 162, 200, 0.2); */
-        ">
-
-            <header class="flex items-center justify-center gap-4 mb-8">
-                <h2 class="text-3xl font-bold flex items-center">
-                    <i class="fa-solid fa-wand-magic-sparkles mr-3"></i> 
-                    Number Guessing
-                </h2>
-
-                <audio id="gameMusic" loop>
-                    <source src="../audio/guess-131047.mp3" type="audio/mpeg">
-                </audio>
-
-                <div class="music-controls">
-                    <button id="musicToggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/80 border border-[#C8A2C8] hover:scale-110 transition-transform shadow-sm">
-                        <i id="musicIcon" class="fas fa-volume-up"></i>
-                    </button>
-                </div>
+        <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
+            
+            <header>
+                <h2 class="text-3xl font-bold"><span role="img" aria-label="numbers">🔢</span>Number Guessing</h2>
             </header>
 
             <section id="nickname-setup" class="game-setup">
@@ -93,7 +65,7 @@
                 </div>
                 
                 <footer class="game-stats">
-                    Attempts Left: <span id="guess-attempts">5</span> | Best: <span id="guess-high-score">0</span>
+                    Attempts Left: <span id="guess-attempts">10</span> | Best: <span id="guess-high-score">0</span>
                 </footer>
             </div>
 
@@ -104,7 +76,7 @@
             </section>
 
             <aside class="leaderboard-section">
-                <h4>Master Guessers</h4>
+                <h4>🏆 Master Guessers</h4>
                 <ul class="leaderboard-list" id="guess-leaderboard-list">
                     </ul>
             </aside>
@@ -115,10 +87,19 @@
                 </a>
             </nav>
 
+            <audio id="gameMusic" loop>
+                <source src="../audio/guess-131047.mp3" type="audio/mpeg">
+            </audio>
+
+            <div class="music-controls">
+                <button id="musicToggle" class="btn-music">
+                    <i id="musicIcon" class="fas fa-volume-up"></i>
+                </button>
+            </div>
         </article>
     </main>
 
-<footer class="main-footer">
+    <footer class="main-footer">
     <div class="footer-content-grid grid-4">
 
         <section class="footer-col">
@@ -134,21 +115,21 @@
         <section class="footer-col">
             <h3>Studio</h3>
             <ul>
-                <li><a href="../company.html#about">About Us</a></li>
-                <li><a href="../company.html#careers">Careers</a></li>
-                <li><a href="../company.html#support">Support</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="support.html">Support</a></li>
             </ul>
         </section>
 
         <section class="footer-col">
             <h3>Press</h3>
             <ul>
-                <li><a href="../company.html#newsroom">Newsroom</a></li>
+                <li><a href="news.html">Newsroom</a></li>
             </ul>
         </section>
 
         <section class="footer-col footer-social">
-            <a href="#newsletter" class="newsletter-btn">Join Newsletter</a>
+            <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
             
             <nav class="social-icons" aria-label="Social Media">
                 <a href="https://www.linkedin.com/in/nurjamilah-h/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>

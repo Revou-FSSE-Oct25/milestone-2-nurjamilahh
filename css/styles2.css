@@ -1,0 +1,322 @@
+/* --- 🎨 Kid-Friendly Color Palette --- */
+:root {
+    --color-primary-blue: #0077ff;    /* Bright Blue */
+    --color-secondary-yellow: #ffc107; /* Sunny Yellow */
+    --color-accent-green: #28a745;    /* Vibrant Green */
+    --color-accent-red: #dc3545;      /* Fun Red */
+    --color-light-pink: #ffdae3;      /* Pastel Pink */
+    --color-background-dark: #2c3e50; /* Dark Navy for contrast */
+    --color-text-light: #ecf0f1;      /* Light Text */
+    --color-white: #ffffff;
+    /* #5a4b77; lilac -- #d4af37; gold -- #e6e0eb; Light lilac -- #f2f2f2; grey */
+}
+
+/* --- Global Styles & Fonts --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    /* background-color: var(--color-light-pink); */
+    color: var(--color-background-dark);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Bungee', cursive;
+    color: var(--color-primary-blue);
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+.page-section {
+    padding: 60px 20px;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* --- 🌟 Navigation Bar --- */
+.navbar {
+    background-color: var(--color-background-dark);
+    padding: 16px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    color: var(--color-secondary-yellow);
+    font-size: 1.8em;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text-light);
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: var(--color-primary-blue);
+}
+
+/* --- 🏠 Hero Section (Home) --- */
+.hero-section {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-white);
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;       
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll; 
+        background-position: 70% center; 
+    }
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;  
+    align-items: center;     
+    gap: 20px;               
+}
+
+.hero-content h2 {
+    font-size: 3em;
+    color: var(--color-white);
+    text-shadow: 3px 3px 0 var(--color-background-dark);
+    /* added on 20251217#1 */
+    margin: 0;
+}
+
+/* --- 🎮 Game Cards Overview (CSS Grid System) --- */
+.games-overview {
+    background-color: var(--color-white);
+}
+
+.grid-4 {
+    display: grid;
+    /* Uses CSS Grid with 4 columns */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.card {
+    /* background-color: var(--color-light-pink); */
+    border: 5px solid var(--color-accent-green);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 8px 8px 0 var(--color-primary-blue);
+   
+    text-align: center;
+    flex: 0 0 auto; 
+    scroll-snap-align: center; 
+    transition: transform 0.4s ease;
+}
+
+.card:hover {
+  
+    box-shadow: 10px 10px 0 var(--color-primary-blue);
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+.card-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: var(--color-accent-red);
+}
+
+/* --- Bagian Carousel Baru --- */
+
+/* 1. Menghilangkan Scrollbar agar terlihat bersih seperti di gambar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 2. Memasukkan Gambar Background ke masing-masing kartu */
+.game-1 { background-image: url('../images/guess-image.webp'); background-size: cover; background-position: center; }
+.game-2 { background-image: url('../images/rps-400.webp'); background-size: cover; background-position: center; }
+.game-3 { background-image: url('../images/clicker-image.webp'); background-size: cover; background-position: center; }
+.game-4 { background-image: url('../images/dodge-400.webp'); background-size: cover; background-position: center; }
+
+/* 3. Efek Hover agar kartu sedikit membesar saat disentuh mouse */
+
+
+.slider-container {
+    display: flex;
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+}
+
+
+/* --- General Button Styling --- */
+.btn, .btn-small, .btn-large, .btn-tiny {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 12px 4px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, transform 0.1s;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn {
+    background-color: var(--color-accent-green);
+    color: var(--color-white);
+}
+
+.btn-small {
+    background-color: var(--color-secondary-yellow);
+    color: var(--color-background-dark);
+    padding: 8px 15px;
+}
+
+.btn-large {
+    background-color: var(--color-accent-red);
+    color: var(--color-white);
+    font-size: 1.5em;
+    padding: 20px 40px;
+}
+
+.btn-tiny {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.btn:hover, .btn-small:hover, .btn-large:hover, .btn-tiny:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.game-container {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    border: 3px solid var(--color-primary-blue);
+}
+
+input[type="number"], input[type="text"] {
+    padding: 12px;
+    margin: 8px 0;
+    width: 80%;
+    border-radius: 4px;
+    border: 2px solid var(--color-accent-green);
+    font-size: 1em;
+}
+
+.message-box {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    min-height: 40px;
+}
+
+/* Styling for the emoji inside the button */
+.choice-btn > span {
+    font-size: 3vw; 
+}
+
+/* Media Query for Mobile/Smaller Screens (e.g., viewport width less than 600px) */
+@media (max-width: 600px) {
+    .rps-choices {
+        grid-template-columns: 1fr; 
+        gap: 1rem;
+    }
+    .choice-btn {
+        width: 100%;
+        height: 15vh; 
+        font-size: 1.5rem;
+        grid-column-start: unset
+    }
+    
+    .rps-choices .choice-btn {
+        margin: 0.5rem 0;
+    }
+}
+
+/* --- Utility Classes --- */
+.hidden { display: none !important; }
+.winner { background-color: var(--color-accent-green); color: var(--color-white); }
+.loser { background-color: var(--color-accent-red); color: var(--color-white); }
+.draw { background-color: var(--color-secondary-yellow); color: var(--color-background-dark); }
+
+
+/* ---  Why Choose RevoFun --- */
+.why-us-section {
+    background-color: var(--color-white);
+    min-height: auto; 
+    padding-bottom: 80px;
+}
+
+.features-grid {
+    margin-top: 30px;
+}
+
+.feature-card {
+    background-color: var(--color-light-pink);
+    border: 2px solid var(--color-secondary-yellow);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 4px 4px 0 var(--color-accent-green);
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.feature-card h4 {
+    color: var(--color-background-dark);
+    margin-top: 0;
+}
+
