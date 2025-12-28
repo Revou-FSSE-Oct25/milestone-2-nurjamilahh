@@ -1,8 +1,3 @@
-/**
- * ==========================================
- *   RevoFun Main Navigation & Page Handler
- * ==========================================
- */
 window.onload = function() {
     const navLinks = document.querySelectorAll('.navbar a');
     const allPages = document.querySelectorAll('.page-section');
@@ -12,30 +7,53 @@ window.onload = function() {
         if (!targetId.startsWith('#')) return;
         allPages.forEach(page => page.classList.add('hidden'));
         const targetPage = document.querySelector(targetId);
-        if (targetPage) targetPage.classList.remove('hidden');
+        if (targetPage) {
+            targetPage.classList.remove('hidden');
+            // Jika pindah ke page games, refresh posisi slider
+            if(targetId === '#games') scrollToCard(0);
+        }
     }
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const target = link.getAttribute('href');
-            if (target.startsWith('#')) {
-                e.preventDefault();
-                showPage(target);
-            }
+     navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const target = link.getAttribute('href');
+                if (target && target.startsWith('#')) {
+                    e.preventDefault();
+                    showPage(target);
+                    updateNavDots(target);
+                }
+            });
         });
-    });
+        
+    function updateNavDots(targetId) {
+    const navLinks = document.querySelectorAll('.navbar a');
 
-    // --- 2. Logika Slider Games (Auto-Play & Infinite Loop) ---
+        navLinks.forEach(link => {
+        const oldDot = link.querySelector('.nav-dot');
+        if (oldDot) oldDot.remove();
+
+        if (link.getAttribute('href') === targetId) {
+            const dot = document.createElement('span');
+            dot.className = "nav-dot block mx-auto mt-1 w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]";
+            link.appendChild(dot);
+        }
+    });
+}
+
+    // --- 2. Logika Slider Games ---
     const slider = document.querySelector('.slider-container');
     const dots = document.querySelectorAll('.dot');
     const cards = document.querySelectorAll('.card');
     
-    if (slider && dots.length > 0) {
+    if (slider && cards.length > 0) {
         let currentIndex = 0;
         const totalCards = cards.length;
-        const intervalTime = 4000; // Berpindah setiap 4 detik
+        const intervalTime = 4000; 
 
-        const getCardWidth = () => cards[0].offsetWidth + 20;
+        // Fungsi ambil lebar kartu (Lebih aman)
+        const getCardWidth = () => {
+            return cards[0].offsetWidth > 0 ? cards[0].offsetWidth + 20 : 570; // 570 adalah fallback (550px lebar + 20px gap)
+        };
 
         const scrollToCard = (index) => {
             slider.scrollTo({
@@ -47,51 +65,37 @@ window.onload = function() {
         // Fungsi Auto Play
         let autoPlay = setInterval(() => {
             currentIndex++;
-            if (currentIndex >= totalCards) {
-                currentIndex = 0; // Balik ke awal
-            }
+            if (currentIndex >= totalCards) currentIndex = 0;
             scrollToCard(currentIndex);
         }, intervalTime);
 
-        // Berhenti Auto Play saat user menyentuh/scroll manual
+        // Berhenti Auto Play saat interaksi
         slider.addEventListener('mouseenter', () => clearInterval(autoPlay));
-        slider.addEventListener('touchstart', () => clearInterval(autoPlay));
-
-        // Update dot saat scroll (manual atau otomatis)
+        
+        // Update dot saat scroll
         slider.addEventListener('scroll', () => {
-            const scrollLeft = slider.scrollLeft;
-            const activeIndex = Math.round(scrollLeft / getCardWidth());
-            
+            const activeIndex = Math.round(slider.scrollLeft / getCardWidth());
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === (activeIndex % totalCards));
             });
-            currentIndex = activeIndex % totalCards;
         });
 
-        // Klik dot untuk pindah manual
+        // Klik dot (Navigasi manual)
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                clearInterval(autoPlay); // Stop auto play jika dot diklik
+                clearInterval(autoPlay); 
                 currentIndex = index;
                 scrollToCard(index);
             });
         });
     }
 
-    // --- 3. Logika Active State (Indicator Dot) ---
-    const navItems = document.querySelectorAll('.nav-item'); // Pastikan di HTML ada class 'nav-item'
-    const currentPath = window.location.pathname;
-
+    // --- 3. Indicator Navigasi ---
+    const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(link => {
-        // Cek apakah href link cocok dengan URL saat ini
-        if (currentPath.includes(link.getAttribute('href'))) {
-            // Berikan warna terang
+        if (window.location.pathname.includes(link.getAttribute('href'))) {
             link.classList.add('text-white');
-            link.classList.remove('text-white/60');
-            
-            // Buat elemen titik secara dinamis
             const dot = document.createElement('span');
-            // Class Tailwind untuk titik menyala
             dot.className = "block mx-auto mt-1 w-1 h-1 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]";
             link.appendChild(dot);
         }
