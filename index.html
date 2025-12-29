@@ -18,51 +18,20 @@
 </head>
 
 <body>
-    <header class="sticky top-0 z-50 w-full px-4 md:px-10 py-3 bg-[#121212]/80 backdrop-blur-md border-b border-white/5">
-        <nav class="flex items-center justify-between max-w-7xl mx-auto">
+     <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
+        <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
             
-            <a href="#home" class="shrink-0 hover:opacity-80 transition">
-                <h1 class="text-xl md:text-2xl font-black tracking-tighter uppercase bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">
-                    RevoFun
+            <a href="../index.html" class="shrink-0">
+                <h1 class="text-lg md:text-xl font-black italic tracking-tighter text-yellow-400">RevoFun
                 </h1>
             </a>
 
-            <ul id="nav-links" class="flex items-center gap-4 md:gap-8">
-
-                <li class="flex flex-col items-center gap-1">
-                    <a href="games/guess.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
-                        Guessing
-                    </a>
-                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
-                </li>
-
-                <li class="flex flex-col items-center gap-1">
-                    <a href="games/rps.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
-                        RPS
-                    </a>
-                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
-                </li>
-
-                <li class="flex flex-col items-center gap-1">
-                    <a href="games/clicker.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
-                        Clicker
-                    </a>
-                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
-                </li>
-
-                <li class="flex flex-col items-center gap-1">
-                    <a href="games/dodge.html" class="nav-item text-sm font-bold uppercase tracking-widest text-white">
-                        Dodge
-                    </a>
-                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full shadow-[0_0_8px_#FFD700]"></span>
-                </li>
+            <ul class="flex items-center gap-2 md:gap-5">
+                <li><a href="games/guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Guess</a></li>
+                <li><a href="games/rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">RPS</a></li>
+                <li><a href="games/clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Clicker</a></li>
+                <li><a href="games/dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition whitespace-nowrap">Dodge</a></li>
             </ul>
-
-            <div class="hidden lg:block">
-                <a href="#games" class="px-5 py-2 text-[11px] font-black uppercase tracking-tighter bg-white text-black rounded-full hover:bg-yellow-400 transition-all">
-                    Play Now
-                </a>
-            </div>
 
         </nav>
     </header>
@@ -91,15 +60,15 @@
             </div>
             </figure>
 
-            <article class="w-full md:w-1/2 flex flex-col items-start space-y-8">
+            <article class="w-full md:w-1/2 flex flex-col items-center text-center space-y-8">
                 <div class="space-y-4">
                     <h2 class="text-3xl font-bold text-gray-200">Revolutionary Fun</h2>
-                    <p class="text-gray-400 text-xl leading-relaxed max-w-md">
-                    We create interactive experiences that inspire human connection for all ages.
+                    <p class="text-gray-400 text-xl leading-relaxed max-w-md mx-auto">
+                        We create interactive experiences that inspire human connection for all ages.
                     </p>
                 </div>
             
-                <div class="flex flex-wrap gap-5">
+                <div class="flex flex-wrap justify-center gap-5 w-full">
                     <a href="#games" class="px-10 py-4 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-all shadow-lg shadow-white/5">
                     Our Games
                     </a>
@@ -111,98 +80,100 @@
 
         </section>
 
-        <section id="games" class="games-section">
-            <!-- <div class="container"> -->
-                <h2 class="section-title">OUR AWESOME GAMES</h2>
-                
-                <div class="games-grid">
-                    </div>
-            </div>
-        </section>
-
-        <section>
+        <section id="games" class="page-section">
+           
             <div class="slider-container no-scrollbar">
                 <ul class="game-cards" role="list">
                         
-                        <li class="card game-1" role="listitem">
-                            <article class="card-content">
-                                <h4 class="game-title">Number Guessing</h4>
-                                <p class="game-description">Guess the secret number in just 5 tries!<br>Test your luck and logic.</p>
-                                <a href="games/guess.html" class="btn-small">Play Now</a>
-                            </article>
-                        </li>
+                    <li class="card game-1" role="listitem">
+                        <article class="card-content">
+                            <h3 class="game-title">Number Guessing</h3>
+                            <p class="game-description">Guess the secret number in just 5 tries!<br>Test your luck and logic.</p>
+                            <a href="games/guess.html" class="btn-small">Play Now</a>
+                        </article>
+                    </li>
 
-                        <li class="card game-2" role="listitem">
-                            <article class="card-content">
-                                <h4 class="game-title">RPS Showdown</h4>
-                                <p class="game-description">The classic battle of Rock, Paper, Scissors.<br>Will you beat the computer?</p>
-                                <a href="games/rps.html" class="btn-small">Play Now</a>
-                            </article>
-                        </li>
+                    <li class="card game-2" role="listitem">
+                        <article class="card-content">
+                            <h3 class="game-title">RPS Showdown</h3>
+                            <p class="game-description">The classic battle of Rock, Paper, Scissors.<br>Will you beat the computer?</p>
+                            <a href="games/rps.html" class="btn-small">Play Now</a>
+                        </article>
+                    </li>
 
-                        <li class="card game-3" role="listitem">
-                            <article class="card-content">
-                                <h4 class="game-title">Turbo Clicker</h4>
-                                <p class="game-description">Click as fast as you can in 10 seconds!<br>Challenge your reaction time.</p>
-                                <a href="games/clicker.html" class="btn-small">Play Now</a>
-                            </article>
-                        </li>
-                        
-                        <li class="card game-4" role="listitem">
-                            <article class="card-content">
-                                <h4 class="game-title">Cosmic Dodge</h4>
-                                <p class="game-description">Move fast and avoid the falling space rocks!<br>How long can you survive?</p>
-                                <a href="games/dodge.html" class="btn-small">Play Now</a>
-                            </article>
-                        </li>
+                    <li class="card game-3" role="listitem">
+                        <article class="card-content">
+                            <h3 class="game-title">Turbo Clicker</h3>
+                            <p class="game-description">Click as fast as you can in 10 seconds!<br>Challenge your reaction time.</p>
+                            <a href="games/clicker.html" class="btn-small">Play Now</a>
+                        </article>
+                    </li>
+
+                    <li class="card game-4" role="listitem">
+                        <article class="card-content">
+                            <h3 class="game-title">Cosmic Dodge</h3>
+                            <p class="game-description">Move fast and avoid the falling space rocks!<br>How long can you survive?</p>
+                            <a href="games/dodge.html" class="btn-small">Play Now</a>
+                        </article>
+                    </li>       
                 </ul>     
             </div>
         </section>            
                 
         <section>    
-                <nav class="slider-dots" aria-label="Game Slider Navigation">
-                    <button class="dot active" aria-label="Game 1"></button>
-                    <button class="dot" aria-label="Game 2"></button>
-                    <button class="dot" aria-label="Game 3"></button>
-                    <button class="dot" aria-label="Game 4"></button>
-                </nav>
+            <nav class="slider-dots" aria-label="Game Slider Navigation">
+                <button class="dot active" aria-label="Game 1"></button>
+                <button class="dot" aria-label="Game 2"></button>
+                <button class="dot" aria-label="Game 3"></button>
+                <button class="dot" aria-label="Game 4"></button>
+            </nav>
         </section>
 
         <section id="why-choose" class="why-us-section">
             <div class="container container-split">
                 
-                <div class="why-image-area">
-                    <img src="images/why-image.png" alt="Revofun Gaming" class="main-img">
-                </div>
+                <figure class="why-image-area">
+                    <img src="images/why-image.webp" alt="Revofun Gaming character and gameplay preview" class="main-img">
+                </figure>
 
                 <div class="why-text-area">
-                    <h2 class="section-title">WHY CHOOSE REVOFUN?</h2>
+                    <h2 class="section-title">
+                        WHY CHOOSE <span class="text-yellow-400 italic">REVOFUN?</span>
+                    </h2>
                     
-                    <div class="features-grid grid-4">
-                        <div class="feature-card">
-                            <img src="images/icon-free.webp" class="feature-icon" alt="Free">
-                            <h4>Always Free</h4>
-                            <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
-                        </div>
+                    <ul class="features-grid grid-4">
+                        <li>
+                            <article class="feature-card">
+                                <i class="fa-solid fa-gift feature-icon text-yellow-400" aria-hidden="true"></i> 
+                                <h3>Always Free</h3>
+                                <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
+                            </article>
+                        </li>
                         
-                        <div class="feature-card">
-                            <img src="images/icon-safe.jpg" class="feature-icon" alt="Safe">
-                            <h4>Kid-Safe Design</h4>
-                            <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
-                        </div>
+                        <li>
+                            <article class="feature-card">
+                                <i class="fa-solid fa-shield-halved feature-icon text-yellow-400" aria-hidden="true"></i>
+                                <h3>Kid-Safe Design</h3>
+                                <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
+                            </article>
+                        </li>
                         
-                        <div class="feature-card">
-                            <img src="images/icon-learn.webp" class="feature-icon" alt="Learn">
-                            <h4>Learn While Playing</h4>
-                            <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
-                        </div>
+                        <li>
+                            <article class="feature-card">
+                                <i class="fa-solid fa-brain feature-icon text-yellow-400" aria-hidden="true"></i>
+                                <h3>Learn While Playing</h3>
+                                <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
+                            </article>
+                        </li>
                         
-                        <div class="feature-card">
-                            <img src="images/icon-fun.webp" class="feature-icon" alt="Fun">
-                            <h4>Pure Fun</h4>
-                            <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
-                        </div>
-                    </div>
+                        <li>
+                            <article class="feature-card">
+                                <i class="fa-solid fa-face-smile feature-icon text-yellow-400" aria-hidden="true"></i>
+                                <h3>Pure Fun</h3>
+                                <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
+                            </article>
+                        </li>
+                    </ul>
                 </div>
 
             </div>

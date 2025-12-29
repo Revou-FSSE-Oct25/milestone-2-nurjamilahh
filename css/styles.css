@@ -1,4 +1,5 @@
 /* --- STYLES.CSS --- */
+
 :root {
     --color-primary-blue: #0077ff;
     --color-secondary-yellow: #ffc107;
@@ -24,16 +25,15 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
     font-family: 'Bungee', cursive;
-    color: var(--color-primary-blue);
     text-align: center;
     margin-bottom: 0.5em;
 }
 
 .page-section {
-    padding: 60px 20px;
-    min-height: 80vh;
+    padding: 60px 0px;
+    min-height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,7 +68,6 @@ h1, h2, h3, h4 {
 }
 
 .games-overview {
-    padding: 150px 0px 80px 0px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,8 +81,6 @@ h1, h2, h3, h4 {
     font-size: 2.5rem; 
     font-weight: 800;
     margin-top: 0;
-    margin-bottom: 60px;
-    padding-top: 20px;
     z-index: 1;
     position: relative; 
     text-transform: uppercase;
@@ -129,10 +126,10 @@ h1, h2, h3, h4 {
     filter: brightness(1.2); 
 }
 
-.game-1 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/guess-image.webp'); }
-.game-2 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/rps-image.webp'); }
-.game-3 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/clicker-image.webp'); }
-.game-4 { background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('../images/dodge-image.webp'); }
+.game-1 { background-image: url('../images/guess-400.webp'); }
+.game-2 { background-image: url('../images/rps-400.webp'); }
+.game-3 { background-image: url('../images/clicker-400.webp'); }
+.game-4 { background-image: url('../images/dodge-400.webp'); }
 
 .card-content {
     position: absolute;
@@ -203,7 +200,8 @@ h1, h2, h3, h4 {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-.slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
+.slider-dots { display: flex; justify-content: center; gap: 8px; 
+}
 
 .dot { 
     width: 8px; 
@@ -221,7 +219,6 @@ h1, h2, h3, h4 {
 
 .why-us-section {
     padding: 80px 0;
-    background-color: #000000;
     color: #ffffff;
 }
 
@@ -249,10 +246,10 @@ h1, h2, h3, h4 {
 }
 
 .section-title {
-    text-align: left;
+    text-align: center;
     font-size: 2.5rem;
     font-weight: 800;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     text-transform: uppercase;
     color: #ffffff;
 }
@@ -265,7 +262,7 @@ h1, h2, h3, h4 {
 }
 
 .feature-card {
-    background: #111111;
+    background: #1a1a1a;
     padding: 25px 20px;
     border-radius: 15px;
     text-align: left;
@@ -276,7 +273,6 @@ h1, h2, h3, h4 {
 .feature-card:hover {
     transform: translateY(-5px);
     border-color: #ffd700;
-    background: #1a1a1a;
 }
 
 .feature-icon {
@@ -285,8 +281,9 @@ h1, h2, h3, h4 {
     margin-bottom: 15px;
 }
 
-.feature-card h4 {
-    color: #ffd700;
+.feature-card h3 {
+    color: #3b82f6;
+    /* color: #ffd700; */
     margin-bottom: 10px;
 }
 
