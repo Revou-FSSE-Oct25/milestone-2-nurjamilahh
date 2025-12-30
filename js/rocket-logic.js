@@ -235,4 +235,4 @@ function initCosmicDodgeGame() {
 // Inisialisasi
 window.addEventListener('load', initCosmicDodgeGame);
 export {};
-//# sourceMappingURL=dodge-logic.js.map
+//# sourceMappingURL=rocket-logic.js.map
