@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rock, Paper, or Scissors? Make your choice and see if you can outsmart the computer. A quick, fun, and free way to settle any score or pass the time!">
+    <meta name="description" content="Click, upgrade, and dominate! Turbo Clicker is the high-speed idle game that tests your reflexes. Can you reach the top of the leaderboard?">
 
-    <title>Rock Paper Scissors - RevoFun</title>
-   
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Turbo Clicker - RevoFun</title>
+
+   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/output.css">
-    <link rel="stylesheet" href="../css/game-style.css">
+    <link rel="stylesheet" href="../css/game-style-clicker.css">
 </head>
 
 <body>
@@ -45,47 +45,46 @@
                 
                 <section id="nickname-setup" class="game-setup">
                     <label for="nickname-input" class="label-text">Challenger's Name</label>
-                    <input type="text" id="nickname-input" class="custom-input" placeholder="Rapid Clicker" maxlength="15">
-                    <button id="start-clicker-btn" class="btn-primary">ENTER ARENA</button>
+                    <input type="text" id="nickname-input" placeholder="Star Clicker" maxlength="15">
+                    <button id="start-clicker-btn" class="btn-action">START ADVENTURE</button>
                 </section>
 
                 <aside id="clicker-instructions" class="hidden">
                     <h4 class="info-title">How to Play:</h4>
                     <p>Click as fast as you can! You have 10 seconds.</p>
                     <p class="current-player">Player: <span id="current-player-name"></span></p>
-                    <button id="start-round-btn" class="btn-primary">START ROUND!</button>
+                    <button id="start-round-btn" class="btn-action">GO!</button>
                 </aside>
                 
                 <div id="game-display" class="hidden">
                     <div class="stats-bar">
-                        <div class="stat-item">TIME: <span id="clicker-timer">10</span>s</div>
-                        <div class="stat-item">CLICKS: <span id="clicker-score">0</span></div>
+                        <span><i class="fas fa-clock"></i> <span id="clicker-timer">10</span>s</span>
+                        <span><i class="fas fa-mouse"></i> <span id="clicker-score">0</span></span>
                     </div>
                     <div class="click-area">
                         <button id="main-click-btn" class="target-btn">CLICK!</button>
                     </div>
-                    <footer class="high-score">
+                    <div class="high-score">
                         <i class="fas fa-crown"></i> High Score: <span id="clicker-high-score">0</span>
-                    </footer>
+                    </div>
                 </div>
 
                 <hr class="divider">
 
-                <section class="leaderboard-section">
-                    <h4 class="leaderboard-title"><i class="fas fa-rocket"></i> HALL OF FAME</h4>
-                    <ul class="leaderboard-list" id="clicker-leaderboard-list">
-                        </ul>
+                <section class="leaderboard">
+                    <h4><i class="fas fa-rocket"></i> HALL OF FAME</h4>
+                    <ul id="clicker-leaderboard-list"></ul>
                 </section>
 
-                <nav class="bottom-nav">
-                    <a href="../index.html" class="home-btn">
+                <div class="bottom-nav">
+                    <a href="../index.html" class="home-icon">
                         <i class="fas fa-home"></i>
                     </a>
-                </nav>
+                </div>
             </div>
 
-            <div class="music-controls">
-                <button id="musicToggle" class="btn-music">
+            <div class="music-floating">
+                <button id="musicToggle" class="btn-audio">
                     <i id="musicIcon" class="fas fa-volume-up"></i>
                 </button>
             </div>
@@ -99,26 +98,26 @@
             <section class="footer-col">
                 <h3>Games Hub</h3>
                 <ul>
-                    <li><a href="guess.html">Number Guess</a></li>
-                    <li><a href="rps.html">RPS Showdown</a></li>
-                    <li><a href="clicker.html">Turbo Clicker</a></li>
-                    <li><a href="dodge.html">Cosmic Dodge</a></li>
+                    <li><a href="games/guess.html">Number Guessing</a></li>
+                    <li><a href="games/rps.html">Rock Paper Scissor</a></li>
+                    <li><a href="games/clicker.html">Turbo Clicker</a></li>
+                    <li><a href="games/dodge.html">Cosmic Dodge</a></li>
                 </ul>
             </section>
 
             <section class="footer-col">
                 <h3>Studio</h3>
                 <ul>
-                    <li><a href="../company.html#about">About Us</a></li>
-                    <li><a href="../company.html#careers">Careers</a></li>
-                    <li><a href="../company.html#support">Support</a></li>
+                    <li><a href="company.html#about">About Us</a></li>
+                    <li><a href="company.html#careers">Careers</a></li>
+                    <li><a href="company.html#support">Support</a></li>
                 </ul>
             </section>
 
             <section class="footer-col">
                 <h3>Press</h3>
                 <ul>
-                    <li><a href="news.html">Newsroom</a></li>
+                    <li><a href="company.html#newsroom">Newsroom</a></li>
                 </ul>
             </section>
 
@@ -126,7 +125,7 @@
                 <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
                 
                 <nav class="social-icons" aria-label="Social Media">
-                    <a href="https://www.linkedin.com/in/nurjamilah-h/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 </nav>
@@ -137,7 +136,7 @@
         </div>
     </footer>
 
-    <script type="module" src="../js/rps-logic.js"></script>
+    <script type="module" src="../js/clicker-logic.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>

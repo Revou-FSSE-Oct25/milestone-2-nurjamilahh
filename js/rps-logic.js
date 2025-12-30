@@ -27,7 +27,7 @@ function initRPSGame() {
     const rpsMusic = document.getElementById('gameMusic');
     const nicknameInput = document.getElementById('nickname-input');
     const musicToggle = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('musicIcon'); // ID di HTML adalah musicIcon
+    const musicIcon = document.getElementById('musicIcon');
     const setupDiv = document.getElementById('nickname-setup');
     const instructionsDiv = document.getElementById('rps-instructions');
     const gameDisplayDiv = document.getElementById('game-display');

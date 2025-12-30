@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Test your intuition with the Number Guessing Game! Challenge yourself to find the hidden number between 1 and 100 in limited attempts. Track your scores and climb the Hall of Fame.">
+    <meta name="description" content="Play Cosmic Dodge on RevoFun - Dodge meteors and survive in outer space!">
 
-    <title>Number Guessing - RevoFun</title>
+    <title>Turbo Clicker - RevoFun</title>
 
-   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/output.css">
     <link rel="stylesheet" href="../css/game-style.css">
 </head>
 
 <body class="bg-[#121212] text-white min-h-screen">
-   
+
     <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
         <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
             
@@ -34,85 +34,82 @@
     </header>
 
     <main id="main-content">
-        <article class="game-box-center" style="
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('../images/guess-image.webp');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(6px);
-            border-radius: 24px; 
-            padding: 36px; 
-            /* box-shadow: 0 15px 35px rgba(200, 162, 200, 0.2); */
-        ">
-
-            <header class="flex items-center justify-center gap-4 mb-8">
-                <h2 class="text-3xl font-bold flex items-center">
-                    <i class="fa-solid fa-wand-magic-sparkles mr-3"></i> 
-                    Number Guessing
-                </h2>
-
-                <audio id="gameMusic" loop>
-                    <source src="../audio/guess-131047.mp3" type="audio/mpeg">
-                </audio>
-
-                <div class="music-controls">
-                    <button id="musicToggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/80 border border-[#C8A2C8] hover:scale-110 transition-transform shadow-sm">
-                        <i id="musicIcon" class="fas fa-volume-up"></i>
-                    </button>
-                </div>
+        <article class="game-box-center">
+            
+            <header>
+                <h1 class="text-3xl font-bold">
+                    <i class="fa-solid fa-meteor mr-2"></i>Rocket Avoider
+                </h1>
             </header>
 
             <section id="nickname-setup" class="game-setup">
-                <label for="nickname-input" class="block mb-2 font-bold">Guesser's Name</label>
-                <input type="text" id="nickname-input" placeholder="Enter Genius Name" maxlength="15">
-                <button id="start-guess-btn" class="btn">Enter Arena</button>
+                <h2 class="sr-only">Persiapan Game</h2>
+                <label for="nickname-input" class="block mb-2 font-bold">Commander's Name</label>
+                <input type="text" id="nickname-input" placeholder="Star Commander" maxlength="15">
+                <button id="start-dodge-btn" class="btn">Start Adventure</button>
             </section>
 
-            <aside id="guess-instructions" class="hidden instruction-box">
-                <h4 class="font-bold text-xl mb-2">How to Play:</h4>
-                <p>I am thinking of a number between 1 and 100. You have 5 attempts to guess it correctly!</p>
-                <p class="mt-2">Current Player: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
-                <button id="start-round-btn" class="btn">Start Guessing!</button>
-            </aside>
-            
-            <div id="game-display" class="game-canvas-area hidden">
-                <div id="game-screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 150px;">
-                    <p class="mb-4">Guess a number between 1 and 100</p>
+            <section id="dodge-instructions" class="hidden instruction-box" aria-labelledby="instr-title">
+                <h2 id="instr-title" class="font-bold text-2xl mb-4">
+                    <i class="fas fa-rocket"></i> How to Play
+                </h2>
+                
+                <div class="instruction-content">
+                    <p>
+                        Use the <strong><i class="fas fa-arrow-left"></i> Left</strong> and 
+                        <strong><i class="fas fa-arrow-right"></i> Right</strong> arrow keys 
+                        to move your ship and avoid the falling space rocks.
+                    </p>
                     
-                    <form id="guess-form" class="game-form" style="display: flex; gap: 10px;">
-                        <input type="number" id="guess-input" placeholder="??" min="1" max="100" required 
-                            style="width: 80px; text-align: center; border-radius: 5px; color: #000;">
-                        <button type="submit" id="guess-submit-btn" class="btn-small">Check</button>
-                    </form>
-
-                    <p id="guess-message" class="message-box mt-4" style="min-height: 50px;">Good Luck!</p>
+                    <div class="player-tag-display">
+                        <p>Current Commander</p>
+                        <span id="current-player-name" style="color: var(--color-secondary-yellow);"></span>
+                    </div>
                 </div>
+
+                <button id="start-round-btn" class="btn">
+                    <i class="fas fa-space-shuttle"></i> Ready to Dodge!
+                </button>
+            </section>
+            
+            <section id="game-display" class="game-canvas-area hidden" aria-label="Arena Permainan">
+                <div id="game-screen"></div>
                 
                 <footer class="game-stats">
-                    Attempts Left: <span id="guess-attempts">5</span> | Best: <span id="guess-high-score">0</span>
+                    <p>Score: <span id="dodge-score">0</span> | High Score: <span id="dodge-high-score">0</span></p>
                 </footer>
-            </div>
-
-            <section id="guess-game-over" class="hidden message-box">
-                <h3 id="result-title" class="text-2xl font-bold">Game Over!</h3>
-                <p id="final-score-message" class="my-4 text-lg"></p>
-                <button id="play-again-guess-btn" class="btn-small">Try Again</button>
             </section>
+
+            <section id="dodge-game-over" class="hidden message-box loser">
+                <h2 class="text-2xl font-bold">Game Over!</h2>
+                <p id="final-score-message" class="my-4 text-lg"></p>
+                <button id="play-again-dodge-btn" class="btn-small">Play Again</button>
+            </section>
+
 
             <section id="leaderboard" class="leaderboard-section">
                 <h2 class="text-xl font-bold">
-                    <i class="fas fa-trophy" style="color: #2ecc71;" aria-hidden="true"></i> 
-                    Master Guessers
+                    <i class="fas fa-rocket" style="color: #2ecc71;" aria-hidden="true"></i> 
+                    Hall of Fame
                 </h2>
-                <ul class="leaderboard-list" id="guess-leaderboard-list">
+                <ul class="leaderboard-list" id="dodge-leaderboard-list">
                     </ul>
             </section>
             
-            <nav class="mt-8 text-center">
-                <a href="../index.html" class="btn-dark">
+            <nav class="mt-8 text-center" aria-label="Navigasi Kembali">
+                <a href="../index.html" class="btn-dark" aria-label="Kembali ke Beranda">
                     <i class="fas fa-home"></i>
                 </a>
             </nav>
+
+            <div class="music-controls">
+                <audio id="gameMusic" loop>
+                    <source src="../audio/dodge-396890.mp3" type="audio/mpeg">
+                </audio>
+                <button id="musicToggle" class="btn-music" aria-label="Nyalakan/Matikan Musik">
+                    <i id="musicIcon" class="fas fa-volume-up" aria-hidden="true"></i>
+                </button>
+            </div>
 
         </article>
     </main>
@@ -160,8 +157,8 @@
             
         </div>
     </footer>
-    
-    <script src="js/script.js"></script>
+
+    <script type="module" src="../js/rocket-logic.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>

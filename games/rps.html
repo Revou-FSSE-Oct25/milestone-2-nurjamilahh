@@ -7,29 +7,27 @@
 
     <title>Rock Paper Scissors - RevoFun</title>
 
-    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/output.css">
     <link rel="stylesheet" href="../css/game-style.css">
-    <link rel="stylesheet" href="../css/footer.css">
-   
 </head>
-<body>
-    <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
+
+<body class="bg-[#121212] text-white min-h-screen">
+
+     <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
         <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
             
             <a href="../index.html" class="shrink-0">
-                <h1 class="text-lg md:text-xl font-black tracking-tighter bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">RevoFun
+                <h1 class="text-lg md:text-xl font-black italic tracking-tighter text-yellow-400">RevoFun
                 </h1>
             </a>
 
             <ul class="flex items-center gap-2 md:gap-5">
-                <li><a href="guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Guess</a></li>
-                <li><a href="rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">RPS</a></li>
-                <li><a href="clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Clicker</a></li>
-                <li><a href="dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition whitespace-nowrap">Dodge</a></li>
+                <li><a href="guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Guess</a></li>
+                <li><a href="rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">RPS</a></li>
+                <li><a href="clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Clicker</a></li>
+                <li><a href="rocket.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition whitespace-nowrap">Rocket</a></li>
             </ul>
 
         </nav>
@@ -39,7 +37,7 @@
         <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
             
             <header>
-                <h2 class="text-3xl font-bold"><span role="img" aria-label="numbers">✂️</span>Rock, Paper, Scissors</h2>
+                <h1 class="text-3xl font-bold"><span role="img" aria-label="numbers">✂️</span>Rock, Paper, Scissors</h1>
             </header>
 
             <section id="nickname-setup" class="game-setup">
@@ -48,27 +46,41 @@
                 <button id="start-rps-btn" class="btn">Enter Arena</button>
             </section>
 
-            <aside id="rps-instructions" class="hidden instruction-box">
-                <h4>How to Play:</h4>
-                <p>Choose your hand: Rock beats Scissors, Scissors beats Paper, and Paper beats Rock.</p>
-                <p>Current Fighter: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
-                <button id="start-round-btn" class="btn">Ready to Duel!</button>
-            </aside>
+            <section id="rps-instructions" class="hidden instruction-box">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-scroll"></i> How to Play
+                </h2>
+                
+                <div class="instruction-content">
+                    <p>Choose your hand: <strong>Rock</strong> beats Scissors, <strong>Scissors</strong> beats Paper, and <strong>Paper</strong> beats Rock.</p>
+                    
+                    <div class="fighter-tag">
+                        <p>Current Fighter</p>
+                        <span id="current-player-name"></span>
+                    </div>
+                </div>
+
+                <button id="start-round-btn" class="btn">
+                    <i class="fas fa-fist-raised"></i> READY TO DUEL!
+                </button>
+            </section>
 
             <div id="game-display" class="hidden">
                 <footer class="game-stats">
                     Player: <span id="player-score">0</span> | Computer: <span id="computer-score">0</span>
                 </footer>
 
-                <div class="rps-choices" style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
-                    <button class="btn-action choice-btn" data-choice="rock">
-                        <span>✊</span>
+                <div class="rps-choices" style="display: flex; gap: 20px; justify-content: center; margin: 30px 0;">
+                    <button class="btn-action choice-btn" data-choice="rock" title="Rock">
+                        <i class="fas fa-hand-rock"></i>
                     </button>
-                    <button class="btn-action choice-btn" data-choice="paper">
-                        <span>🖐️</span>
+                    
+                    <button class="btn-action choice-btn" data-choice="paper" title="Paper">
+                        <i class="fas fa-hand-paper"></i>
                     </button>
-                    <button class="btn-action choice-btn" data-choice="scissors">
-                        <span>✌️</span>
+                    
+                    <button class="btn-action choice-btn" data-choice="scissors" title="Scissors">
+                        <i class="fas fa-hand-scissors"></i>
                     </button>
                 </div>
 
@@ -79,11 +91,14 @@
                 </div>
             </div>
 
-            <aside class="leaderboard-section">
-                <h4>🏆 Hall of Fame</h4>
+            <section id="leaderboard" class="leaderboard-section">
+                <h2 class="text-xl font-bold">
+                    <i class="fas fa-trophy" style="color: #2ecc71;" aria-hidden="true"></i> 
+                    Hall of Fame
+                </h2>
                 <ul class="leaderboard-list" id="rps-leaderboard-list">
                     </ul>
-            </aside>
+            </section>
             
             <nav>
                 <a href="../index.html" class="btn-dark"><i class="fas fa-home"></i>
@@ -103,51 +118,52 @@
         </article>
     </main>
 
-<footer class="main-footer">
-    <div class="footer-content-grid grid-4">
+    <footer class="main-footer">
+        <div class="footer-content-grid grid-4">
 
-        <section class="footer-col">
-            <h3>Games Hub</h3>
-            <ul>
-                <li><a href="guess.html">Number Guess</a></li>
-                <li><a href="rps.html">RPS Showdown</a></li>
-                <li><a href="clicker.html">Turbo Clicker</a></li>
-                <li><a href="dodge.html">Cosmic Dodge</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Games Hub</h3>
+                <ul>
+                    <li><a href="guess.html">Number Guessing</a></li>
+                    <li><a href="rps.html">Rock Paper Scissor</a></li>
+                    <li><a href="clicker.html">Turbo Clicker</a></li>
+                    <li><a href="rocket.html">Rocket Avoider</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col">
-            <h3>Studio</h3>
-            <ul>
-                <li><a href="../company.html#about">About Us</a></li>
-                <li><a href="../company.html#careers">Careers</a></li>
-                <li><a href="../company.html#support">Support</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Studio</h3>
+                <ul>
+                    <li><a href="../company.html#about">About Us</a></li>
+                    <li><a href="../company.html#careers">Careers</a></li>
+                    <li><a href="../company.html#support">Support</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col">
-            <h3>Press</h3>
-            <ul>
-                <li><a href="news.html">Newsroom</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Press</h3>
+                <ul>
+                    <li><a href="../company.html#newsroom">Newsroom</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col footer-social">
-            <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+            <section class="footer-col footer-social">
+                <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+                
+                <nav class="social-icons" aria-label="Social Media">
+                    <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </nav>
+                
+                <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
+            </section>
             
-            <nav class="social-icons" aria-label="Social Media">
-                <a href="https://www.linkedin.com/in/nurjamilah-h/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                 <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </nav>
-            
-            <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
-        </section>
-        
-    </div>
-</footer>
+        </div>
+    </footer>
 
     <script type="module" src="../js/rps-logic.js"></script>
+    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

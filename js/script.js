@@ -1,12 +1,22 @@
-/* --- SCRIPT.JS --- */
-
 window.onload = function() {
-
     const navLinks = document.querySelectorAll('.navbar a');
     const allPages = document.querySelectorAll('.page-section');
-    const slider = document.querySelector('.slider-container');
-    const dots = document.querySelectorAll('.dot');
-    const cards = document.querySelectorAll('.card');
+
+    const swiper = new Swiper('.mySwiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+                return '<span class="' + className + ' dot w-3 h-3 p-1 bg-gray-400 rounded-full cursor-pointer inline-block"></span>';
+            },
+        },
+        spaceBetween: 20,
+    });
 
     function showPage(targetId) {
         if (!targetId || !targetId.startsWith('#')) return;
@@ -16,9 +26,10 @@ window.onload = function() {
         
         if (targetPage) {
             targetPage.classList.remove('hidden');
-        
-            if(targetId === '#games' && typeof scrollToCard === "function") {
-                scrollToCard(0);
+            
+            if(targetId === '#games') {
+                swiper.update(); 
+                swiper.slideToLoop(0);
             }
         }
     }
@@ -32,44 +43,4 @@ window.onload = function() {
             }
         });
     });
-
-    if (slider && cards.length > 0) {
-        let currentIndex = 0;
-        const totalCards = cards.length;
-        const intervalTime = 4000; 
-
-        const getCardWidth = () => {
-            return cards[0].offsetWidth > 0 ? cards[0].offsetWidth + 20 : 570;
-        };
-
-        const scrollToCard = (index) => {
-            slider.scrollTo({
-                left: index * getCardWidth(),
-                behavior: 'smooth'
-            });
-        };
-
-        let autoPlay = setInterval(() => {
-            currentIndex++;
-            if (currentIndex >= totalCards) currentIndex = 0;
-            scrollToCard(currentIndex);
-        }, intervalTime);
-
-        slider.addEventListener('mouseenter', () => clearInterval(autoPlay));
-        
-        slider.addEventListener('scroll', () => {
-            const activeIndex = Math.round(slider.scrollLeft / getCardWidth());
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === (activeIndex % totalCards));
-            });
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                clearInterval(autoPlay); 
-                currentIndex = index;
-                scrollToCard(index);
-            });
-        });
-    }
 }

@@ -7,14 +7,13 @@
 
     <title>RevoFun - Timeless Interactive Fun</title>
 
-    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/footer.css"> 
-    
+    <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
+  
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/footer.css"> 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -50,7 +49,8 @@
             <figure class="w-full md:w-1/2 flex justify-center">
             <div class="relative w-full aspect-square max-w-[550px] overflow-hidden rounded-3xl border border-white/10 shadow-2xl group">
                 <iframe 
-                src="https://fe29ae58-a63a-42a9-aab3-2c2e21340903-render.magicpatterns.app/" 
+                src="https://fe29ae58-a63a-42a9-aab3-2c2e21340903-render.magicpatterns.app/"
+                title="Interactive Gameplay Preview" 
                 class="w-full h-full scale-[1.05] transition-transform duration-700 group-hover:scale-110" 
                 frameborder="0"
                 scrolling="no">
@@ -81,59 +81,64 @@
         </section>
 
         <section id="games" class="page-section">
-           
-            <div class="slider-container no-scrollbar">
-                <ul class="game-cards" role="list">
-                        
-                    <li class="card game-1" role="listitem">
+            <div class="swiper mySwiper">
+                <ul class="swiper-wrapper" role="list">
+                    
+                    <li class="swiper-slide card" role="listitem">
                         <article class="card-content">
+                            <figure class="game-image-area">
+                                <img src="images/guess-400.webp" class="game-img" alt="Number Guessing">
+                            </figure>
                             <h3 class="game-title">Number Guessing</h3>
-                            <p class="game-description">Guess the secret number in just 5 tries!<br>Test your luck and logic.</p>
+                            <p class="game-description">Guess the secret number in just 5 tries!</p>
                             <a href="games/guess.html" class="btn-small">Play Now</a>
                         </article>
                     </li>
 
-                    <li class="card game-2" role="listitem">
+                    <li class="swiper-slide card" role="listitem">
                         <article class="card-content">
-                            <h3 class="game-title">RPS Showdown</h3>
-                            <p class="game-description">The classic battle of Rock, Paper, Scissors.<br>Will you beat the computer?</p>
+                            <figure class="game-image-area">
+                                <img src="images/rps-400.webp" class="game-img" alt="Rock Paper Scissor">
+                            </figure>
+                            <h3 class="game-title">Rock Paper Scissor</h3>
+                            <p class="game-description">The classic battle of Rock, Paper, Scissors.</p>
                             <a href="games/rps.html" class="btn-small">Play Now</a>
                         </article>
                     </li>
 
-                    <li class="card game-3" role="listitem">
+                    <li class="swiper-slide card" role="listitem">
                         <article class="card-content">
+                            <figure class="game-image-area">
+                                <img src="images/clicker-400.webp" class="game-img" alt="Turbo Clicker">
+                            </figure>
                             <h3 class="game-title">Turbo Clicker</h3>
-                            <p class="game-description">Click as fast as you can in 10 seconds!<br>Challenge your reaction time.</p>
+                            <p class="game-description">Click as fast as you can in 10 seconds!</p>
                             <a href="games/clicker.html" class="btn-small">Play Now</a>
                         </article>
                     </li>
 
-                    <li class="card game-4" role="listitem">
+                    <li class="swiper-slide card" role="listitem">
                         <article class="card-content">
+                            <figure class="game-image-area">
+                                <img src="images/dodge-400.webp" class="game-img" alt="Cosmic Dodge">
+                            </figure>
                             <h3 class="game-title">Cosmic Dodge</h3>
-                            <p class="game-description">Move fast and avoid the falling space rocks!<br>How long can you survive?</p>
+                            <p class="game-description">Move fast and avoid the falling space rocks!</p>
                             <a href="games/dodge.html" class="btn-small">Play Now</a>
                         </article>
-                    </li>       
-                </ul>     
-            </div>
-        </section>            
+                    </li>
+
+                </ul> 
                 
-        <section>    
-            <nav class="slider-dots" aria-label="Game Slider Navigation">
-                <button class="dot active" aria-label="Game 1"></button>
-                <button class="dot" aria-label="Game 2"></button>
-                <button class="dot" aria-label="Game 3"></button>
-                <button class="dot" aria-label="Game 4"></button>
-            </nav>
+                <nav class="swiper-pagination !static mt-6 flex justify-center items-center gap-2"></nav>
+            </div>
         </section>
 
         <section id="why-choose" class="why-us-section">
             <div class="container container-split">
                 
                 <figure class="why-image-area">
-                    <img src="images/why-image.webp" alt="Revofun Gaming character and gameplay preview" class="main-img">
+                    <img src="images/why-image.webp" width="440" height="207" class="main-img" alt="Why Choose Us">
                 </figure>
 
                 <div class="why-text-area">
@@ -141,7 +146,7 @@
                         WHY CHOOSE <span class="text-yellow-400 italic">REVOFUN?</span>
                     </h2>
                     
-                    <ul class="features-grid grid-4">
+                    <ul class="features-grid grid-4 text-center">
                         <li>
                             <article class="feature-card">
                                 <i class="fa-solid fa-gift feature-icon text-yellow-400" aria-hidden="true"></i> 
@@ -223,8 +228,10 @@
             
         </div>
     </footer>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
     
 </body>
 </html>

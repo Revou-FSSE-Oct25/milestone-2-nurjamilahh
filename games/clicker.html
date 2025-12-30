@@ -7,144 +7,158 @@
 
     <title>Turbo Clicker - RevoFun</title>
 
-    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/output.css">
     <link rel="stylesheet" href="../css/game-style.css">
-    <link rel="stylesheet" href="../css/footer.css">
-   
 </head>
-<body>
+
+<body class="bg-[#121212] text-white min-h-screen">
+    
     <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
         <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
             
             <a href="../index.html" class="shrink-0">
-                <h1 class="text-lg md:text-xl font-black tracking-tighter bg-gradient-to-b from-[#FFD700] to-[#8A6E2F] bg-clip-text text-transparent">RevoFun
+                <h1 class="text-lg md:text-xl font-black italic tracking-tighter text-yellow-400">RevoFun
                 </h1>
             </a>
 
             <ul class="flex items-center gap-2 md:gap-5">
-                <li><a href="guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Guess</a></li>
-                <li><a href="rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">RPS</a></li>
-                <li><a href="clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition">Clicker</a></li>
-                <li><a href="dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-white transition whitespace-nowrap">Dodge</a></li>
+                <li><a href="guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Guess</a></li>
+                <li><a href="rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">RPS</a></li>
+                <li><a href="clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Clicker</a></li>
+                <li><a href="rocket.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition whitespace-nowrap">Rocket</a></li>
             </ul>
 
         </nav>
     </header>
 
     <main id="main-content">
-    <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
-        
-        <header>
-            <h2 class="text-3xl font-bold"><span role="img" aria-label="finger">👆</span> Turbo Clicker</h2>
-        </header>
-
-        <section id="nickname-setup" class="game-setup">
-            <label for="nickname-input" class="block mb-2 font-bold">Challenger's Name</label>
-            <input type="text" id="nickname-input" placeholder="Rapid Clicker" maxlength="15">
-            <button id="start-clicker-btn" class="btn">Enter Arena</button>
-        </section>
-
-        <aside id="clicker-instructions" class="hidden instruction-box">
-            <h4 class="font-bold text-xl mb-2">How to Play:</h4>
-            <p>Click the big button as fast as you can before the time runs out! You have 10 seconds.</p>
-            <p class="mt-2">Current Player: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
-            <button id="start-round-btn" class="btn">Start Clicking!</button>
-        </aside>
-        
-        <div id="game-display" class="game-canvas-area hidden">
-            <div class="game-stats" style="border-radius: 8px 8px 0 0; margin-bottom: 20px;">
-                Time: <span id="clicker-timer">10</span>s | Clicks: <span id="clicker-score">0</span>
-            </div>
-
-            <div class="click-area">
-                <button id="main-click-btn" class="click-target-btn">CLICK!</button>
-            </div>
+        <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
             
-            <footer class="game-stats" style="margin-top: 20px;">
-                High Score: <span id="clicker-high-score">0</span>
+            <header>
+                <h1 class="text-3xl font-bold">
+                    <i class="fas fa-mouse-pointer" style="color: #2ecc71;" aria-hidden="true"></i> Turbo Clicker
+                </h1>
+            </header>
+
+            <section id="nickname-setup" class="game-setup">
+                <label for="nickname-input" class="block mb-2 font-bold">Challenger's Name</label>
+                <input type="text" id="nickname-input" placeholder="Rapid Clicker" maxlength="15">
+                <button id="start-clicker-btn" class="btn">
+                    <i class="fas fa-door-open" style="color: #2ecc71;"></i> Enter Arena
+                </button>
+            </section>
+
+            <section id="clicker-instructions" class="hidden instruction-box">
+                <h2 class="font-bold text-xl mb-2">
+                    <i class="fas fa-book-open" style="color: #2ecc71;"></i> How to Play:
+                </h2>
+                <p>Click the big button as fast as you can before the time runs out! You have 10 seconds.</p>
+                <p class="mt-2">Current Player: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
+                <button id="start-round-btn" class="btn">
+                    <i class="fas fa-rocket" style="color: #2ecc71;"></i> Start Clicking!
+                </button>
+            </section>
+            
+            <div id="game-display" class="game-canvas-area hidden">
+                <div class="game-stats" style="border-radius: 8px 8px 0 0; margin-bottom: 20px;">
+                    <i class="fas fa-stopwatch" style="color: #2ecc71;"></i> Time: <span id="clicker-timer">10</span>s | 
+                    <i class="fas fa-hand-point-up" style="color: #2ecc71;"></i> Clicks: <span id="clicker-score">0</span>
+                </div>
+
+                <div class="click-area">
+                    <button id="main-click-btn" class="click-target-btn">CLICK!</button>
+                </div>
+                
+                <footer class="game-stats" style="margin-top: 20px;">
+                    <i class="fas fa-star" style="color: #2ecc71;"></i> High Score: <span id="clicker-high-score">0</span>
+                </footer>
+            </div>
+
+            <section id="clicker-game-over" class="hidden message-box winner">
+                <h2 class="text-2xl font-bold">Time's Up!</h2>
+                <p id="final-score-message" class="my-4 text-lg"></p>
+                <button id="play-again-clicker-btn" class="btn-small">
+                    <i class="fas fa-redo" style="color: #2ecc71;"></i> Try Again
+                </button>
+            </section>
+
+            <section class="leaderboard-section">
+                <h2 class="font-bold text-lg">
+                    <i class="fas fa-trophy" style="color: #2ecc71;"></i> Clicker Hall of Fame
+                </h2>
+                <ul class="leaderboard-list" id="clicker-leaderboard-list">
+                    </ul>
+            </section>
+            
+            <footer class="mt-8 text-center">
+                <nav aria-label="Game navigation">
+                    <a href="../index.html" class="btn-dark" title="Home">
+                        <i class="fas fa-home" style="color: #2ecc71;"></i>
+                    </a>
+                </nav>
+
+                <audio id="gameMusic" loop>
+                    <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
+                </audio>
+
+                <div class="music-controls mt-4">
+                    <button id="musicToggle" class="btn-music">
+                        <i id="musicIcon" class="fas fa-volume-up" style="color: #2ecc71;"></i>
+                    </button>
+                </div>
             </footer>
-        </div>
 
-        <section id="clicker-game-over" class="hidden message-box winner">
-            <h3 class="text-2xl font-bold">Time's Up!</h3>
-            <p id="final-score-message" class="my-4 text-lg"></p>
-            <button id="play-again-clicker-btn" class="btn-small">Try Again</button>
-        </section>
-
-        <aside class="leaderboard-section">
-            <h4>🏆 Clicker Hall of Fame</h4>
-            <ul class="leaderboard-list" id="clicker-leaderboard-list">
-                </ul>
-        </aside>
-        
-        <nav class="mt-8 text-center">
-            <a href="../index.html" class="btn-dark">
-                <i class="fas fa-home"></i>
-            </a>
-        </nav>
-
-        <audio id="gameMusic" loop>
-            <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
-        </audio>
-
-        <div class="music-controls">
-            <button id="musicToggle" class="btn-music">
-                <i id="musicIcon" class="fas fa-volume-up"></i>
-            </button>
-        </div>
-
-    </article>
+        </article>
     </main>
 
-<footer class="main-footer">
-    <div class="footer-content-grid grid-4">
+    <footer class="main-footer">
+        <div class="footer-content-grid grid-4">
 
-        <section class="footer-col">
-            <h3>Games Hub</h3>
-            <ul>
-                <li><a href="guess.html">Number Guess</a></li>
-                <li><a href="rps.html">RPS Showdown</a></li>
-                <li><a href="clicker.html">Turbo Clicker</a></li>
-                <li><a href="dodge.html">Cosmic Dodge</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Games Hub</h3>
+                <ul>
+                    <li><a href="guess.html">Number Guessing</a></li>
+                    <li><a href="rps.html">Rock Paper Scissor</a></li>
+                    <li><a href="clicker.html">Turbo Clicker</a></li>
+                    <li><a href="rocket.html">Rocket Avoider</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col">
-            <h3>Studio</h3>
-            <ul>
-                <li><a href="../company.html#about">About Us</a></li>
-                <li><a href="../company.html#careers">Careers</a></li>
-                <li><a href="../company.html#support">Support</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Studio</h3>
+                <ul>
+                    <li><a href="../company.html#about">About Us</a></li>
+                    <li><a href="../company.html#careers">Careers</a></li>
+                    <li><a href="../company.html#support">Support</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col">
-            <h3>Press</h3>
-            <ul>
-                <li><a href="../company.html#newsroom">Newsroom</a></li>
-            </ul>
-        </section>
+            <section class="footer-col">
+                <h3>Press</h3>
+                <ul>
+                    <li><a href="../company.html#newsroom">Newsroom</a></li>
+                </ul>
+            </section>
 
-        <section class="footer-col footer-social">
-            <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+            <section class="footer-col footer-social">
+                <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
+                
+                <nav class="social-icons" aria-label="Social Media">
+                    <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </nav>
+                
+                <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
+            </section>
             
-            <nav class="social-icons" aria-label="Social Media">
-                <a href="https://www.linkedin.com/in/nurjamilah-h/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                 <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </nav>
-            
-            <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
-        </section>
-        
-    </div>
-</footer>
+        </div>
+    </footer>
 
     <script type="module" src="../js/clicker-logic.js"></script>
+    <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
