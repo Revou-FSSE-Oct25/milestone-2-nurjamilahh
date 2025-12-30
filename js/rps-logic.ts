@@ -1,14 +1,24 @@
-/**
- * =======================
- * ✂️ Rock Paper Scissors 
- * =======================
- */
+import { fadeInAudio } from './utils/audio-helper';
 
-// 1. Enums & Interfaces
-export {};
+const MIN_NICKNAME_LENGTH = 2;
+const MAX_LEADERBOARD_ENTRIES = 5; 
+
+const ICONS = { 
+    rock: 'fas fa-hand-rock', 
+    paper: 'fas fa-hand-paper', 
+    scissors: 'fas fa-hand-scissors' 
+};
+
+const STATUS_ICONS = {
+    winner: 'fas fa-trophy',
+    loser: 'fas fa-robot',
+    draw: 'fas fa-handshake'
+};
+
+const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32']; 
 
 enum AudioConfig {
-    QUIET = 0.1,
+    TARGET_VOLUME = 0.1,
     FADE_STEP = 0.01,
     FADE_INTERVAL = 100
 }
@@ -26,20 +36,14 @@ interface PlayerScore {
 
 type Choice = 'rock' | 'paper' | 'scissors';
 
-/**
- * ==================
- * ✂️ RPS Game Logic
- * ==================
- */
 function initRPSGame() {
-    // --- 2. DOM Elements ---
     const startRPSBtn = document.getElementById('start-rps-btn') as HTMLButtonElement;
     const startRoundBtn = document.getElementById('start-round-btn') as HTMLButtonElement;
     const resetBtn = document.getElementById('rps-reset-btn') as HTMLButtonElement;
     const rpsMusic = document.getElementById('gameMusic') as HTMLAudioElement;
     const nicknameInput = document.getElementById('nickname-input') as HTMLInputElement;
     const musicToggle = document.getElementById('musicToggle') as HTMLButtonElement;
-    const musicIcon = document.getElementById('musicIcon'); // ID di HTML adalah musicIcon
+    const musicIcon = document.getElementById('musicIcon');
 
     const setupDiv = document.getElementById('nickname-setup');
     const instructionsDiv = document.getElementById('rps-instructions');
@@ -51,15 +55,8 @@ function initRPSGame() {
     const leaderboardList = document.getElementById('rps-leaderboard-list');
     const choiceBtns = document.querySelectorAll('.choice-btn');
 
-    if (!startRPSBtn || !rpsMusic || !nicknameInput) {
-        console.warn("Important DOM elements missing.");
-        return;
-    }
+    if (!startRPSBtn || !rpsMusic || !nicknameInput) return;
 
-    // Set Volume Awal
-    rpsMusic.volume = AudioConfig.QUIET;
-
-    // --- 3. Game State ---
     let rpsState = {
         playerScore: 0,
         computerScore: 0,
@@ -67,7 +64,6 @@ function initRPSGame() {
         nickname: ''
     };
 
-    // --- 4. Leaderboard Functions ---
     function getLeaderboard(): PlayerScore[] {
         const board = localStorage.getItem('rpsLeaderboard');
         return board ? JSON.parse(board) : [];
@@ -75,13 +71,10 @@ function initRPSGame() {
 
     function saveToLeaderboard() {
         if (rpsState.playerScore === 0) return;
-        
         let board = getLeaderboard();
-        // Cek apakah user sudah ada di board
         const existingIdx = board.findIndex(entry => entry.name === rpsState.nickname);
         
         if (existingIdx !== -1) {
-            // Update jika skor baru lebih tinggi
             if (rpsState.playerScore > board[existingIdx].score) {
                 board[existingIdx].score = rpsState.playerScore;
                 board[existingIdx].date = new Date().toLocaleDateString();
@@ -93,9 +86,8 @@ function initRPSGame() {
                 date: new Date().toLocaleDateString() 
             });
         }
-
         board.sort((a, b) => b.score - a.score);
-        localStorage.setItem('rpsLeaderboard', JSON.stringify(board.slice(0, 10)));
+        localStorage.setItem('rpsLeaderboard', JSON.stringify(board.slice(0, MAX_LEADERBOARD_ENTRIES)));
         renderLeaderboard();
     }
 
@@ -103,71 +95,99 @@ function initRPSGame() {
         if (!leaderboardList) return;
         const board = getLeaderboard();
         leaderboardList.innerHTML = ''; 
+
         board.forEach((entry, index) => {
-            const listItem = `
-                <li>
-                    <span>${index + 1}. <strong>${entry.name}</strong></span>
-                    <span>Wins: ${entry.score}</span>
-                </li>`;
-            leaderboardList.innerHTML += listItem;
+            const li = document.createElement('li');
+            
+            const rankSpan = document.createElement('span');
+            if (index < 3) {
+                const medal = document.createElement('i');
+                medal.className = 'fas fa-medal';
+                medal.style.color = MEDAL_COLORS[index];
+                medal.style.marginRight = '8px';
+                rankSpan.appendChild(medal);
+            }
+            rankSpan.append(`${index + 1}. `);
+            
+            const nameBold = document.createElement('strong');
+            nameBold.textContent = entry.name;
+            
+            const scoreSpan = document.createElement('span');
+            scoreSpan.textContent = ` Wins: ${entry.score}`;
+
+            li.append(rankSpan, nameBold, scoreSpan);
+            leaderboardList.appendChild(li);
         });
     }
 
-    // --- 5. Game Core Logic ---
     function playRound(playerChoice: Choice) {
         const choices: Choice[] = ['rock', 'paper', 'scissors'];
-        const computerChoice = choices[Math.floor(Math.random() * choices.length)];
-        const icons = { rock: '✊', paper: '🖐️', scissors: '✌️' };
+        const computerChoice = choices[Math.floor(Math.random() * choices.length)] as Choice;
 
         let result = "";
         let resultClass = "message-box";
+        let statusIcon = "";
 
         if (playerChoice === computerChoice) {
-            result = "DRAW! 🤝";
+            result = "DRAW!";
+            statusIcon = STATUS_ICONS.draw;
         } else if (
             (playerChoice === 'rock' && computerChoice === 'scissors') ||
             (playerChoice === 'paper' && computerChoice === 'rock') ||
             (playerChoice === 'scissors' && computerChoice === 'paper')
         ) {
             rpsState.playerScore++;
-            result = "YOU WIN! 🎉";
+            result = "YOU WIN!";
             resultClass = "message-box winner";
-            saveToLeaderboard(); // Simpan setiap kali menang
+            statusIcon = STATUS_ICONS.winner;
+            saveToLeaderboard();
         } else {
             rpsState.computerScore++;
-            result = "COMPUTER WINS! 🤖";
+            result = "COMPUTER WINS!";
             resultClass = "message-box loser";
+            statusIcon = STATUS_ICONS.loser;
         }
 
-        // Update UI
         if (roundResultMsg) {
-            roundResultMsg.innerHTML = `${icons[playerChoice]} vs ${icons[computerChoice]}<br><strong>${result}</strong>`;
+            roundResultMsg.textContent = ""; 
+            
+            const battleDiv = document.createElement('div');
+            battleDiv.style.fontSize = '2rem';
+            battleDiv.style.marginBottom = '8px';
+            
+            const pIcon = document.createElement('i');
+            pIcon.className = ICONS[playerChoice];
+            const cIcon = document.createElement('i');
+            cIcon.className = ICONS[computerChoice];
+            
+            battleDiv.append(pIcon, " vs ", cIcon);
+
+            const statusDiv = document.createElement('div');
+            const sIcon = document.createElement('i');
+            sIcon.className = statusIcon;
+            sIcon.style.marginRight = '8px';
+            if (result === "YOU WIN!") sIcon.style.color = MEDAL_COLORS[0];
+            
+            const statusText = document.createElement('strong');
+            statusText.textContent = result;
+            
+            statusDiv.append(sIcon, statusText);
+            roundResultMsg.append(battleDiv, statusDiv);
             roundResultMsg.className = resultClass;
         }
+
         if (playerScoreSpan) playerScoreSpan.textContent = rpsState.playerScore.toString();
         if (computerScoreSpan) computerScoreSpan.textContent = rpsState.computerScore.toString();
     }
 
-    // --- 6. Event Listeners ---
     startRPSBtn.addEventListener('click', () => {
         const nick = nicknameInput.value.trim();
-        if (nick.length < 2) {
-            alert('Please enter a nickname of at least 2 characters!');
+        if (nick.length < MIN_NICKNAME_LENGTH) {
+            alert(`Nickname minimal ${MIN_NICKNAME_LENGTH} karakter!`);
             return;
         }
 
-        // Music Fade-in
-        if (rpsMusic) {
-            rpsMusic.volume = 0;
-            rpsMusic.play().catch(() => console.log("Audio blocked"));
-            let fadeIn = setInterval(() => {
-                if (rpsMusic.volume < AudioConfig.QUIET) {
-                    rpsMusic.volume = Math.min(AudioConfig.QUIET, rpsMusic.volume + AudioConfig.FADE_STEP);
-                } else {
-                    clearInterval(fadeIn);
-                }
-            }, AudioConfig.FADE_INTERVAL);
-        }
+        if (rpsMusic) fadeInAudio(rpsMusic, AudioConfig.TARGET_VOLUME);
 
         rpsState.nickname = nick;
         setupDiv?.classList.add('hidden');
@@ -215,5 +235,4 @@ function initRPSGame() {
     renderLeaderboard();
 }
 
-// Inisialisasi
 window.addEventListener('load', initRPSGame);

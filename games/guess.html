@@ -47,7 +47,11 @@
 
             <header class="flex items-center justify-center gap-4 mb-8">
                 <h2 class="text-3xl font-bold flex items-center">
-                    <i class="fa-solid fa-wand-magic-sparkles mr-3"></i> 
+                    <i class="fas fa-satellite-dish mr-3"style="color: #2ecc71;"></i> 
+                    <i class="fas fa-bullseye" style="color: #2ecc71;"></i>
+                    <i class="fas fa-shuttle-space" style="color: #2ecc71;"></i>
+                    <i class="fas fa-rocket fa-rotate-270" style="color: #2ecc71;"></i>
+
                     Number Guessing
                 </h2>
 
@@ -67,14 +71,15 @@
                 <input type="text" id="nickname-input" placeholder="Enter Genius Name" maxlength="15">
                 <button id="start-guess-btn" class="btn">Enter Arena</button>
             </section>
-
-            <aside id="guess-instructions" class="hidden instruction-box">
-                <h4 class="font-bold text-xl mb-2">How to Play:</h4>
-                <p>I am thinking of a number between 1 and 100. You have 5 attempts to guess it correctly!</p>
-                <p class="mt-2">Current Player: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
-                <button id="start-round-btn" class="btn">Start Guessing!</button>
-            </aside>
             
+            <section id="guess-instructions" class="hidden instruction-box" aria-labelledby="instruction-title">
+                <h2 id="instruction-title" class="font-bold text-xl mb-2">How to Play:</h2>
+                <p>I am thinking of a number between 1 and 100. You have 5 attempts to guess it correctly!</p>
+                <p class="mt-2">Current Player: <span id="current-player-name" class="font-bold text-yellow-400"></span></p>
+                <button id="start-round-btn" class="btn">Start Guessing!</button>
+            </section>
+
+
             <div id="game-display" class="game-canvas-area hidden">
                 <div id="game-screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 150px;">
                     <p class="mb-4">Guess a number between 1 and 100</p>

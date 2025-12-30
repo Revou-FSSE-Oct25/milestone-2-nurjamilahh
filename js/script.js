@@ -3,20 +3,25 @@ window.onload = function() {
     const allPages = document.querySelectorAll('.page-section');
 
     const swiper = new Swiper('.mySwiper', {
-        loop: true,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-            renderBullet: function (index, className) {
-                return '<span class="' + className + ' dot w-3 h-3 p-1 bg-gray-400 rounded-full cursor-pointer inline-block"></span>';
-            },
-        },
-        spaceBetween: 20,
-    });
+    slidesPerView: 1,
+    spaceBetween: 20,
+    centeredSlides: true,
+    loop: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        768: {
+        slidesPerView: 1.2,
+        }
+    }
+});
+
 
     function showPage(targetId) {
         if (!targetId || !targetId.startsWith('#')) return;
@@ -28,8 +33,10 @@ window.onload = function() {
             targetPage.classList.remove('hidden');
             
             if(targetId === '#games') {
-                swiper.update(); 
-                swiper.slideToLoop(0);
+                setTimeout(() => {
+                    swiper.update(); 
+                    swiper.slideToLoop(0, 0); 
+                }, 100);
             }
         }
     }

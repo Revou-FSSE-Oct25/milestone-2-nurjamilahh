@@ -3,235 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive Website for A Gaming Company Landing Page">
-
-    <title>RevoFun - Timeless Interactive Fun</title>
+    <title>Document</title>
 
     <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
-  
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/output.css">
-    <link rel="stylesheet" href="css/footer.css"> 
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css2.css"> 
+  
 </head>
-
 <body>
-     <header class="sticky top-0 z-50 bg-[#121212] px-4 py-2 border-b border-white/5 shadow-sm">
-        <nav class="flex items-center justify-between flex-nowrap max-w-7xl mx-auto">
-            
-            <a href="../index.html" class="shrink-0">
-                <h1 class="text-lg md:text-xl font-black italic tracking-tighter text-yellow-400">RevoFun
-                </h1>
-            </a>
-
-            <ul class="flex items-center gap-2 md:gap-5">
-                <li><a href="games/guess.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Guess</a></li>
-                <li><a href="games/rps.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">RPS</a></li>
-                <li><a href="games/clicker.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition">Clicker</a></li>
-                <li><a href="games/dodge.html" class="text-[13px] md:text-sm font-bold text-white/80 hover:text-blue-500 transition whitespace-nowrap">Dodge</a></li>
-            </ul>
-
-        </nav>
-    </header>
-
-    <main class="bg-[#121212] min-h-screen text-white px-10 py-20 flex flex-col items-center">
-
-        <header class="w-full text-center mb-16">
-            <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase italic">
-            <span class="text-blue-500">Welcome</span> to 
-            <span class="text-yellow-400">Revofun!</span>
-            </h1>
-        </header>
-
-        <section class="max-w-7xl w-full flex flex-col md:flex-row items-center justify-center gap-16">
-            
-            <figure class="w-full md:w-1/2 flex justify-center">
-            <div class="relative w-full aspect-square max-w-[550px] overflow-hidden rounded-3xl border border-white/10 shadow-2xl group">
-                <iframe 
-                src="https://fe29ae58-a63a-42a9-aab3-2c2e21340903-render.magicpatterns.app/"
-                title="Interactive Gameplay Preview" 
-                class="w-full h-full scale-[1.05] transition-transform duration-700 group-hover:scale-110" 
-                frameborder="0"
-                scrolling="no">
-                </iframe>
-                <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(18,18,18,0.8)]"></div>
-                <div class="absolute inset-0 pointer-events-none bg-blue-500/5 mix-blend-overlay"></div>
-            </div>
-            </figure>
-
-            <article class="w-full md:w-1/2 flex flex-col items-center text-center space-y-8">
-                <div class="space-y-4">
-                    <h2 class="text-3xl font-bold text-gray-200">Revolutionary Fun</h2>
-                    <p class="text-gray-400 text-xl leading-relaxed max-w-md mx-auto">
-                        We create interactive experiences that inspire human connection for all ages.
-                    </p>
-                </div>
-            
-                <div class="flex flex-wrap justify-center gap-5 w-full">
-                    <a href="#games" class="px-10 py-4 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-all shadow-lg shadow-white/5">
-                    Our Games
-                    </a>
-                    <a href="company.html" class="px-10 py-4 border-2 border-white/20 text-white rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all">
-                    About Us
-                    </a>
-                </div>
-            </article>
-
-        </section>
-
-        <section id="games" class="page-section">
-            <div class="swiper mySwiper">
+    <main>
+        <section id="games" class="page-section py-10">
+            <div class="game-container"> 
+                
+                <div class="swiper mySwiper">
                 <ul class="swiper-wrapper" role="list">
                     
-                    <li class="swiper-slide card" role="listitem">
-                        <article class="card-content">
-                            <figure class="game-image-area">
-                                <img src="images/guess-400.webp" class="game-img" alt="Number Guessing">
-                            </figure>
+                    <li class="swiper-slide group" role="listitem">
+                    <article class="card-wrapper">
+                        <figure class="image-frame">
+                        <img src="images/guess-400.webp" alt="Number Guessing" class="game-img">
+                        <figcaption class="overlay">
                             <h3 class="game-title">Number Guessing</h3>
-                            <p class="game-description">Guess the secret number in just 5 tries!</p>
-                            <a href="games/guess.html" class="btn-small">Play Now</a>
-                        </article>
+                            <p class="game-desc">Guess the secret number in just 5 tries!</p>
+                            <a href="games/guess.html" class="play-btn">Play Now</a>
+                        </figcaption>
+                        </figure>
+                    </article>
                     </li>
 
-                    <li class="swiper-slide card" role="listitem">
-                        <article class="card-content">
-                            <figure class="game-image-area">
-                                <img src="images/rps-400.webp" class="game-img" alt="Rock Paper Scissor">
-                            </figure>
+                    <li class="swiper-slide group" role="listitem">
+                    <article class="card-wrapper">
+                        <figure class="image-frame">
+                        <img src="images/rps-400.webp" alt="Rock Paper Scissor" class="game-img">
+                        <figcaption class="overlay">
                             <h3 class="game-title">Rock Paper Scissor</h3>
-                            <p class="game-description">The classic battle of Rock, Paper, Scissors.</p>
-                            <a href="games/rps.html" class="btn-small">Play Now</a>
-                        </article>
+                            <p class="game-desc">The classic battle of Rock, Paper, Scissors.</p>
+                            <a href="games/rps.html" class="play-btn">Play Now</a>
+                        </figcaption>
+                        </figure>
+                    </article>
                     </li>
 
-                    <li class="swiper-slide card" role="listitem">
-                        <article class="card-content">
-                            <figure class="game-image-area">
-                                <img src="images/clicker-400.webp" class="game-img" alt="Turbo Clicker">
-                            </figure>
+                    <li class="swiper-slide group" role="listitem">
+                    <article class="card-wrapper">
+                        <figure class="image-frame">
+                        <img src="images/clicker-400.webp" alt="Turbo Clicker" class="game-img">
+                        <figcaption class="overlay">
                             <h3 class="game-title">Turbo Clicker</h3>
-                            <p class="game-description">Click as fast as you can in 10 seconds!</p>
-                            <a href="games/clicker.html" class="btn-small">Play Now</a>
-                        </article>
+                            <p class="game-desc">Click as fast as you can in 10 seconds!</p>
+                            <a href="games/clicker.html" class="play-btn">Play Now</a>
+                        </figcaption>
+                        </figure>
+                    </article>
                     </li>
 
-                    <li class="swiper-slide card" role="listitem">
-                        <article class="card-content">
-                            <figure class="game-image-area">
-                                <img src="images/dodge-400.webp" class="game-img" alt="Cosmic Dodge">
-                            </figure>
+                    <li class="swiper-slide group" role="listitem">
+                    <article class="card-wrapper">
+                        <figure class="image-frame">
+                        <img src="images/dodge-400.webp" alt="Cosmic Dodge" class="game-img">
+                        <figcaption class="overlay">
                             <h3 class="game-title">Cosmic Dodge</h3>
-                            <p class="game-description">Move fast and avoid the falling space rocks!</p>
-                            <a href="games/dodge.html" class="btn-small">Play Now</a>
-                        </article>
+                            <p class="game-desc">Move fast and avoid the falling space rocks!</p>
+                            <a href="games/dodge.html" class="play-btn">Play Now</a>
+                        </figcaption>
+                        </figure>
+                    </article>
                     </li>
 
                 </ul> 
-                
-                <nav class="swiper-pagination !static mt-6 flex justify-center items-center gap-2"></nav>
-            </div>
-        </section>
-
-        <section id="why-choose" class="why-us-section">
-            <div class="container container-split">
-                
-                <figure class="why-image-area">
-                    <img src="images/why-image.webp" width="440" height="207" class="main-img" alt="Why Choose Us">
-                </figure>
-
-                <div class="why-text-area">
-                    <h2 class="section-title">
-                        WHY CHOOSE <span class="text-yellow-400 italic">REVOFUN?</span>
-                    </h2>
-                    
-                    <ul class="features-grid grid-4 text-center">
-                        <li>
-                            <article class="feature-card">
-                                <i class="fa-solid fa-gift feature-icon text-yellow-400" aria-hidden="true"></i> 
-                                <h3>Always Free</h3>
-                                <p>Our games are 100% free to play, ensuring fun is accessible to everyone.</p>
-                            </article>
-                        </li>
-                        
-                        <li>
-                            <article class="feature-card">
-                                <i class="fa-solid fa-shield-halved feature-icon text-yellow-400" aria-hidden="true"></i>
-                                <h3>Kid-Safe Design</h3>
-                                <p>We prioritize a safe, non-toxic, and privacy-focused gaming environment.</p>
-                            </article>
-                        </li>
-                        
-                        <li>
-                            <article class="feature-card">
-                                <i class="fa-solid fa-brain feature-icon text-yellow-400" aria-hidden="true"></i>
-                                <h3>Learn While Playing</h3>
-                                <p>Simple concepts designed to gently challenge logic and reaction skills.</p>
-                            </article>
-                        </li>
-                        
-                        <li>
-                            <article class="feature-card">
-                                <i class="fa-solid fa-face-smile feature-icon text-yellow-400" aria-hidden="true"></i>
-                                <h3>Pure Fun</h3>
-                                <p>Timeless, simple mechanics ensure instant, replayable entertainment.</p>
-                            </article>
-                        </li>
-                    </ul>
+                <nav class="swiper-pagination !static mt-8"></nav>
                 </div>
 
             </div>
-        </section>
+            </section>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content-grid grid-4">
-
-            <section class="footer-col">
-                <h3>Games Hub</h3>
-                <ul>
-                    <li><a href="games/guess.html">Number Guessing</a></li>
-                    <li><a href="games/rps.html">Rock Paper Scissor</a></li>
-                    <li><a href="games/clicker.html">Turbo Clicker</a></li>
-                    <li><a href="games/dodge.html">Cosmic Dodge</a></li>
-                </ul>
-            </section>
-
-            <section class="footer-col">
-                <h3>Studio</h3>
-                <ul>
-                    <li><a href="company.html#about">About Us</a></li>
-                    <li><a href="company.html#careers">Careers</a></li>
-                    <li><a href="company.html#support">Support</a></li>
-                </ul>
-            </section>
-
-            <section class="footer-col">
-                <h3>Press</h3>
-                <ul>
-                    <li><a href="company.html#newsroom">Newsroom</a></li>
-                </ul>
-            </section>
-
-            <section class="footer-col footer-social">
-                <a href="#newsletter" class="btn-small newsletter-btn">Join Newsletter</a>
-                
-                <nav class="social-icons" aria-label="Social Media">
-                    <a href="https://www.linkedin.com/in/nurjamilah-h" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="mailto:worknurjam@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://github.com/nurjamilahh" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                </nav>
-                
-                <small class="copyright">&copy; 2025 RevoFun Gaming Co.</small>
-            </section>
-            
-        </div>
-    </footer>
-    
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
-    
 </body>
 </html>
