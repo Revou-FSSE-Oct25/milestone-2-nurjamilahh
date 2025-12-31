@@ -42,13 +42,13 @@
             
             <header>
                 <h1 class="text-3xl font-bold">
-                    <i class="fas fa-mouse-pointer" aria-hidden="true"></i> Turbo Clicker
+                    <i class="fas fa-mouse-pointer mr-2" aria-hidden="true"></i> Turbo Clicker
                 </h1>
             </header>
 
             <section id="nickname-setup" class="game-setup">
                 <label for="nickname-input" class="block mb-2 font-bold">Challenger's Name</label>
-                <input type="text" id="nickname-input" placeholder="Rapid Clicker" maxlength="15">
+                <input type="text" id="nickname-input" placeholder="Enter Rapid Clicker" maxlength="15">
                 <button id="start-clicker-btn" 
                         class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
                         style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;"> 
@@ -64,17 +64,17 @@
                     <i class="fas fa-scroll"></i> How to Play:
                 </h2>
 
-                <div class="instruction-content"></div>
+                <div class="instruction-content">
                     <p>Click the big button as fast as you can before the time runs out! You have 10 seconds.</p>
 
-                <div class="fighter-tag">
+                    <div class="fighter-tag">
                         <p>Current Player</p>
                         <span id="current-player-name"></span>
                     </div>
                 </div>
 
                 <button id="start-round-btn" class="btn">
-                    <i class="fas fa-mouse-pointer"></i> Start Clicking!
+                    <i class="fas fa-mouse-pointer mr-2"></i>Start Clicking!
                 </button>
             </section>
             
@@ -107,21 +107,22 @@
                     Hall of Fame
                 </h2>
                 <ul class="leaderboard-list" id="rps-leaderboard-list">
-                    </ul>
+                </ul>
             </section>
             
-                <nav>
-                    <a href="../index.html" class="btn-dark"><i class="fas fa-home"></i>
-                    </a>
-                </nav>
+            <nav>
+                <a href="../index.html" class="btn-dark">
+                    <i class="fas fa-home"></i>
+                </a>
+            </nav>
 
-                <audio id="gameMusic" loop>
-                    <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
-                </audio>
+            <audio id="gameMusic" loop>
+                <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
+            </audio>
 
-                <div class="music-controls">
+            <div class="music-controls">
                 <button id="musicToggle" class="btn-music">
-                    <i id="musicIcon" class="fas fa-volume-up"></i>
+                <i id="musicIcon" class="fas fa-volume-up"></i>
                 </button>
             </div>
 

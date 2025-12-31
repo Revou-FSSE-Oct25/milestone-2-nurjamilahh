@@ -7,7 +7,7 @@
 
     <title>Number Guessing - RevoFun</title>
 
-   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/output.css">
     <link rel="stylesheet" href="../css/game-style.css">
@@ -33,50 +33,48 @@
         </nav>
     </header>
 
-    <main id="main-content">
-        <article class="game-box-center" style="
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('../images/guess-image.webp');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(6px);
-            border-radius: 24px; 
-            padding: 36px; 
-            /* box-shadow: 0 15px 35px rgba(200, 162, 200, 0.2); */
-        ">
+     <main id="main-content" 
+        class="min-h-screen w-full bg-cover bg-center bg-fixed flex items-center justify-center" 
+        style="background-image: url('../images/guess-bg.webp');">
 
-            <header class="flex items-center justify-center gap-4 mb-8">
-                <h2 class="text-3xl font-bold flex items-center">
-                    <i class="fas fa-satellite-dish mr-3"style="color: #2ecc71;"></i> 
-                    <i class="fas fa-bullseye" style="color: #2ecc71;"></i>
-                    <i class="fas fa-shuttle-space" style="color: #2ecc71;"></i>
-                    <i class="fas fa-rocket fa-rotate-270" style="color: #2ecc71;"></i>
+        <article class="game-box-center" 
+             style="background-color: #121212; color: #E1E1E1; padding: 2rem; border-radius: 1rem; max-width: 500px; margin: 2rem auto;">
 
+            <header>
+                <h1 class="text-3xl font-bold">
+                    <i class="fas fa-bullseye mr-2" aria-hidden="true"></i>
                     Number Guessing
-                </h2>
-
-                <audio id="gameMusic" loop>
-                    <source src="../audio/guess-131047.mp3" type="audio/mpeg">
-                </audio>
-
-                <div class="music-controls">
-                    <button id="musicToggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/80 border border-[#C8A2C8] hover:scale-110 transition-transform shadow-sm">
-                        <i id="musicIcon" class="fas fa-volume-up"></i>
-                    </button>
-                </div>
+                </h1>
             </header>
 
             <section id="nickname-setup" class="game-setup">
                 <label for="nickname-input" class="block mb-2 font-bold">Guesser's Name</label>
                 <input type="text" id="nickname-input" placeholder="Enter Genius Name" maxlength="15">
-                <button id="start-guess-btn" class="btn">Enter Arena</button>
+                <button id="start-clicker-btn" 
+                        class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
+                        style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;"> 
+                    
+                    <span class="flex items-center justify-center gap-3"><i class="fas fa-door-open mr-2"></i>START INVESTIGATION  
+                        <span class="h-2 border-t-2 border-r-2 border-current rotate-45 transition-transform duration-300 group-hover:translate-x-2 translate-y-[1px]"></span>
+                    </span>
+                </button>
             </section>
             
-            <section id="guess-instructions" class="hidden instruction-box" aria-labelledby="instruction-title">
-                <h2 id="instruction-title" class="font-bold text-xl mb-2">How to Play:</h2>
-                <p>I am thinking of a number between 1 and 100. You have 5 attempts to guess it correctly!</p>
-                <p class="mt-2">Current Player: <span id="current-player-name" class="font-bold text-yellow-400"></span></p>
-                <button id="start-round-btn" class="btn">Start Guessing!</button>
+            <section id="guess-instructions" class="hidden instruction-box">
+                <h2 class="font-bold text-xl mb-4">
+                    <i class="fas fa-scroll"></i> How to Play:
+                </h2>
+
+                <div class="instruction-content">
+                    <p>I am thinking of a number between 1 and 100. You have 5 attempts to guess it correctly!</p>
+
+                    <div class="fighter-tag">
+                        <p>Current Player</p>
+                        <span id="current-player-name" class="font-bold text-yellow-400"></span>
+                
+                <button id="start-round-btn" class="btn">
+                    <i class="fas fa-mouse-pointer"></i>Crack The Code!
+                </button>
             </section>
 
 
@@ -93,31 +91,41 @@
                     <p id="guess-message" class="message-box mt-4" style="min-height: 50px;">Good Luck!</p>
                 </div>
                 
-                <footer class="game-stats">
+                <footer class="game-stats" style="margin-top: 20px;">
                     Attempts Left: <span id="guess-attempts">5</span> | Best: <span id="guess-high-score">0</span>
                 </footer>
             </div>
 
             <section id="guess-game-over" class="hidden message-box">
-                <h3 id="result-title" class="text-2xl font-bold">Game Over!</h3>
+                <h2 id="result-title" class="text-2xl font-bold">Game Over!</h2>
                 <p id="final-score-message" class="my-4 text-lg"></p>
                 <button id="play-again-guess-btn" class="btn-small">Try Again</button>
             </section>
 
             <section id="leaderboard" class="leaderboard-section">
                 <h2 class="text-xl font-bold">
-                    <i class="fas fa-trophy" style="color: #2ecc71;" aria-hidden="true"></i> 
+                    <i class="fas fa-trophy mr-2" aria-hidden="true"></i> 
                     Master Guessers
                 </h2>
                 <ul class="leaderboard-list" id="guess-leaderboard-list">
-                    </ul>
+                </ul>
             </section>
             
-            <nav class="mt-8 text-center">
+            <nav>
                 <a href="../index.html" class="btn-dark">
                     <i class="fas fa-home"></i>
                 </a>
             </nav>
+
+            <audio id="gameMusic" loop>
+                <source src="../audio/guess-131047.mp3" type="audio/mpeg">
+            </audio>
+
+            <div class="music-controls">
+                <button id="musicToggle" class="btn-music">
+                <i id="musicIcon" class="fas fa-volume-up"></i>
+                </button>
+            </div>
 
         </article>
     </main>
@@ -166,7 +174,7 @@
         </div>
     </footer>
     
-    <script src="js/script.js"></script>
+    <script type="module" src="../dist/guess-logic.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>
