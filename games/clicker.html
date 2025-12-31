@@ -33,38 +33,55 @@
         </nav>
     </header>
 
-    <main id="main-content">
-        <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
+    <main id="main-content" 
+        class="min-h-screen w-full bg-cover bg-center bg-fixed flex items-center justify-center" 
+        style="background-image: url('../images/clicker-bg.webp');">
+
+        <article class="game-box-center" 
+             style="background-color: #121212; color: #E1E1E1; padding: 2rem; border-radius: 1rem; max-width: 500px; margin: 2rem auto;">
             
             <header>
                 <h1 class="text-3xl font-bold">
-                    <i class="fas fa-mouse-pointer" style="color: #2ecc71;" aria-hidden="true"></i> Turbo Clicker
+                    <i class="fas fa-mouse-pointer" aria-hidden="true"></i> Turbo Clicker
                 </h1>
             </header>
 
             <section id="nickname-setup" class="game-setup">
                 <label for="nickname-input" class="block mb-2 font-bold">Challenger's Name</label>
                 <input type="text" id="nickname-input" placeholder="Rapid Clicker" maxlength="15">
-                <button id="start-clicker-btn" class="btn">
-                    <i class="fas fa-door-open" style="color: #2ecc71;"></i> Enter Arena
+                <button id="start-clicker-btn" 
+                        class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
+                        style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;"> 
+                    
+                    <span class="flex items-center justify-center gap-3"><i class="fas fa-door-open mr-2"></i>ENTER ARENA   
+                        <span class="h-2 border-t-2 border-r-2 border-current rotate-45 transition-transform duration-300 group-hover:translate-x-2 translate-y-[1px]"></span>
+                    </span>
                 </button>
             </section>
 
             <section id="clicker-instructions" class="hidden instruction-box">
-                <h2 class="font-bold text-xl mb-2">
-                    <i class="fas fa-book-open" style="color: #2ecc71;"></i> How to Play:
+                <h2 class="font-bold text-xl mb-4">
+                    <i class="fas fa-scroll"></i> How to Play:
                 </h2>
-                <p>Click the big button as fast as you can before the time runs out! You have 10 seconds.</p>
-                <p class="mt-2">Current Player: <span id="current-player-name" style="font-weight: bold; color: #f1c40f;"></span></p>
+
+                <div class="instruction-content"></div>
+                    <p>Click the big button as fast as you can before the time runs out! You have 10 seconds.</p>
+
+                <div class="fighter-tag">
+                        <p>Current Player</p>
+                        <span id="current-player-name"></span>
+                    </div>
+                </div>
+
                 <button id="start-round-btn" class="btn">
-                    <i class="fas fa-rocket" style="color: #2ecc71;"></i> Start Clicking!
+                    <i class="fas fa-mouse-pointer"></i> Start Clicking!
                 </button>
             </section>
             
             <div id="game-display" class="game-canvas-area hidden">
                 <div class="game-stats" style="border-radius: 8px 8px 0 0; margin-bottom: 20px;">
-                    <i class="fas fa-stopwatch" style="color: #2ecc71;"></i> Time: <span id="clicker-timer">10</span>s | 
-                    <i class="fas fa-hand-point-up" style="color: #2ecc71;"></i> Clicks: <span id="clicker-score">0</span>
+                    <i class="fas fa-stopwatch"></i> Time: <span id="clicker-timer">10</span>s | 
+                    <i class="fas fa-hand-point-up"></i> Clicks: <span id="clicker-score">0</span>
                 </div>
 
                 <div class="click-area">
@@ -72,7 +89,7 @@
                 </div>
                 
                 <footer class="game-stats" style="margin-top: 20px;">
-                    <i class="fas fa-star" style="color: #2ecc71;"></i> High Score: <span id="clicker-high-score">0</span>
+                    <i class="fas fa-star"></i> High Score: <span id="clicker-high-score">0</span>
                 </footer>
             </div>
 
@@ -80,22 +97,21 @@
                 <h2 class="text-2xl font-bold">Time's Up!</h2>
                 <p id="final-score-message" class="my-4 text-lg"></p>
                 <button id="play-again-clicker-btn" class="btn-small">
-                    <i class="fas fa-redo" style="color: #2ecc71;"></i> Try Again
+                    <i class="fas fa-redo"></i> Try Again
                 </button>
             </section>
 
-            <section class="leaderboard-section">
-                <h2 class="font-bold text-lg">
-                    <i class="fas fa-trophy" style="color: #2ecc71;"></i> Clicker Hall of Fame
+           <section id="leaderboard" class="leaderboard-section">
+                <h2 class="text-xl font-bold">
+                    <i class="fas fa-trophy mr-2" aria-hidden="true"></i> 
+                    Hall of Fame
                 </h2>
-                <ul class="leaderboard-list" id="clicker-leaderboard-list">
+                <ul class="leaderboard-list" id="rps-leaderboard-list">
                     </ul>
             </section>
             
-            <footer class="mt-8 text-center">
-                <nav aria-label="Game navigation">
-                    <a href="../index.html" class="btn-dark" title="Home">
-                        <i class="fas fa-home" style="color: #2ecc71;"></i>
+                <nav>
+                    <a href="../index.html" class="btn-dark"><i class="fas fa-home"></i>
                     </a>
                 </nav>
 
@@ -103,12 +119,11 @@
                     <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
                 </audio>
 
-                <div class="music-controls mt-4">
-                    <button id="musicToggle" class="btn-music">
-                        <i id="musicIcon" class="fas fa-volume-up" style="color: #2ecc71;"></i>
-                    </button>
-                </div>
-            </footer>
+                <div class="music-controls">
+                <button id="musicToggle" class="btn-music">
+                    <i id="musicIcon" class="fas fa-volume-up"></i>
+                </button>
+            </div>
 
         </article>
     </main>
@@ -157,7 +172,7 @@
         </div>
     </footer>
 
-    <script type="module" src="../js/clicker-logic.js"></script>
+    <script type="module" src="../dist/clicker-logic.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>

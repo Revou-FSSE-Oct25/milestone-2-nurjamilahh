@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Rock, Paper, or Scissors? Make your choice and see if you can outsmart the computer. A quick, fun, and free way to settle any score or pass the time!">
-
+    
     <title>Rock Paper Scissors - RevoFun</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
@@ -33,8 +33,12 @@
         </nav>
     </header>
 
-    <main id="main-content">
-        <article class="game-box-center" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center/cover;">
+    <main id="main-content" 
+        class="min-h-screen w-full bg-cover bg-center bg-fixed flex items-center justify-center" 
+        style="background-image: url('../images/rps-bg.webp');">
+
+        <article class="game-box-center" 
+             style="background-color: #121212; color: #E1E1E1; padding: 2rem; border-radius: 1rem; max-width: 500px; margin: 2rem auto;">
             
             <header>
                 <h1 class="text-3xl font-bold"><i class="fa-solid fa-scissors" aria-hidden="true"></i> Rock Paper Scissors</h1>
@@ -43,7 +47,14 @@
             <section id="nickname-setup" class="game-setup">
                 <label for="nickname-input">Contender's Name</label>
                 <input type="text" id="nickname-input" placeholder="Enter Champion Name" maxlength="15">
-                <button id="start-rps-btn" class="btn">Enter Arena</button>
+                <button id="start-rps-btn" 
+                        class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
+                        style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;">
+                    
+                    <span class="flex items-center justify-center gap-3"><i class="fas fa-door-open mr-2"></i>ENTER ARENA   
+                        <span class="h-2 border-t-2 border-r-2 border-current rotate-45 transition-transform duration-300 group-hover:translate-x-2 translate-y-[1px]"></span>
+                    </span>
+                </button>
             </section>
 
             <section id="rps-instructions" class="hidden instruction-box">
@@ -52,7 +63,7 @@
                 </h2>
                 
                 <div class="instruction-content">
-                    <p>Choose your hand: <strong>Rock</strong> beats Scissors, <strong>Scissors</strong> beats Paper, and <strong>Paper</strong> beats Rock.</p>
+                    <p>Choose your hand: <span class="block mt-1"></span><strong>Rock</strong> beats Scissors, <strong>Scissors</strong> beats Paper, and <strong>Paper</strong> beats Rock.</p>
                     
                     <div class="fighter-tag">
                         <p>Current Fighter</p>
@@ -93,7 +104,7 @@
 
             <section id="leaderboard" class="leaderboard-section">
                 <h2 class="text-xl font-bold">
-                    <i class="fas fa-trophy" style="color: #2ecc71;" aria-hidden="true"></i> 
+                    <i class="fas fa-trophy mr-2" aria-hidden="true"></i> 
                     Hall of Fame
                 </h2>
                 <ul class="leaderboard-list" id="rps-leaderboard-list">
@@ -162,7 +173,7 @@
         </div>
     </footer>
 
-    <script type="module" src="../js/rps-logic.js"></script>
+    <script type="module" src="../dist/rps-logic.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>

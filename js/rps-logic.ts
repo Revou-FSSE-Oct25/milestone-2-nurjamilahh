@@ -1,4 +1,4 @@
-import { fadeInAudio } from './utils/audio-helper';
+import { fadeInAudio } from './utils/audio-helper.js';
 
 const MIN_NICKNAME_LENGTH = 2;
 const MAX_LEADERBOARD_ENTRIES = 5; 

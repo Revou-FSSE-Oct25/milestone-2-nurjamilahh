@@ -3,25 +3,33 @@ window.onload = function() {
     const allPages = document.querySelectorAll('.page-section');
 
     const swiper = new Swiper('.mySwiper', {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    centeredSlides: true,
-    loop: true,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    breakpoints: {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 20,
+        centeredSlides: true,
+        loop: false,
+        autoplay: false,
+        observer: true,
+        observeParents: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+        320: {
+            slidesPerView: 1.1,
+            spaceBetween: 10
+        },    
         768: {
-        slidesPerView: 1.2,
+            slidesPerView: 2, 
+            spaceBetween: 20
+        },
+        1024: {
+            slidesPerView: 3, 
+            spaceBetween: 30
         }
     }
 });
-
 
     function showPage(targetId) {
         if (!targetId || !targetId.startsWith('#')) return;
@@ -35,7 +43,7 @@ window.onload = function() {
             if(targetId === '#games') {
                 setTimeout(() => {
                     swiper.update(); 
-                    swiper.slideToLoop(0, 0); 
+                    swiper.slideTo(0, 0); 
                 }, 100);
             }
         }
