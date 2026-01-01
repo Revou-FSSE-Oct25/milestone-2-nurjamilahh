@@ -14,8 +14,7 @@
     --color-primary-blue: #0077ff;
     --color-secondary-yellow: #ffc107;
     --color-accent-green: #28a745;
-    /* --color-accent-red: #dc3545; */
-    --color-light-pink: #ffdae3;
+    --color-accent-red: #dc3545;
     --color-background-dark: #2c3e50;
     --color-text-light: #ecf0f1;
     --color-white: #ffffff;
@@ -92,34 +91,12 @@ h1, h2, h3 {
 .game-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #fff;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .game-desc {
-  color: #d1d5db;
   font-size: 0.75rem;
   margin: 2px 0 1rem;
-}
-
-.play-btn {
-  display: inline-block;
-  width: fit-content;
-  background-color: #000;
-  color: #fff;
-  padding: 8px 20px;
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border: 1px solid #374151;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.play-btn:hover {
-  background-color: #3b82f6; 
-  border-color: #3b82f6;
 }
 
 .mySwiper .swiper-pagination-bullet-active {
@@ -133,15 +110,6 @@ h1, h2, h3 {
     cursor: pointer;
     border: none;
     transition: all 0.3s ease;
-}
-
-.btn-large { 
-    background-color: var(--color-accent-red); 
-    color: var(--color-white); 
-    font-size: 1.5em; 
-    padding: 20px 40px; 
-    border-radius: 12px; 
-    font-weight: 900; 
 }
 
 .btn-small {

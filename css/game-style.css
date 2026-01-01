@@ -1,6 +1,4 @@
-/* game-style.css - Global Version untuk Dodge, Clicker, Guess, & RPS */
 
-/* --- 1. Container Utama --- */
 .game-box-center {
     position: relative;
     display: flex;
@@ -17,7 +15,6 @@
     color: white; 
 }
 
-/* --- 2. Typography & Headers --- */
 .game-box-center h2 {
     font-family: 'Bungee', cursive;
     color: #f1c40f; 
@@ -26,7 +23,7 @@
     text-align: center;
 }
 
-/* --- 3. Buttons (RevoFun Styles) --- */
+
 .btn, .btn-small, .btn-dark, .btn-action {
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
@@ -74,7 +71,6 @@
     width: 100%;
 }
 
-/* --- 4. Special Boxes (Instructions & Messages) --- */
 .instruction-box, .message-box {
     width: 100%;
     padding: 20px;
@@ -102,7 +98,6 @@
     color: #2ecc71;
 }
 
-/* --- 5. Game Screen & Stats (Responsive) --- */
 #game-screen {
     width: 100%;
     max-width: 480px;
@@ -127,7 +122,6 @@
     box-sizing: border-box;
 }
 
-/* --- 6. Leaderboard Section (General Class) --- */
 .leaderboard-section {
     width: 100%;
     margin-top: 32px;
@@ -159,7 +153,6 @@
     font-size: 0.9rem;
 }
 
-/* --- 7. Input & Setup --- */
 #nickname-input {
     width: 100%;
     max-width: 300px;
@@ -189,7 +182,6 @@
     width: 100%;
 }
 
-/* --- Audio Controls --- */
 .music-controls {
     position: absolute;
     bottom: 20px;
@@ -211,48 +203,43 @@
     transition: all 0.3s ease;
 }
 
-/* --- Game Clicker Only --- */
-/* Container Utama Clicker */
 #main-content .click-area {
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px; /* Memberikan efek 3D saat tombol ditekan */
+    perspective: 1000px; 
 }
 
-/* Tombol Klik Utama (Bulat & Mengkilap) */
 .click-target-btn {
     width: 200px;
     height: 200px;
-    border-radius: 50%; /* Membuat tombol bulat sempurna */
+    border-radius: 50%; 
     border: 8px solid #334155; 
-    background: radial-gradient(circle at 30% 30%, #f87171, #dc2626); /* Efek cahaya mengkilap */
+    background: radial-gradient(circle at 30% 30%, #f87171, #dc2626);
     color: white;
     font-family: 'Bungee', cursive;
     font-size: 1.5rem;
     cursor: pointer;
     box-shadow: 
-        0 15px 0 #991b1b, /* Kedalaman tombol (efek 3D) */
+        0 15px 0 #991b1b, 
         0 20px 30px rgba(0, 0, 0, 0.5);
     transition: all 0.1s ease;
     outline: none;
-    user-select: none; /* Mencegah teks terpilih saat diklik cepat */
+    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-/* Efek Saat Tombol Ditekan (Active) */
 .click-target-btn:active {
-    transform: translateY(10px); /* Tombol turun ke bawah */
+    transform: translateY(10px); 
     box-shadow: 
-        0 5px 0 #991b1b, /* Bayangan menipis seolah tertekan */
+        0 5px 0 #991b1b,
         0 10px 15px rgba(0, 0, 0, 0.5);
     background: radial-gradient(circle at 30% 30%, #ef4444, #b91c1c);
 }
 
-/* Animasi Berdenyut agar pemain tahu itu bisa diklik */
 @keyframes pulse-btn {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -263,19 +250,17 @@
     animation: pulse-btn 2s infinite ease-in-out;
 }
 
-/* Gaya Teks Statistik */
 .stat span {
     display: block;
     line-height: 1;
 }
 
-/* --- Game Dodge Only --- */
 .player {
     position: absolute;
     bottom: 10px; 
     width: 40px;
     height: 40px;
-    font-size: 30px; /* Rocket size 🚀 */
+    font-size: 30px; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -309,32 +294,27 @@
     width: 100%;
 }
 
-/* --- Utility Classes --- */
 .hidden { display: none !important; }
 .winner { background-color: var(--color-accent-green); color: var(--color-white); }
 .loser { background-color: var(--color-accent-red); color: var(--color-white); }
 .draw { background-color: var(--color-secondary-yellow); color: var(--color-background-dark); }
 
-/* --- 8. Responsive Integration (Mobile-First Adjustments) --- */
 @media (max-width: 600px) {
-    /* Container Game jadi lebih lebar di HP */
     .game-box-center {
         width: 100%;
         margin: 10px auto;
         padding: 20px 15px;
-        border-radius: 0; /* Memberi kesan full-screen di mobile */
+        border-radius: 0; 
     }
 
-    /* Screen Game menyesuaikan lebar layar */
     #game-screen {
         width: 100%;
         max-width: 100%;
         height: auto;
-        aspect-ratio: 4 / 3; /* Menjaga proporsi tetap ideal */
+        aspect-ratio: 4 / 3;
         border-width: 2px;
     }
 
-    /* Kontrol Mobile dimunculkan */
     #mobile-controls {
         display: flex;
         justify-content: space-around;
@@ -353,7 +333,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
-        touch-action: manipulation; /* Menghilangkan delay klik di HP */
+        touch-action: manipulation;
     }
 
     .btn-mobile:active {
@@ -362,7 +342,6 @@
         transform: scale(0.9);
     }
 
-    /* Penyesuaian teks agar tidak terlalu besar */
     .game-box-center h1 { font-size: 1.8rem; }
     .instruction-box { font-size: 0.9rem; padding: 12px; }
 }
