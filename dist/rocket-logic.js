@@ -1,238 +1,162 @@
-/**
- * ==============================
- * 🌠 Cosmic Dodge - TypeScript
- * ==============================
- */
-var AudioConfig;
-(function (AudioConfig) {
-    AudioConfig[AudioConfig["QUIET"] = 0.1] = "QUIET";
-    AudioConfig[AudioConfig["FADE_STEP"] = 0.01] = "FADE_STEP";
-    AudioConfig[AudioConfig["FADE_INTERVAL"] = 100] = "FADE_INTERVAL";
-})(AudioConfig || (AudioConfig = {}));
-var GameStatus;
-(function (GameStatus) {
-    GameStatus["IDLE"] = "IDLE";
-    GameStatus["PLAYING"] = "PLAYING";
-    GameStatus["GAMEOVER"] = "GAMEOVER";
-})(GameStatus || (GameStatus = {}));
-/**
- * ============================
- * 🌠 Cosmic Dodge Game Logic
- * ============================
- */
-function initCosmicDodgeGame() {
-    // --- 2. DOM Elements (Dengan Type Casting agar .volume/.value tidak merah) ---
-    const gameScreen = document.getElementById('game-screen');
-    const startDodgeBtn = document.getElementById('start-dodge-btn');
-    const startRoundBtn = document.getElementById('start-round-btn');
-    const playAgainBtn = document.getElementById('play-again-dodge-btn');
-    const dodgeMusic = document.getElementById('gameMusic');
-    const nicknameInput = document.getElementById('nickname-input');
-    const musicToggle = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('music-icon');
-    // Safety Check: Hentikan jika elemen kritikal tidak ada
-    if (!startDodgeBtn || !dodgeMusic || !gameScreen || !nicknameInput) {
-        console.warn("Important DOM elements missing.");
+import { fadeInAudio } from './utils/audio-helper.js';
+const CANVAS_WIDTH = 400;
+const CANVAS_HEIGHT = 500;
+const PLAYER_SIZE = 40;
+const OBSTACLE_SIZE = 30;
+const PLAYER_SPEED = 7;
+const OBSTACLE_SPEED_MIN = 3;
+const OBSTACLE_SPEED_MAX = 6;
+const SPAWN_RATE = 0.02;
+const MAX_LEADERBOARD = 5;
+let score = 0;
+let isGameRunning = false;
+let animationId;
+let player = { x: CANVAS_WIDTH / 2 - PLAYER_SIZE / 2, y: CANVAS_HEIGHT - 60, width: PLAYER_SIZE, height: PLAYER_SIZE };
+let obstacles = [];
+let nickname = "";
+let keys = {};
+function initRocketGame() {
+    const canvas = document.getElementById('rocket-canvas');
+    const rawCtx = canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d');
+    if (!canvas || !rawCtx)
         return;
-    }
-    const currentPlayerNameSpan = document.getElementById('current-player-name');
+    const ctx = rawCtx;
     const setupDiv = document.getElementById('nickname-setup');
-    const instructionsDiv = document.getElementById('dodge-instructions');
-    const gameDisplayDiv = document.getElementById('game-display');
+    const instructDiv = document.getElementById('rocket-instructions');
+    const displayDiv = document.getElementById('game-display');
     const gameOverDiv = document.getElementById('dodge-game-over');
-    const scoreSpan = document.getElementById('dodge-score');
-    const highScoreSpan = document.getElementById('dodge-high-score');
+    const nickInput = document.getElementById('nickname-input');
+    const startBtn = document.getElementById('start-rocket-btn');
+    const roundBtn = document.getElementById('start-round-btn');
+    const playAgainBtn = document.getElementById('play-again-dodge-btn');
+    const scoreSpan = document.getElementById('rocket-score');
     const finalScoreMsg = document.getElementById('final-score-message');
-    const leaderboardList = document.getElementById('dodge-leaderboard-list');
-    // Set Volume Awal (0.1)
-    dodgeMusic.volume = AudioConfig.QUIET;
-    // --- 3. Game Constants & State ---
-    const GAME_WIDTH = 480;
-    const GAME_HEIGHT = 320;
-    const PLAYER_SPEED = 10;
-    const OBSTACLE_INTERVAL = 800;
-    let dodgeState = {
-        player: null,
-        playerX: GAME_WIDTH / 2 - 20,
-        score: 0,
-        gameLoop: 0,
-        objectTimer: null,
-        status: GameStatus.IDLE,
-        nickname: ''
-    };
-    let objects = [];
-    // --- 4. Leaderboard Functions ---
-    function getLeaderboard() {
-        const board = localStorage.getItem('cosmicDodgeLeaderboard');
-        return board ? JSON.parse(board) : [];
+    const leaderboardList = document.getElementById('rocket-leaderboard-list');
+    const musicElement = document.getElementById('gameMusic');
+    if (musicElement) {
+        musicElement.volume = 0;
     }
-    function renderLeaderboard() {
-        if (!leaderboardList || !highScoreSpan)
+    if (!canvas || !ctx)
+        return;
+    function spawnObstacle() {
+        if (Math.random() < SPAWN_RATE) {
+            obstacles.push({
+                x: Math.random() * (CANVAS_WIDTH - OBSTACLE_SIZE),
+                y: -OBSTACLE_SIZE,
+                width: OBSTACLE_SIZE,
+                height: OBSTACLE_SIZE,
+                speed: Math.random() * (OBSTACLE_SPEED_MAX - OBSTACLE_SPEED_MIN) + OBSTACLE_SPEED_MIN
+            });
+        }
+    }
+    function update() {
+        if (!isGameRunning)
             return;
-        const board = getLeaderboard();
-        leaderboardList.innerHTML = '';
-        board.forEach((entry, index) => {
-            const listItem = `
-                <li class="flex justify-between p-2 border-b">
-                    <span>${index + 1}. <strong>${entry.name}</strong></span>
-                    <span>Score: ${entry.score}</span>
-                </li>`;
-            leaderboardList.innerHTML += listItem;
+        if ((keys['ArrowLeft'] || keys['a']) && player.x > 0)
+            player.x -= PLAYER_SPEED;
+        if ((keys['ArrowRight'] || keys['d']) && player.x < CANVAS_WIDTH - player.width)
+            player.x += PLAYER_SPEED;
+        spawnObstacle();
+        obstacles.forEach((obs, index) => {
+            obs.y += obs.speed;
+            if (player.x < obs.x + obs.width &&
+                player.x + player.width > obs.x &&
+                player.y < obs.y + obs.height &&
+                player.y + player.height > obs.y) {
+                endGame();
+            }
+            if (obs.y > CANVAS_HEIGHT)
+                obstacles.splice(index, 1);
         });
-        highScoreSpan.textContent = board.length > 0 ? board[0].score.toString() : "0";
-    }
-    // --- 5. Game Core Logic ---
-    function setupGame() {
-        gameScreen.innerHTML = '';
-        objects = [];
-        dodgeState.score = 0;
+        score += 0.1;
         if (scoreSpan)
-            scoreSpan.textContent = "0";
-        const p = document.createElement('div');
-        p.classList.add('player');
-        p.textContent = '🚀';
-        gameScreen.appendChild(p);
-        dodgeState.player = p;
-        dodgeState.playerX = GAME_WIDTH / 2 - 20;
-        p.style.left = `${dodgeState.playerX}px`;
-        if (gameOverDiv)
-            gameOverDiv.classList.add('hidden');
-        if (gameDisplayDiv)
-            gameDisplayDiv.classList.remove('hidden');
+            scoreSpan.textContent = Math.floor(score).toString();
+        draw(ctx);
+        animationId = requestAnimationFrame(update);
     }
-    function startGameRound() {
-        setupGame();
-        dodgeState.status = GameStatus.PLAYING;
-        dodgeState.objectTimer = setInterval(createFallingObject, OBSTACLE_INTERVAL);
-        dodgeState.gameLoop = requestAnimationFrame(gameLoop);
-        document.addEventListener('keydown', handleKeyDown);
+    function draw(ctx) {
+        ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        ctx.fillStyle = '#60a5fa';
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+        ctx.fillStyle = '#ef4444';
+        obstacles.forEach(obs => {
+            ctx.beginPath();
+            ctx.arc(obs.x + obs.width / 2, obs.y + obs.height / 2, obs.width / 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
     }
     function endGame() {
-        if (dodgeState.status !== GameStatus.PLAYING)
-            return;
-        dodgeState.status = GameStatus.GAMEOVER;
-        cancelAnimationFrame(dodgeState.gameLoop);
-        clearInterval(dodgeState.objectTimer);
-        document.removeEventListener('keydown', handleKeyDown);
-        // Save Score
-        let board = getLeaderboard();
-        board.push({ name: dodgeState.nickname, score: dodgeState.score, date: new Date().toLocaleDateString() });
-        board.sort((a, b) => b.score - a.score);
-        localStorage.setItem('cosmicDodgeLeaderboard', JSON.stringify(board.slice(0, 10)));
-        renderLeaderboard();
-        if (finalScoreMsg)
-            finalScoreMsg.textContent = `You scored an amazing ${dodgeState.score} points!`;
-        if (gameDisplayDiv)
-            gameDisplayDiv.classList.add('hidden');
-        if (gameOverDiv)
+        isGameRunning = false;
+        cancelAnimationFrame(animationId);
+        saveScore();
+        if (displayDiv)
+            displayDiv.classList.add('hidden');
+        if (gameOverDiv) {
             gameOverDiv.classList.remove('hidden');
+            if (finalScoreMsg)
+                finalScoreMsg.textContent = `Survival Time: ${Math.floor(score)}s`;
+        }
     }
-    function handleKeyDown(event) {
-        if (dodgeState.status !== GameStatus.PLAYING)
+    function saveScore() {
+        const board = JSON.parse(localStorage.getItem('rocketLeaderboard') || '[]');
+        board.push({ name: nickname, score: Math.floor(score) });
+        board.sort((a, b) => b.score - a.score);
+        localStorage.setItem('rocketLeaderboard', JSON.stringify(board.slice(0, MAX_LEADERBOARD)));
+        renderLeaderboard();
+    }
+    function renderLeaderboard() {
+        if (!leaderboardList)
             return;
-        let newX = dodgeState.playerX;
-        if (event.key === 'ArrowLeft' || event.key === 'a') {
-            newX = Math.max(0, dodgeState.playerX - PLAYER_SPEED);
-        }
-        else if (event.key === 'ArrowRight' || event.key === 'd') {
-            newX = Math.min(GAME_WIDTH - 40, dodgeState.playerX + PLAYER_SPEED);
-        }
-        dodgeState.playerX = newX;
-        if (dodgeState.player)
-            dodgeState.player.style.left = `${dodgeState.playerX}px`;
-    }
-    function createFallingObject() {
-        const objEl = document.createElement('div');
-        objEl.classList.add('object');
-        const startX = Math.floor(Math.random() * (GAME_WIDTH - 20));
-        objEl.style.left = `${startX}px`;
-        objects.push({
-            element: objEl,
-            y: -20,
-            speed: Math.random() * 2 + 1.5,
-            width: 20,
-            x: startX
+        const board = JSON.parse(localStorage.getItem('rocketLeaderboard') || '[]');
+        leaderboardList.innerHTML = '';
+        board.forEach((entry, idx) => {
+            const li = document.createElement('li');
+            li.className = "flex justify-between p-2 border-b border-white/5";
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = `${idx + 1}. ${entry.name}`;
+            const scoreSpan = document.createElement('strong');
+            scoreSpan.textContent = `${entry.score}s`;
+            li.append(nameSpan, scoreSpan);
+            leaderboardList.appendChild(li);
         });
-        gameScreen.appendChild(objEl);
     }
-    function gameLoop() {
-        if (dodgeState.status !== GameStatus.PLAYING)
-            return;
-        for (let i = 0; i < objects.length; i++) {
-            const obj = objects[i];
-            obj.y += obj.speed;
-            obj.element.style.top = `${obj.y}px`;
-            // Collision Detection
-            const pLeft = dodgeState.playerX;
-            const pRight = dodgeState.playerX + 40;
-            const pTop = GAME_HEIGHT - 40;
-            if (obj.y + obj.width > pTop && obj.y < GAME_HEIGHT &&
-                obj.x + obj.width > pLeft && obj.x < pRight) {
-                endGame();
-                return;
-            }
-            if (obj.y > GAME_HEIGHT) {
-                obj.element.remove();
-                objects.splice(i, 1);
-                i--;
-                dodgeState.score++;
-                if (scoreSpan)
-                    scoreSpan.textContent = dodgeState.score.toString();
-            }
-        }
-        dodgeState.gameLoop = requestAnimationFrame(gameLoop);
-    }
-    // --- 6. Event Listeners ---
-    startDodgeBtn.addEventListener('click', () => {
-        const nick = nicknameInput.value.trim();
-        if (nick.length < 2) {
-            alert('Please enter a nickname of at least 2 characters!');
-            return;
-        }
-        // Music Fade-in Logic
-        if (dodgeMusic) {
-            dodgeMusic.volume = 0;
-            dodgeMusic.play().catch(() => console.log("Audio blocked"));
-            let fadeIn = setInterval(() => {
-                if (dodgeMusic.volume < AudioConfig.QUIET) {
-                    dodgeMusic.volume = Math.min(AudioConfig.QUIET, dodgeMusic.volume + AudioConfig.FADE_STEP);
-                }
-                else {
-                    clearInterval(fadeIn);
-                }
-            }, AudioConfig.FADE_INTERVAL);
-        }
-        dodgeState.nickname = nick;
+    window.addEventListener('keydown', (e) => keys[e.key] = true);
+    window.addEventListener('keyup', (e) => keys[e.key] = false);
+    startBtn === null || startBtn === void 0 ? void 0 : startBtn.addEventListener('click', () => {
+        console.log("Tombol diklik, mencoba memutar musik...");
+        nickname = nickInput.value.trim() || "Commander";
         setupDiv === null || setupDiv === void 0 ? void 0 : setupDiv.classList.add('hidden');
-        instructionsDiv === null || instructionsDiv === void 0 ? void 0 : instructionsDiv.classList.remove('hidden');
-        if (currentPlayerNameSpan)
-            currentPlayerNameSpan.textContent = nick;
+        instructDiv === null || instructDiv === void 0 ? void 0 : instructDiv.classList.remove('hidden');
+        const nameDisplay = document.getElementById('current-player-name');
+        if (nameDisplay)
+            nameDisplay.textContent = nickname;
+        if (musicElement) {
+            musicElement.play().catch(err => console.error("Audio failed:", err));
+            fadeInAudio(musicElement, 0.1);
+        }
     });
-    startRoundBtn.addEventListener('click', () => {
-        instructionsDiv === null || instructionsDiv === void 0 ? void 0 : instructionsDiv.classList.add('hidden');
-        startGameRound();
+    roundBtn === null || roundBtn === void 0 ? void 0 : roundBtn.addEventListener('click', () => {
+        instructDiv === null || instructDiv === void 0 ? void 0 : instructDiv.classList.add('hidden');
+        displayDiv === null || displayDiv === void 0 ? void 0 : displayDiv.classList.remove('hidden');
+        resetGameState();
+        isGameRunning = true;
+        update();
     });
-    playAgainBtn.addEventListener('click', () => {
+    playAgainBtn === null || playAgainBtn === void 0 ? void 0 : playAgainBtn.addEventListener('click', () => {
         gameOverDiv === null || gameOverDiv === void 0 ? void 0 : gameOverDiv.classList.add('hidden');
-        instructionsDiv === null || instructionsDiv === void 0 ? void 0 : instructionsDiv.classList.remove('hidden');
+        displayDiv === null || displayDiv === void 0 ? void 0 : displayDiv.classList.remove('hidden');
+        resetGameState();
+        isGameRunning = true;
+        update();
     });
-    if (musicToggle && dodgeMusic) {
-        musicToggle.addEventListener('click', () => {
-            if (dodgeMusic.paused) {
-                dodgeMusic.play();
-                if (musicIcon)
-                    musicIcon.className = 'fas fa-volume-up';
-            }
-            else {
-                dodgeMusic.pause();
-                if (musicIcon)
-                    musicIcon.className = 'fas fa-volume-mute';
-            }
-        });
+    function resetGameState() {
+        score = 0;
+        obstacles = [];
+        player.x = CANVAS_WIDTH / 2 - PLAYER_SIZE / 2;
+        if (scoreSpan)
+            scoreSpan.textContent = "0";
     }
     renderLeaderboard();
 }
-// Inisialisasi
-window.addEventListener('load', initCosmicDodgeGame);
-export {};
+window.addEventListener('load', initRocketGame);
 //# sourceMappingURL=rocket-logic.js.map

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Play Cosmic Dodge on RevoFun - Dodge meteors and survive in outer space!">
+    <meta name="description" content="Rocket Survivor: Meteor Storm - How long can you stay afloat in deep space?">
 
     <title>Rocket Avoider - RevoFun</title>
 
@@ -34,7 +34,7 @@
     </header>
 
     <main id="main-content" 
-        class="min-h-screen w-full bg-cover bg-center bg-fixed flex items-center justify-center" 
+        class="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center" 
         style="background-image: url('../images/rocket-bg.webp');">
 
         <article class="game-box-center" 
@@ -87,14 +87,14 @@
             <section id="dodge-game-over" class="hidden message-box loser">
                 <h2 class="text-2xl font-bold">Game Over!</h2>
                 <p id="final-score-message" class="my-4 text-lg"></p>
-                <button id="play-again-dodge-btn" class="btn-small">Play Again</button>
+                <button id="play-again-rocket-btn" class="btn-small">Play Again</button>
             </section>
 
 
             <section id="leaderboard" class="leaderboard-section">
                 <h2 class="text-xl font-bold">
                     <i class="fas fa-rocket mr-2" aria-hidden="true"></i> 
-                    Hall of Fame
+                    Starship Commanders
                 </h2>
                 <ul class="leaderboard-list" id="rocket-leaderboard-list">
                     </ul>
@@ -162,7 +162,7 @@
         </div>
     </footer>
 
-    <script type="module" src="../js/rocket-logic.js"></script>
+    <script type="module" src="../dist/rocket-logic.js"></script>
     <script src="https://kit.fontawesome.com/6ed6c077fc.js" crossorigin="anonymous"></script>
 
 </body>

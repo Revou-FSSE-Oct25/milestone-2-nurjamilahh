@@ -50,11 +50,11 @@
             <section id="nickname-setup" class="game-setup">
                 <label for="nickname-input" class="block mb-2 font-bold">Guesser's Name</label>
                 <input type="text" id="nickname-input" placeholder="Enter Genius Name" maxlength="15">
-                <button id="start-clicker-btn" 
+                <button id="start-guess-btn" 
                         class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
                         style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;"> 
                     
-                    <span class="flex items-center justify-center gap-3"><i class="fas fa-door-open mr-2"></i>START INVESTIGATION  
+                    <span class="flex items-center justify-center gap-3"><i class="fas fa-door-open mr-2"></i>ENTER ARENA  
                         <span class="h-2 border-t-2 border-r-2 border-current rotate-45 transition-transform duration-300 group-hover:translate-x-2 translate-y-[1px]"></span>
                     </span>
                 </button>
@@ -69,11 +69,13 @@
                     <p>I am thinking of a number between 1 and 100. You have 5 attempts to guess it correctly!</p>
 
                     <div class="fighter-tag">
-                        <p>Current Player</p>
+                        <p>Current Player:</p>
                         <span id="current-player-name" class="font-bold text-yellow-400"></span>
+                    </div>
+                </div>
                 
                 <button id="start-round-btn" class="btn">
-                    <i class="fas fa-mouse-pointer"></i>Crack The Code!
+                    <i class="fas fa-mouse-pointer mr-2"></i>Crack The Code!
                 </button>
             </section>
 

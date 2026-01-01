@@ -1,6 +1,6 @@
 # 🎮 RevoFun Gaming Hub: Milestone 2 Interactive Website
 
-## 🚀 Live Website Link
+## Live Website Link
 **You can view the live deployment result of this assignment directly here:**
 [**Click to View Live Website**](https://revou-fsse-oct25.github.io/milestone-2-nurjamilahh/)
 
@@ -37,7 +37,7 @@ The RevoFun Gaming Hub features a minimum of three fully implemented, browser-ba
 * **Number Guessing Game:** This classic game challenges the player to guess a random number selected by the computer (e.g., between 1-100). The game provides immediate feedback ("Too high" or "Too low") to guide the player, who is limited to five attempts to successfully find the correct number.
 * **Rock, Paper, Scissors:** A digitized version of the beloved hand game, where the player competes against a random choice made by the computer. The game determines the winner based on the classic rules and keeps track of the match scores.
 * **Clicker Game:** This quick and addictive game presents a large button, requiring players to click it as rapidly as possible within a set time limit. Upon expiration of the timer, the player's final click score is displayed.
-* **Cosmic Dodge (Falling Objects) Game:** A fast-paced, action-based game where the player controls a ship/character to avoid randomly generated objects (e.g., meteors or space debris) that fall from the top of the screen. The goal is to survive as long as possible while the game increases in speed and difficulty.
+* **Rocket Avoider (Falling Objects) Game:** A fast-paced, action-based game where the player controls a ship/character to avoid randomly generated objects (e.g., meteors or space debris) that fall from the top of the screen. The goal is to survive as long as possible while the game increases in speed and difficulty.
 
 ### User Experience & Optional Features
 * **Game Instructions:** Clear, concise instructions are provided on each dedicated game page.
@@ -63,12 +63,13 @@ The RevoFun Gaming Hub features a minimum of three fully implemented, browser-ba
 
 This project was built using core web development technologies, focusing on foundational front-end skills:
 * **HTML5:** Used for structuring the content, ensuring semantic and accessible markup.
-* **CSS3:** Used for styling, layout, visual appeal, and ensuring responsiveness across different devices.
-* **Tailwind CSS:** Used minimally for styling the footer section, providing utility-first classes to optimize rapid layout development for that specific component.
-* **TypeScript:** Utilized to manage game settings and audio logic. By implementing Type Safety, it ensures reliable volume control and state management, reducing potential runtime errors.
-* **JavaScript (ES6+):** The primary language used to handle all game logic, interactivity, DOM manipulation, and user input.
-* **Google Fonts & Font Awesome:** for typography and icons.
-* **Deployment:** GitHub Pages.
+* **CSS3 & Tailwind CSS:** Tailwind is used as the primary styling framework to build a responsive, utility-first layout, while custom CSS handles other components.
+* **TypeScript:** The source language for game settings and audio logic. It implements Type Safety to ensure reliable volume control and robust state management, reducing runtime errors during development.
+* **JavaScript (ES6+):** The primary engine for game logic, DOM manipulation, and interactivity, compiled from TypeScript source files.
+* **Swiper.js:** An external library used to create the interactive, touch-friendly game selection slider.
+* **JSDelivr CDN:** Used to deliver external libraries (Swiper, Fonts) efficiently, ensuring fast load times and optimized asset delivery.
+* **Google Fonts & Font Awesome:** Utilized for high-quality typography and consistent iconography across the platform.
+* **Deployment:** Hosted on GitHub Pages, utilizing a build-to-deploy workflow from the dist directory.
 
 ---
 
