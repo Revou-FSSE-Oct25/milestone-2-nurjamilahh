@@ -1,23 +1,14 @@
-/**
- * ===========================
- * Turbo Clicker - TypeScript 
- * ===========================
- */
-
 export {};
 
-// 1. Enums & Interfaces
-enum AudioConfig {
-    QUIET = 0.1,
-    FADE_STEP = 0.01,
-    FADE_INTERVAL = 100
-}
-
-enum GameStatus {
-    IDLE = 'IDLE',
-    PLAYING = 'PLAYING',
-    GAMEOVER = 'GAMEOVER'
-}
+const CONFIG = {
+    GAME_DURATION: 10,
+    MIN_NICKNAME_LENGTH: 2,
+    MAX_LEADERBOARD: 10,
+    AUDIO_VOLUME: 0.15,
+    FADE_INTERVAL: 100,
+    FADE_STEP: 0.02,
+    STORAGE_KEY: 'turboClickerLeaderboard'
+} as const;
 
 interface PlayerScore {
     name: string;
@@ -25,190 +16,155 @@ interface PlayerScore {
     date: string;
 }
 
-/**
- * ============================
- * 👆 Turbo Clicker Game Logic
- * ============================
- */
-function initTurboClickerGame() {
-    // --- 2. DOM Elements ---
-    const startClickerBtn = document.getElementById('start-clicker-btn') as HTMLButtonElement;
-    const startRoundBtn = document.getElementById('start-round-btn') as HTMLButtonElement;
-    const mainClickBtn = document.getElementById('main-click-btn') as HTMLButtonElement;
-    const playAgainBtn = document.getElementById('play-again-clicker-btn') as HTMLButtonElement;
-    const clickerMusic = document.getElementById('gameMusic') as HTMLAudioElement;
-    const nicknameInput = document.getElementById('nickname-input') as HTMLInputElement;
-    const musicToggle = document.getElementById('musicToggle') as HTMLButtonElement;
-    const musicIcon = document.getElementById('musicIcon');
-
-    // Safety Check
-    if (!startClickerBtn || !clickerMusic || !mainClickBtn || !nicknameInput) {
-        console.warn("Important DOM elements missing.");
-        return;
-    }
-
-    const currentPlayerNameSpan = document.getElementById('current-player-name');
-    const setupDiv = document.getElementById('nickname-setup');
-    const instructionsDiv = document.getElementById('clicker-instructions');
-    const gameDisplayDiv = document.getElementById('game-display');
-    const gameOverDiv = document.getElementById('clicker-game-over');
-    const timerSpan = document.getElementById('clicker-timer');
-    const scoreSpan = document.getElementById('clicker-score');
-    const highScoreSpan = document.getElementById('clicker-high-score');
-    const finalScoreMsg = document.getElementById('final-score-message');
-    const leaderboardList = document.getElementById('clicker-leaderboard-list');
-
-    // Set Volume Awal
-    clickerMusic.volume = AudioConfig.QUIET;
-
-    // --- 3. Game Constants & State ---
-    const GAME_DURATION = 10; // dalam detik
-
-    let clickerState = {
-        score: 0,
-        timeLeft: GAME_DURATION,
-        status: GameStatus.IDLE,
-        nickname: '',
-        timerInterval: null as any
+function initTurboClickerGame(): void {
+   
+    const els = {
+        setup: document.getElementById('nickname-setup'),
+        instructions: document.getElementById('clicker-instructions'),
+        display: document.getElementById('game-display'),
+        gameOver: document.getElementById('clicker-game-over'),
+        
+        btnStart: document.getElementById('start-game-btn') as HTMLButtonElement,
+        btnRound: document.getElementById('start-round-btn') as HTMLButtonElement,
+        btnClick: document.getElementById('main-click-btn') as HTMLButtonElement,
+        btnRetry: document.getElementById('play-again-clicker-btn') as HTMLButtonElement,
+        
+        inputNick: document.getElementById('nickname-input') as HTMLInputElement,
+        spanPlayer: document.getElementById('current-player-name'),
+        spanTimer: document.getElementById('clicker-timer'),
+        spanScore: document.getElementById('clicker-score'),
+        spanHigh: document.getElementById('clicker-high-score'),
+        msgFinal: document.getElementById('final-score-message'),
+        listBoard: document.getElementById('clicker-leaderboard-list'),
+        
+        music: document.getElementById('gameMusic') as HTMLAudioElement,
+        musicToggle: document.getElementById('musicToggle') as HTMLButtonElement,
+        musicIcon: document.getElementById('musicIcon')
     };
 
-    // --- 4. Leaderboard Functions ---
-    function getLeaderboard(): PlayerScore[] {
-        const board = localStorage.getItem('turboClickerLeaderboard');
-        return board ? JSON.parse(board) : [];
-    }
+    if (!els.btnStart || !els.music || !els.btnClick) return;
 
-    function renderLeaderboard() {
-        if (!leaderboardList || !highScoreSpan) return;
-        const board = getLeaderboard();
-        leaderboardList.innerHTML = ''; 
-        board.forEach((entry, index) => {
-            const listItem = `
-                <li class="flex justify-between p-2 border-b">
-                    <span>${index + 1}. <strong>${entry.name}</strong></span>
-                    <span>Clicks: ${entry.score}</span>
-                </li>`;
-            leaderboardList.innerHTML += listItem;
+    let score = 0;
+    let timeLeft = CONFIG.GAME_DURATION;
+    let nickname = '';
+    let timer: ReturnType<typeof setInterval> | null = null;
+    let isPlaying = false;
+
+    const getBoard = (): PlayerScore[] => {
+        const data = localStorage.getItem(CONFIG.STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    };
+
+    const renderBoard = (): void => {
+        if (!els.listBoard) return;
+        const board = getBoard();
+        els.listBoard.innerHTML = '';
+
+        board.forEach((entry, idx) => {
+            const li = document.createElement('li');
+            li.className = 'flex justify-between text-sm py-1 border-b border-gray-900 last:border-0';
+            
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'text-gray-400';
+            nameSpan.textContent = `${idx + 1}. ${entry.name}`; // XSS Safe
+
+            const scoreSpan = document.createElement('span');
+            scoreSpan.className = 'font-mono text-blue-400';
+            scoreSpan.textContent = entry.score.toString();
+
+            li.append(nameSpan, scoreSpan);
+            els.listBoard?.appendChild(li);
         });
-        highScoreSpan.textContent = board.length > 0 ? board[0].score.toString() : "0";
-    }
 
-    // --- 5. Game Core Logic ---
-    function setupGame() {
-        clickerState.score = 0;
-        clickerState.timeLeft = GAME_DURATION;
-        if (scoreSpan) scoreSpan.textContent = "0";
-        if (timerSpan) timerSpan.textContent = GAME_DURATION.toString();
-
-        if (gameOverDiv) gameOverDiv.classList.add('hidden');
-        if (gameDisplayDiv) gameDisplayDiv.classList.remove('hidden');
-    }
-    
-    function startGameRound() {
-        setupGame();
-        clickerState.status = GameStatus.PLAYING;
-        
-        // Timer Logic
-        clickerState.timerInterval = setInterval(() => {
-            clickerState.timeLeft--;
-            if (timerSpan) timerSpan.textContent = clickerState.timeLeft.toString();
-
-            if (clickerState.timeLeft <= 0) {
-                endGame();
-            }
-        }, 1000);
-    }
-
-    function endGame() {
-        if (clickerState.status !== GameStatus.PLAYING) return;
-        
-        clickerState.status = GameStatus.GAMEOVER;
-        clearInterval(clickerState.timerInterval);
-
-        // Save Score
-        let board = getLeaderboard();
-        board.push({ 
-            name: clickerState.nickname, 
-            score: clickerState.score, 
-            date: new Date().toLocaleDateString() 
-        });
-        board.sort((a, b) => b.score - a.score);
-        localStorage.setItem('turboClickerLeaderboard', JSON.stringify(board.slice(0, 10)));
-
-        renderLeaderboard(); 
-        if (finalScoreMsg) finalScoreMsg.textContent = `You clicked ${clickerState.score} times in 10 seconds!`;
-        if (gameDisplayDiv) gameDisplayDiv.classList.add('hidden');
-        if (gameOverDiv) gameOverDiv.classList.remove('hidden');
-    }
-
-    function handleClick() {
-        if (clickerState.status !== GameStatus.PLAYING) return;
-        
-        clickerState.score++;
-        if (scoreSpan) scoreSpan.textContent = clickerState.score.toString();
-        
-        // Efek visual kecil saat klik (opsional)
-        mainClickBtn.style.transform = 'scale(0.95)';
-        setTimeout(() => mainClickBtn.style.transform = 'scale(1)', 50);
-    }
-
-    // --- 6. Event Listeners ---
-    startClickerBtn.addEventListener('click', () => {
-        const nick = nicknameInput.value.trim();
-        if (nick.length < 2) {
-            alert('Please enter a nickname of at least 2 characters!');
-            return;
+        if (els.spanHigh) {
+            els.spanHigh.textContent = board[0]?.score.toString() || '0';
         }
+    };
 
-        // Music Fade-in
-        if (clickerMusic) {
-            clickerMusic.volume = 0; 
-            clickerMusic.play().catch(() => console.log("Audio blocked"));
-            let fadeIn = setInterval(() => {
-                if (clickerMusic.volume < AudioConfig.QUIET) {
-                    clickerMusic.volume = Math.min(AudioConfig.QUIET, clickerMusic.volume + AudioConfig.FADE_STEP);
+    const handleMusic = (shouldPlay: boolean): void => {
+        if (shouldPlay) {
+            els.music.volume = 0;
+            els.music.play().catch(() => console.warn("Audio interaction needed"));
+            const fadeIn = setInterval(() => {
+                if (els.music.volume < CONFIG.AUDIO_VOLUME) {
+                    els.music.volume = Math.min(CONFIG.AUDIO_VOLUME, els.music.volume + CONFIG.FADE_STEP);
                 } else {
                     clearInterval(fadeIn);
                 }
-            }, AudioConfig.FADE_INTERVAL);
+            }, CONFIG.FADE_INTERVAL);
         }
+    };
 
-        clickerState.nickname = nick;
-        setupDiv?.classList.add('hidden');
-        instructionsDiv?.classList.remove('hidden');
-        if (currentPlayerNameSpan) currentPlayerNameSpan.textContent = nick;
+    const startRound = (): void => {
+        score = 0;
+        timeLeft = CONFIG.GAME_DURATION;
+        isPlaying = true;
+
+        if (els.spanScore) els.spanScore.textContent = '0';
+        if (els.spanTimer) els.spanTimer.textContent = timeLeft.toString();
+        
+        els.instructions?.classList.add('hidden');
+        els.display?.classList.remove('hidden');
+
+        timer = setInterval(() => {
+            timeLeft--;
+            if (els.spanTimer) els.spanTimer.textContent = timeLeft.toString();
+            
+            if (timeLeft <= 0) endGame();
+        }, 1000);
+    };
+
+    const endGame = (): void => {
+        isPlaying = false;
+        if (timer) clearInterval(timer);
+
+        const board = getBoard();
+        board.push({ name: nickname, score, date: new Date().toISOString() });
+        board.sort((a, b) => b.score - a.score);
+        localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(board.slice(0, CONFIG.MAX_LEADERBOARD)));
+
+        if (els.msgFinal) els.msgFinal.textContent = `You achieved ${score} clicks!`;
+        els.display?.classList.add('hidden');
+        els.gameOver?.classList.remove('hidden');
+        renderBoard();
+    };
+
+    els.btnStart.addEventListener('click', () => {
+        const val = els.inputNick.value.trim();
+        if (val.length < CONFIG.MIN_NICKNAME_LENGTH) return alert('Nickname too short!');
+        
+        nickname = val;
+        handleMusic(true);
+        if (els.spanPlayer) els.spanPlayer.textContent = nickname;
+        
+        els.setup?.classList.add('hidden');
+        els.instructions?.classList.remove('hidden');
     });
 
-    startRoundBtn.addEventListener('click', () => {
-        instructionsDiv?.classList.add('hidden');
-        startGameRound();
+    els.btnRound.addEventListener('click', startRound);
+
+    els.btnClick.addEventListener('click', () => {
+        if (!isPlaying) return;
+        score++;
+        if (els.spanScore) els.spanScore.textContent = score.toString();
     });
 
-    mainClickBtn.addEventListener('click', handleClick);
-
-    playAgainBtn.addEventListener('click', () => {
-        gameOverDiv?.classList.add('hidden');
-        instructionsDiv?.classList.remove('hidden');
+    els.btnRetry.addEventListener('click', () => {
+        els.gameOver?.classList.add('hidden');
+        els.instructions?.classList.remove('hidden');
     });
 
-    if (musicToggle && clickerMusic) {
-        musicToggle.addEventListener('click', () => {
-            if (clickerMusic.paused) {
-                clickerMusic.play();
-                if (musicIcon) musicIcon.className = 'fas fa-volume-up'; 
-            } else {
-                clickerMusic.pause();
-                if (musicIcon) musicIcon.className = 'fas fa-volume-mute'; 
-            }
-        });
-    }
+    els.musicToggle.addEventListener('click', () => {
+        if (els.music.paused) {
+            els.music.play();
+            els.musicIcon?.setAttribute('class', 'fas fa-volume-up text-blue-400');
+        } else {
+            els.music.pause();
+            els.musicIcon?.setAttribute('class', 'fas fa-volume-mute text-gray-500');
+        }
+    });
 
-    renderLeaderboard();
+    renderBoard();
 }
 
-// Inisialisasi
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTurboClickerGame);
-} else {
-    initTurboClickerGame();
-}
+document.addEventListener('DOMContentLoaded', initTurboClickerGame);
