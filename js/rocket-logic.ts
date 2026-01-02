@@ -1,225 +1,203 @@
 import { fadeInAudio } from './utils/audio-helper.js';
 
-const CONFIG = {
+type Commander = {
+    name: string;
+    score: number;
+};
+
+const ROCKET_CONFIG = {
     CANVAS_WIDTH: 400,
     CANVAS_HEIGHT: 500,
     PLAYER_SIZE: 40,
-    OBSTACLE_SIZE: 30,
-    PLAYER_SPEED: 7,
-    OBSTACLE_SPEED_MIN: 3,
-    OBSTACLE_SPEED_MAX: 6,
-    SPAWN_RATE: 0.02,
-    MAX_LEADERBOARD: 5,
-    SCORE_INCREMENT: 0.1,
-    COLORS: {
-        PLAYER: '#60a5fa',
-        OBSTACLE: '#ef4444'
-    }
-} as const;
-
-interface GameObject {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
-
-interface Obstacle extends GameObject {
-    speed: number;
-}
-
-interface PlayerScore {
-    name: string;
-    score: number;
-}
-
-let score = 0;
-let isGameRunning = false;
-let animationId: number | null = null;
-let nickname = "Commander";
-const keys: Record<string, boolean> = {};
-
-const player: GameObject = {
-    x: CONFIG.CANVAS_WIDTH / 2 - CONFIG.PLAYER_SIZE / 2,
-    y: CONFIG.CANVAS_HEIGHT - 60,
-    width: CONFIG.PLAYER_SIZE,
-    height: CONFIG.PLAYER_SIZE
+    METEOR_SIZE: 35,
+    PLAYER_SPEED: 8,
+    INITIAL_METEOR_SPEED: 3,
+    SPEED_INCREMENT: 0.05,
+    METEOR_SPAWN_RATE: 0.02,
+    STORAGE_KEY: 'rocket_leaderboard',
+    FADE_DURATION: 1500
 };
 
-let obstacles: Obstacle[] = [];
-
-function initRocketGame(): void {
-    const canvas = document.getElementById('rocket-canvas') as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext('2d');
-
-    if (!canvas || !ctx) return;
-
-    const setupDiv = document.getElementById('nickname-setup');
-    const instructDiv = document.getElementById('rocket-instructions');
-    const displayDiv = document.getElementById('game-display');
-    const gameOverDiv = document.getElementById('dodge-game-over');
+class RocketGame {
+    private canvas: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D;
+    private score: number = 0;
+    private isRunning: boolean = false;
+    private animationId: number = 0;
+    private nickname: string = '';
     
-    const nickInput = document.getElementById('nickname-input') as HTMLInputElement;
-    const startBtn = document.getElementById('start-rocket-btn');
-    const roundBtn = document.getElementById('start-round-btn');
-    const playAgainBtn = document.getElementById('play-again-rocket-btn');
-    
-    const scoreSpan = document.getElementById('rocket-score');
-    const finalScoreMsg = document.getElementById('final-score-message');
-    const leaderboardList = document.getElementById('rocket-leaderboard-list');
-    const musicElement = document.getElementById('gameMusic') as HTMLAudioElement | null;
+    private playerX: number;
+    private meteors: { x: number; y: number; speed: number }[] = [];
+    private keys: { [key: string]: boolean } = {};
 
-    function spawnObstacle(): void {
-        if (Math.random() < CONFIG.SPAWN_RATE) {
-            obstacles.push({
-                x: Math.random() * (CONFIG.CANVAS_WIDTH - CONFIG.OBSTACLE_SIZE),
-                y: -CONFIG.OBSTACLE_SIZE,
-                width: CONFIG.OBSTACLE_SIZE,
-                height: CONFIG.OBSTACLE_SIZE,
-                speed: Math.random() * (CONFIG.OBSTACLE_SPEED_MAX - CONFIG.OBSTACLE_SPEED_MIN) + CONFIG.OBSTACLE_SPEED_MIN
+    private gameMusic: HTMLAudioElement;
+    private musicToggle: HTMLButtonElement;
+    private musicIcon: HTMLElement;
+
+    constructor() {
+        this.canvas = document.getElementById('rocket-canvas') as HTMLCanvasElement;
+        this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+        this.playerX = this.canvas.width / 2;
+
+        this.gameMusic = document.getElementById('gameMusic') as HTMLAudioElement;
+        this.musicToggle = document.getElementById('musicToggle') as HTMLButtonElement;
+        this.musicIcon = document.getElementById('musicIcon') as HTMLElement;
+
+        this.initEventListeners();
+        this.renderLeaderboard();
+    }
+
+    private initEventListeners(): void {
+        window.addEventListener('keydown', (e) => this.keys[e.code] = true);
+        window.addEventListener('keyup', (e) => this.keys[e.code] = false);
+
+        document.getElementById('start-rocket-btn')?.addEventListener('click', () => this.setupNickname());
+        document.getElementById('start-round-btn')?.addEventListener('click', () => this.startGame());
+        document.getElementById('play-again-rocket-btn')?.addEventListener('click', () => this.resetGame());
+        
+        this.musicToggle.addEventListener('click', () => this.toggleMusic());
+    }
+
+    private setupNickname(): void {
+        const input = document.getElementById('nickname-input') as HTMLInputElement;
+        this.nickname = this.sanitize(input.value.trim()) || 'Commander';
+        
+        document.getElementById('nickname-setup')?.classList.add('hidden');
+        document.getElementById('rocket-instructions')?.classList.remove('hidden');
+        
+        const display = document.getElementById('current-player-name');
+        if (display) display.textContent = this.nickname;
+    }
+
+    private startGame(): void {
+        document.getElementById('rocket-instructions')?.classList.add('hidden');
+        document.getElementById('game-display')?.classList.remove('hidden');
+        
+        this.isRunning = true;
+        fadeInAudio(this.gameMusic, ROCKET_CONFIG.FADE_DURATION);
+        this.musicIcon.className = 'fas fa-volume-up';
+        this.gameLoop();
+    }
+
+    private toggleMusic(): void {
+        if (this.gameMusic.paused) {
+            this.gameMusic.play();
+            this.musicIcon.className = 'fas fa-volume-up';
+        } else {
+            this.gameMusic.pause();
+            this.musicIcon.className = 'fas fa-volume-mute';
+        }
+    }
+
+    private gameLoop = (): void => {
+        if (!this.isRunning) return;
+
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        if (this.keys['ArrowLeft'] && this.playerX > 25) {
+            this.playerX -= ROCKET_CONFIG.PLAYER_SPEED;
+        }
+        if (this.keys['ArrowRight'] && this.playerX < this.canvas.width - 25) {
+            this.playerX += ROCKET_CONFIG.PLAYER_SPEED;
+        }
+
+        if (Math.random() < ROCKET_CONFIG.METEOR_SPAWN_RATE) {
+            this.meteors.push({
+                x: Math.random() * (this.canvas.width - 40) + 20,
+                y: -40,
+                speed: ROCKET_CONFIG.INITIAL_METEOR_SPEED + (this.score * ROCKET_CONFIG.SPEED_INCREMENT)
             });
         }
-    }
 
-    function update(): void {
-        if (!isGameRunning) return;
+        this.ctx.font = '40px serif';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillText('🚀', this.playerX, this.canvas.height - 50);
 
-        if ((keys['ArrowLeft'] || keys['a']) && player.x > 0) {
-            player.x -= CONFIG.PLAYER_SPEED;
-        }
-        if ((keys['ArrowRight'] || keys['d']) && player.x < CONFIG.CANVAS_WIDTH - player.width) {
-            player.x += CONFIG.PLAYER_SPEED;
-        }
+        for (let i = this.meteors.length - 1; i >= 0; i--) {
+            const m = this.meteors[i];
+            m.y += m.speed;
 
-        spawnObstacle();
+            this.ctx.fillText('☄️', m.x, m.y);
 
-        for (let i = obstacles.length - 1; i >= 0; i--) {
-            const obs = obstacles[i];
-            obs.y += obs.speed;
+            const dx = this.playerX - m.x;
+            const dy = (this.canvas.height - 50) - m.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (
-                player.x < obs.x + obs.width &&
-                player.x + player.width > obs.x &&
-                player.y < obs.y + obs.height &&
-                player.y + player.height > obs.y
-            ) {
-                endGame();
-                return;
+            if (distance < 30) {
+                this.endGame();
             }
 
-            if (obs.y > CONFIG.CANVAS_HEIGHT) {
-                obstacles.splice(i, 1);
+            if (m.y > this.canvas.height + 50) {
+                this.meteors.splice(i, 1);
+                this.score++;
+                const scoreEl = document.getElementById('rocket-score');
+                if (scoreEl) scoreEl.textContent = this.score.toString();
             }
         }
 
-        score += CONFIG.SCORE_INCREMENT;
-        if (scoreSpan) scoreSpan.textContent = Math.floor(score).toString();
+        this.animationId = requestAnimationFrame(this.gameLoop);
+    };
 
-        draw();
-        animationId = requestAnimationFrame(update);
-    }
-
-    function draw(): void {
-        if (!ctx) return;
-        ctx.clearRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
-
-        ctx.fillStyle = CONFIG.COLORS.PLAYER;
-        ctx.fillRect(player.x, player.y, player.width, player.height);
-
-        ctx.fillStyle = CONFIG.COLORS.OBSTACLE;
-        obstacles.forEach(obs => {
-            ctx.beginPath();
-            ctx.arc(obs.x + obs.width / 2, obs.y + obs.height / 2, obs.width / 2, 0, Math.PI * 2);
-            ctx.fill();
-        });
-    }
-
-    function endGame(): void {
-        isGameRunning = false;
-        if (animationId) cancelAnimationFrame(animationId);
-        saveScore();
+    private endGame(): void {
+        this.isRunning = false;
+        cancelAnimationFrame(this.animationId);
+        this.saveScore();
         
-        if (displayDiv) displayDiv.classList.add('hidden');
-        if (gameOverDiv) {
-            gameOverDiv.classList.remove('hidden');
-            if (finalScoreMsg) {
-                finalScoreMsg.textContent = `Survival Time: ${Math.floor(score)}s`;
-            }
+        document.getElementById('game-display')?.classList.add('hidden');
+        const gameOverSection = document.getElementById('dodge-game-over');
+        if (gameOverSection) {
+            gameOverSection.classList.remove('hidden');
+            const title = gameOverSection.querySelector('h2');
+            if (title) title.style.color = '#ef4444';
         }
+        
+        const msg = document.getElementById('final-score-message');
+        if (msg) msg.textContent = `FINAL SCORE: ${this.score}`;
     }
 
-    function saveScore(): void {
-        const rawData = localStorage.getItem('rocketLeaderboard');
-        const board: PlayerScore[] = rawData ? JSON.parse(rawData) : [];
+    private resetGame(): void {
+        this.score = 0;
+        this.meteors = [];
+        this.playerX = this.canvas.width / 2;
+        const scoreEl = document.getElementById('rocket-score');
+        if (scoreEl) scoreEl.textContent = '0';
         
-        board.push({ name: nickname, score: Math.floor(score) });
-        board.sort((a, b) => b.score - a.score);
-        
-        localStorage.setItem('rocketLeaderboard', JSON.stringify(board.slice(0, CONFIG.MAX_LEADERBOARD)));
-        renderLeaderboard();
+        document.getElementById('dodge-game-over')?.classList.add('hidden');
+        this.startGame();
     }
 
-    function renderLeaderboard(): void {
-        if (!leaderboardList) return;
-        const rawData = localStorage.getItem('rocketLeaderboard');
-        const board: PlayerScore[] = rawData ? JSON.parse(rawData) : [];
-        
-        leaderboardList.innerHTML = '';
-        board.forEach((entry, idx) => {
-            const li = document.createElement('li');
-            li.className = "flex justify-between p-2 border-b border-white/5";
-            
-            const nameSpan = document.createElement('span');
-            nameSpan.textContent = `${idx + 1}. ${entry.name}`; 
-            const scoreSpan = document.createElement('strong');
-            scoreSpan.textContent = `${entry.score}s`;
-            
-            li.append(nameSpan, scoreSpan);
-            leaderboardList.appendChild(li);
-        });
+    private saveScore(): void {
+        const scores: Commander[] = JSON.parse(localStorage.getItem(ROCKET_CONFIG.STORAGE_KEY) || '[]');
+        scores.push({ name: this.nickname, score: this.score });
+        scores.sort((a, b) => b.score - a.score);
+        localStorage.setItem(ROCKET_CONFIG.STORAGE_KEY, JSON.stringify(scores.slice(0, 5)));
+        this.renderLeaderboard();
     }
 
-    function resetGameState(): void {
-        score = 0;
-        obstacles = [];
-        player.x = CONFIG.CANVAS_WIDTH / 2 - CONFIG.PLAYER_SIZE / 2;
-        if (scoreSpan) scoreSpan.textContent = "0";
+    private renderLeaderboard(): void {
+        const list = document.getElementById('rocket-leaderboard-list');
+        if (!list) return;
+
+        const scores: Commander[] = JSON.parse(localStorage.getItem(ROCKET_CONFIG.STORAGE_KEY) || '[]');
+        const medals = ['🥇', '🥈', '🥉'];
+
+        list.innerHTML = scores.map((s, i) => `
+            <li class="flex items-center justify-between p-2 border-b border-white/5">
+                <span>
+                    ${i < 3 ? medals[i] : `<span class="inline-block w-6 text-center mr-1">${i + 1}.</span>`} 
+                    ${this.sanitize(s.name)}
+                </span>
+                <span class="font-mono text-blue-400 font-bold">${s.score}</span>
+            </li>
+        `).join('');
     }
 
-    window.addEventListener('keydown', (e) => keys[e.key] = true);
-    window.addEventListener('keyup', (e) => keys[e.key] = false);
-
-    startBtn?.addEventListener('click', () => {
-        nickname = nickInput.value.trim().substring(0, 15) || "Commander";
-        setupDiv?.classList.add('hidden');
-        instructDiv?.classList.remove('hidden');
-        
-        const nameDisplay = document.getElementById('current-player-name');
-        if (nameDisplay) nameDisplay.textContent = nickname;
-
-        if (musicElement) {
-            musicElement.volume = 0.2;
-            musicElement.play().catch(() => console.log("Audio interaction required"));
-        }
-    });
-
-    roundBtn?.addEventListener('click', () => {
-        instructDiv?.classList.add('hidden');
-        displayDiv?.classList.remove('hidden');
-        resetGameState();
-        isGameRunning = true;
-        update();
-    });
-
-    playAgainBtn?.addEventListener('click', () => {
-        gameOverDiv?.classList.add('hidden');
-        displayDiv?.classList.remove('hidden');
-        resetGameState();
-        isGameRunning = true;
-        update();
-    });
-
-    renderLeaderboard();
+    private sanitize(str: string): string {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
 }
 
-window.addEventListener('load', initRocketGame);
+new RocketGame();
