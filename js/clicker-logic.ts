@@ -19,6 +19,12 @@ const UI_ICONS = {
 
 const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
 
+enum AudioConfig {
+    TARGET_VOLUME = 0.5, 
+    FADE_STEP = 0.01,
+    FADE_INTERVAL = 100
+}
+
 const STORAGE = {
     LEADERBOARD: 'turbo_click_safe_v3'
 };

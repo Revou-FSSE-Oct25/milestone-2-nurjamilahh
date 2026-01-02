@@ -10,6 +10,12 @@ const UI_ICONS = {
     VOL_OFF: 'fa-volume-mute'
 };
 const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
+var AudioConfig;
+(function (AudioConfig) {
+    AudioConfig[AudioConfig["TARGET_VOLUME"] = 0.5] = "TARGET_VOLUME";
+    AudioConfig[AudioConfig["FADE_STEP"] = 0.01] = "FADE_STEP";
+    AudioConfig[AudioConfig["FADE_INTERVAL"] = 100] = "FADE_INTERVAL";
+})(AudioConfig || (AudioConfig = {}));
 const STORAGE = {
     LEADERBOARD: 'turbo_click_safe_v3'
 };
