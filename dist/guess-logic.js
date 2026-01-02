@@ -1,4 +1,4 @@
-"use strict";
+import { fadeInAudio } from './utils/audio-helper.js';
 const GAME_CONFIG = {
     MAX_ATTEMPTS: 5,
     MIN_NUMBER: 1,
@@ -49,10 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentPlayerName.textContent = name;
             nicknameSetup.classList.add('hidden');
             instructionBox.classList.remove('hidden');
-            gameMusic.play().catch(error => console.log("Autoplay prevented:", error));
-        }
-        else {
-            alert("Please enter your name!");
+            try {
+                fadeInAudio(gameMusic, 1000);
+            }
+            catch (_a) {
+            }
         }
     });
     startRoundBtn === null || startRoundBtn === void 0 ? void 0 : startRoundBtn.addEventListener('click', () => {
@@ -164,7 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     musicToggle === null || musicToggle === void 0 ? void 0 : musicToggle.addEventListener('click', () => {
         if (gameMusic.paused) {
-            gameMusic.play();
+            try {
+                fadeInAudio(gameMusic, 1000);
+            }
+            catch (_a) {
+            }
             musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
         }
         else {

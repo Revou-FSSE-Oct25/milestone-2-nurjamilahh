@@ -33,100 +33,108 @@
         </nav>
     </header>
 
-    <main id="main-content"
-        class="min-h-screen w-full bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center font-sans"
+    <main id="main-content" 
+        class="min-h-screen w-full bg-contain bg-no-repeat bg-fixed flex items-center justify-center font-sans" 
         style="background-image: url('../images/clicker-bg.webp'); background-color: #0a0a0a;">
 
-        <article class="relative w-full max-w-md mx-4 p-8 rounded-2xl shadow-2xl"
+        <article class="game-box-center relative w-full max-w-md mx-4 p-8 rounded-2xl shadow-2xl" 
             style="background-color: #121212; color: #E1E1E1; border: 1px solid #333;">
-
-            <nav class="absolute top-4 left-4">
-                <a href="../index.html" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fas fa-home text-xl"></i>
-                </a>
-            </nav>
-
-            <header class="text-center mb-8">
-                <h1 class="text-3xl font-black tracking-tighter italic uppercase">
-                    <i class="fas fa-mouse-pointer text-blue-500 mr-2"></i>Turbo Clicker
+            
+            <header>
+                <h1 class="text-3xl font-bold">
+                    <i class="fas fa-bolt text-blue-500 mr-2"></i> Turbo Clicker
                 </h1>
             </header>
 
-            <section id="nickname-setup" class="space-y-4">
-                <div>
-                    <label for="nickname-input" class="block text-xs uppercase tracking-widest font-bold text-gray-500 mb-2">Challenger's Name</label>
-                    <input type="text" id="nickname-input" 
-                        class="w-full bg-black border border-gray-700 p-3 rounded-lg focus:outline-none focus:border-blue-500 text-white" 
-                        placeholder="Enter Rapid Clicker" maxlength="15">
-                </div>
-                <button id="start-game-btn"
-                    class="w-full py-4 rounded-xl font-bold uppercase transition-all hover:bg-blue-600 active:scale-95 bg-blue-700 shadow-lg shadow-blue-900/20">
-                    Enter Arena
-                </button>
-            </section>
+        <section id="nickname-setup" class="game-setup">
+            <label for="nickname-input">Challenger's Name</label>
+            <input type="text" id="nickname-input" 
+                    placeholder="Enter Rapid Clicker" maxlength="15">
+            
+            <button id="start-game-btn" 
+                    class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
+                    style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;">
 
-            <section id="clicker-instructions" class="hidden text-center space-y-6">
-                <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-800/50">
-                    <h2 class="font-bold text-blue-400 mb-2 uppercase tracking-tight">How to Play</h2>
-                    <p class="text-sm text-gray-300 leading-relaxed">Click the big button as fast as you can before the time runs out! You have <span class="font-bold text-white">10 seconds</span>.</p>
-                </div>
-                <div class="py-2 border-y border-gray-800">
-                    <p class="text-xs text-gray-500 uppercase">Current Player</p>
-                    <span id="current-player-name" class="text-xl font-bold text-white"></span>
-                </div>
-                <button id="start-round-btn" class="w-full py-4 bg-white text-black rounded-xl font-black hover:bg-gray-200 transition-all">
-                    START ROUND
-                </button>
-            </section>
-
-            <section id="game-display" class="hidden text-center">
-                <div class="flex justify-between items-center mb-8 px-4 py-2 bg-black rounded-lg border border-gray-800 font-mono">
-                    <div class="text-left">
-                        <p class="text-[10px] text-gray-500 uppercase">Timer</p>
-                        <span class="text-xl text-blue-400"><i class="fas fa-stopwatch mr-1"></i><span id="clicker-timer">10</span>s</span>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[10px] text-gray-500 uppercase">Score</p>
-                        <span class="text-xl text-green-400"><i class="fas fa-bolt mr-1"></i><span id="clicker-score">0</span></span>
-                    </div>
-                </div>
-
-                <div class="flex justify-center my-10">
-                    <button id="main-click-btn" 
-                        class="w-48 h-48 rounded-full bg-gradient-to-tr from-blue-700 to-blue-400 border-8 border-blue-900/50 shadow-[0_0_50px_rgba(37,99,235,0.3)] active:scale-90 transition-transform flex items-center justify-center group">
-                        <span class="text-white text-3xl font-black select-none pointer-events-none uppercase italic tracking-tighter">Click!</span>
-                    </button>
-                </div>
-
-                <p class="text-xs text-gray-500"><i class="fas fa-star text-yellow-500 mr-1"></i> Best: <span id="clicker-high-score">0</span></p>
-            </section>
-
-            <section id="clicker-game-over" class="hidden text-center space-y-4">
-                <h2 class="text-3xl font-black text-red-500 uppercase">Time's Up!</h2>
-                <p id="final-score-message" class="text-lg"></p>
-                <button id="play-again-clicker-btn" class="w-full py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-bold transition-all">
-                    TRY AGAIN
-                </button>
-            </section>
-
-            <section id="leaderboard-container" class="mt-8 pt-6 border-t border-gray-800">
-                <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-gray-600 mb-4 flex items-center">
-                    <i class="fas fa-trophy mr-2 text-yellow-600"></i> Turbo Titans
-                </h3>
-                <ul id="clicker-leaderboard-list" class="space-y-2"></ul>
-            </section>
-
-        </article>
-
-        <audio id="gameMusic" loop>
-            <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
-        </audio>
-
-        <div class="fixed bottom-6 right-6 z-50">
-            <button id="musicToggle" class="w-12 h-12 flex items-center justify-center bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/50 rounded-full backdrop-blur-md transition-all">
-                <i id="musicIcon" class="fas fa-volume-up text-blue-400"></i>
+                <span class="flex items-center justify-center gap-3">
+                    <i class="fas fa-door-open mr-2"></i>ENTER ARENA
+                    <span class="h-2 border-t-2 border-r-2 border-current rotate-45 transition-transform duration-300 group-hover:translate-x-2 translate-y-[1px]"></span>
+                </span>
             </button>
-        </div>
+        </section>
+
+        <section id="clicker-instructions" class="hidden instruction-box">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-scroll"></i> How to Play
+            </h2>
+
+            <div class="instruction-content">
+                <p class="text-gray-300 leading-relaxed">Click the big button as fast as you can before time runs out! You have <span class="font-bold text-white">10 seconds</span>.</p>
+                    
+                <div class="fighter-tag">
+                    <p>Current Fighter:</p>
+                    <span id="current-player-name"></span>
+                </div>
+            </div>
+            
+            <button id="start-round-btn" class="btn">
+                <i class="fas fa-bolt mr-2"></i>Ready To Click!
+            </button>
+        </section>
+
+        <section id="game-display" class="hidden flex-col items-center justify-center w-full">
+            <div class="flex justify-between items-center mb-8 px-4 py-2 bg-black rounded-lg border border-gray-800 font-mono">
+                <div class="text-left">
+                    <p class="text-[10px] text-gray-500 uppercase">Timer</p>
+                    <span class="text-xl text-blue-400"><i class="fas fa-stopwatch mr-1"></i><span id="clicker-timer">10</span>s</span>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-gray-500 uppercase">Score</p>
+                    <span class="text-xl text-green-400"><i class="fas fa-bolt mr-1"></i><span id="clicker-score">0</span></span>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center my-12 [perspective:1000px]">
+                <button id="main-click-btn" 
+                    class="w-48 h-48 rounded-full border-8 border-slate-700 text-white text-2xl font-black uppercase bg-red-600 shadow-lg flex items-center justify-center">
+                    Click!
+                </button>
+            </div>
+            
+            <p class="text-xs text-gray-500"><i class="fas fa-star text-yellow-500 mr-1"></i> Best: <span id="clicker-high-score">0</span></p>
+        </section>
+
+        <section id="clicker-game-over" class="hidden text-center space-y-4">
+            <h2 class="text-3xl font-black text-red-500 uppercase">Time's Up!</h2>
+            <p id="final-score-message" class="text-lg text-gray-300"></p>
+            <button id="play-again-clicker-btn" class="w-full py-3 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg font-bold transition-all text-white">
+                TRY AGAIN
+            </button>
+        </section>
+
+        <section id="leaderboard" class="leaderboard-section">
+           <h2 class="text-xl font-bold">
+                <i class="fas fa-trophy mr-2" aria-hidden="true"></i> 
+                    Turbo Titans
+            </h2>
+            <ul class="leaderboard-list" id="rps-leaderboard-list">
+                </ul>
+        </section>
+            
+            <nav>
+                <a href="../index.html" class="btn-dark"><i class="fas fa-home"></i>
+                </a>
+            </nav>
+
+            <audio id="gameMusic" loop>
+                <source src="../audio/clicker-118820.mp3" type="audio/mpeg">
+            </audio>
+
+            <div class="music-controls">
+                <button id="musicToggle" class="btn-music">
+                    <i id="musicIcon" class="fas fa-volume-up"></i>
+                </button>
+            </div>
+        </article>
     </main>
 
     <footer class="main-footer">

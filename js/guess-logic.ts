@@ -1,3 +1,5 @@
+import { fadeInAudio } from './utils/audio-helper.js';
+
 interface GameState {
     playerName: string;
     secretNumber: number;
@@ -69,11 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
             nicknameSetup.classList.add('hidden');
             instructionBox.classList.remove('hidden');
             
-            gameMusic.play().catch(error => console.log("Autoplay prevented:", error));
-        } else {
-            alert("Please enter your name!");
+            try {
+                fadeInAudio(gameMusic, 1000); 
+            } catch {
+
+            } 
         }
-    });
+});
 
     startRoundBtn?.addEventListener('click', () => {
         instructionBox.classList.add('hidden');
@@ -195,14 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     musicToggle?.addEventListener('click', () => {
-        if (gameMusic.paused) {
-            gameMusic.play();
-            musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
-        } else {
-            gameMusic.pause();
-            musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+    if (gameMusic.paused) {
+        try {
+            fadeInAudio(gameMusic, 1000);
+        } catch {
         }
-    });
+        musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+    } else {
+        gameMusic.pause();
+        musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+    }
+});
 
     resetBtn?.addEventListener('click', () => {
         gameOverSection.classList.add('hidden');

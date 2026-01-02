@@ -1,170 +1,172 @@
-export {};
+import { fadeInAudio } from './utils/audio-helper.js';
 
-const CONFIG = {
-    GAME_DURATION: 10,
-    MIN_NICKNAME_LENGTH: 2,
-    MAX_LEADERBOARD: 10,
-    AUDIO_VOLUME: 0.15,
-    FADE_INTERVAL: 100,
-    FADE_STEP: 0.02,
-    STORAGE_KEY: 'turboClickerLeaderboard'
-} as const;
-
-interface PlayerScore {
+interface LeaderboardEntry {
     name: string;
     score: number;
-    date: string;
 }
 
-function initTurboClickerGame(): void {
-   
-    const els = {
-        setup: document.getElementById('nickname-setup'),
-        instructions: document.getElementById('clicker-instructions'),
-        display: document.getElementById('game-display'),
-        gameOver: document.getElementById('clicker-game-over'),
-        
-        btnStart: document.getElementById('start-game-btn') as HTMLButtonElement,
-        btnRound: document.getElementById('start-round-btn') as HTMLButtonElement,
-        btnClick: document.getElementById('main-click-btn') as HTMLButtonElement,
-        btnRetry: document.getElementById('play-again-clicker-btn') as HTMLButtonElement,
-        
-        inputNick: document.getElementById('nickname-input') as HTMLInputElement,
-        spanPlayer: document.getElementById('current-player-name'),
-        spanTimer: document.getElementById('clicker-timer'),
-        spanScore: document.getElementById('clicker-score'),
-        spanHigh: document.getElementById('clicker-high-score'),
-        msgFinal: document.getElementById('final-score-message'),
-        listBoard: document.getElementById('clicker-leaderboard-list'),
-        
-        music: document.getElementById('gameMusic') as HTMLAudioElement,
-        musicToggle: document.getElementById('musicToggle') as HTMLButtonElement,
-        musicIcon: document.getElementById('musicIcon')
-    };
+const GAME_CONFIG = {
+    DURATION: 10,
+    MIN_NAME_LENGTH: 2,
+    MAX_ENTRIES: 5
+};
 
-    if (!els.btnStart || !els.music || !els.btnClick) return;
+const UI_ICONS = {
+    MEDAL: 'fas fa-medal',
+    VOL_ON: 'fa-volume-up',
+    VOL_OFF: 'fa-volume-mute'
+};
 
+const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
+
+const STORAGE = {
+    LEADERBOARD: 'turbo_click_safe_v3'
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    let playerName = '';
     let score = 0;
-    let timeLeft = CONFIG.GAME_DURATION;
-    let nickname = '';
-    let timer: ReturnType<typeof setInterval> | null = null;
-    let isPlaying = false;
+    let timer: number | null = null;
+    let isGameActive = false;
 
-    const getBoard = (): PlayerScore[] => {
-        const data = localStorage.getItem(CONFIG.STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
+    const getEl = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+
+    const sections = {
+        setup: getEl<HTMLElement>('nickname-setup'),
+        instructions: getEl<HTMLElement>('clicker-instructions'),
+        display: getEl<HTMLElement>('game-display'),
+        gameOver: getEl<HTMLElement>('clicker-game-over')
     };
 
-    const renderBoard = (): void => {
-        if (!els.listBoard) return;
-        const board = getBoard();
-        els.listBoard.innerHTML = '';
+    const ui = {
+        nickInput: getEl<HTMLInputElement>('nickname-input'),
+        startBtn: getEl<HTMLButtonElement>('start-game-btn'),
+        readyBtn: getEl<HTMLButtonElement>('start-round-btn'),
+        clickBtn: getEl<HTMLButtonElement>('main-click-btn'),
+        retryBtn: getEl<HTMLButtonElement>('play-again-clicker-btn'),
+        timerSpan: getEl<HTMLElement>('clicker-timer'),
+        scoreSpan: getEl<HTMLElement>('clicker-score'),
+        leadList: getEl<HTMLUListElement>('rps-leaderboard-list'),
+        finalMsg: getEl<HTMLElement>('final-score-message')
+    };
 
-        board.forEach((entry, idx) => {
+    const audio = {
+        music: getEl<HTMLAudioElement>('gameMusic'),
+        toggle: getEl<HTMLButtonElement>('musicToggle'),
+        icon: getEl<HTMLElement>('musicIcon')
+    };
+
+    const refreshLeaderboard = (): void => {
+        if (!ui.leadList) return;
+        const data = localStorage.getItem(STORAGE.LEADERBOARD);
+        const list: LeaderboardEntry[] = JSON.parse(data || '[]');
+
+        while (ui.leadList.firstChild) ui.leadList.removeChild(ui.leadList.firstChild);
+
+        if (list.length === 0) {
             const li = document.createElement('li');
-            li.className = 'flex justify-between text-sm py-1 border-b border-gray-900 last:border-0';
-            
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'text-gray-400';
-            nameSpan.textContent = `${idx + 1}. ${entry.name}`; // XSS Safe
+            li.textContent = "No Titans Yet";
+            li.className = "text-center opacity-50";
+            ui.leadList.appendChild(li);
+            return;
+        }
 
-            const scoreSpan = document.createElement('span');
-            scoreSpan.className = 'font-mono text-blue-400';
-            scoreSpan.textContent = entry.score.toString();
+        list.forEach((entry, index) => {
+            const li = document.createElement('li');
+            const nameWrap = document.createElement('span');
+            const scoreWrap = document.createElement('span');
 
-            li.append(nameSpan, scoreSpan);
-            els.listBoard?.appendChild(li);
+            li.className = "flex justify-between items-center p-3 mb-2 rounded-lg bg-white/5 border border-white/10";
+
+            if (index < MEDAL_COLORS.length) {
+                const medal = document.createElement('i');
+                medal.className = UI_ICONS.MEDAL;
+                medal.style.color = MEDAL_COLORS[index];
+                medal.style.marginRight = '12px';
+                nameWrap.appendChild(medal);
+                li.style.color = MEDAL_COLORS[index];
+                li.style.borderColor = `${MEDAL_COLORS[index]}44`;
+            }
+
+            const nameTxt = document.createTextNode(entry.name);
+            nameWrap.appendChild(nameTxt);
+            scoreWrap.textContent = `${entry.score} PTS`;
+
+            li.appendChild(nameWrap);
+            li.appendChild(scoreWrap);
+            ui.leadList?.appendChild(li);
         });
-
-        if (els.spanHigh) {
-            els.spanHigh.textContent = board[0]?.score.toString() || '0';
-        }
     };
 
-    const handleMusic = (shouldPlay: boolean): void => {
-        if (shouldPlay) {
-            els.music.volume = 0;
-            els.music.play().catch(() => console.warn("Audio interaction needed"));
-            const fadeIn = setInterval(() => {
-                if (els.music.volume < CONFIG.AUDIO_VOLUME) {
-                    els.music.volume = Math.min(CONFIG.AUDIO_VOLUME, els.music.volume + CONFIG.FADE_STEP);
-                } else {
-                    clearInterval(fadeIn);
-                }
-            }, CONFIG.FADE_INTERVAL);
-        }
-    };
-
-    const startRound = (): void => {
+    const startGame = (): void => {
         score = 0;
-        timeLeft = CONFIG.GAME_DURATION;
-        isPlaying = true;
+        let timeLeft = GAME_CONFIG.DURATION;
+        isGameActive = true;
 
-        if (els.spanScore) els.spanScore.textContent = '0';
-        if (els.spanTimer) els.spanTimer.textContent = timeLeft.toString();
-        
-        els.instructions?.classList.add('hidden');
-        els.display?.classList.remove('hidden');
+        if (ui.scoreSpan) ui.scoreSpan.textContent = '0';
+        if (ui.timerSpan) ui.timerSpan.textContent = timeLeft.toString();
 
-        timer = setInterval(() => {
+        if (timer) clearInterval(timer);
+        timer = window.setInterval(() => {
             timeLeft--;
-            if (els.spanTimer) els.spanTimer.textContent = timeLeft.toString();
-            
-            if (timeLeft <= 0) endGame();
+            if (ui.timerSpan) ui.timerSpan.textContent = timeLeft.toString();
+            if (timeLeft <= 0) stopGame();
         }, 1000);
     };
 
-    const endGame = (): void => {
-        isPlaying = false;
+    const stopGame = (): void => {
+        isGameActive = false;
         if (timer) clearInterval(timer);
+        sections.display?.classList.add('hidden');
+        sections.gameOver?.classList.remove('hidden');
+        if (ui.finalMsg) ui.finalMsg.textContent = `Score: ${score} Clicks!`;
 
-        const board = getBoard();
-        board.push({ name: nickname, score, date: new Date().toISOString() });
-        board.sort((a, b) => b.score - a.score);
-        localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(board.slice(0, CONFIG.MAX_LEADERBOARD)));
-
-        if (els.msgFinal) els.msgFinal.textContent = `You achieved ${score} clicks!`;
-        els.display?.classList.add('hidden');
-        els.gameOver?.classList.remove('hidden');
-        renderBoard();
+        const data = localStorage.getItem(STORAGE.LEADERBOARD);
+        let list: LeaderboardEntry[] = JSON.parse(data || '[]');
+        list.push({ name: playerName, score });
+        list.sort((a, b) => b.score - a.score);
+        localStorage.setItem(STORAGE.LEADERBOARD, JSON.stringify(list.slice(0, GAME_CONFIG.MAX_ENTRIES)));
+        refreshLeaderboard();
     };
 
-    els.btnStart.addEventListener('click', () => {
-        const val = els.inputNick.value.trim();
-        if (val.length < CONFIG.MIN_NICKNAME_LENGTH) return alert('Nickname too short!');
-        
-        nickname = val;
-        handleMusic(true);
-        if (els.spanPlayer) els.spanPlayer.textContent = nickname;
-        
-        els.setup?.classList.add('hidden');
-        els.instructions?.classList.remove('hidden');
-    });
-
-    els.btnRound.addEventListener('click', startRound);
-
-    els.btnClick.addEventListener('click', () => {
-        if (!isPlaying) return;
-        score++;
-        if (els.spanScore) els.spanScore.textContent = score.toString();
-    });
-
-    els.btnRetry.addEventListener('click', () => {
-        els.gameOver?.classList.add('hidden');
-        els.instructions?.classList.remove('hidden');
-    });
-
-    els.musicToggle.addEventListener('click', () => {
-        if (els.music.paused) {
-            els.music.play();
-            els.musicIcon?.setAttribute('class', 'fas fa-volume-up text-blue-400');
-        } else {
-            els.music.pause();
-            els.musicIcon?.setAttribute('class', 'fas fa-volume-mute text-gray-500');
+    ui.startBtn?.addEventListener('click', () => {
+        const val = ui.nickInput?.value.trim() || '';
+        if (val.length >= GAME_CONFIG.MIN_NAME_LENGTH) {
+            playerName = val;
+            sections.setup?.classList.add('hidden');
+            sections.instructions?.classList.remove('hidden');
+            try { if (audio.music) fadeInAudio(audio.music, 1000); } catch {}
         }
     });
 
-    renderBoard();
-}
+    ui.readyBtn?.addEventListener('click', () => {
+        sections.instructions?.classList.add('hidden');
+        sections.display?.classList.remove('hidden');
+        startGame();
+    });
 
-document.addEventListener('DOMContentLoaded', initTurboClickerGame);
+    ui.clickBtn?.addEventListener('click', () => {
+        if (!isGameActive) return;
+        score++;
+        if (ui.scoreSpan) ui.scoreSpan.textContent = score.toString();
+    });
+
+    ui.retryBtn?.addEventListener('click', () => {
+        sections.gameOver?.classList.add('hidden');
+        sections.display?.classList.remove('hidden');
+        startGame();
+    });
+
+    audio.toggle?.addEventListener('click', () => {
+        if (!audio.music || !audio.icon) return;
+        if (audio.music.paused) {
+            audio.music.play().catch(() => {});
+            audio.icon.classList.replace(UI_ICONS.VOL_OFF, UI_ICONS.VOL_ON);
+        } else {
+            audio.music.pause();
+            audio.icon.classList.replace(UI_ICONS.VOL_ON, UI_ICONS.VOL_OFF);
+        }
+    });
+
+    refreshLeaderboard();
+});
