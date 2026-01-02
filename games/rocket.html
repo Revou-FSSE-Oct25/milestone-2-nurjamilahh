@@ -33,12 +33,8 @@
         </nav>
     </header>
 
-    <main id="main-content" 
-        class="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center" 
-        style="background-image: url('../images/rocket-bg.webp');">
-
-        <article class="game-box-center" 
-             style="background-color: #121212; color: #E1E1E1; padding: 2rem; border-radius: 1rem; max-width: 500px; margin: 2rem auto;">
+    <main id="main-content" class="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center" style="background-image: url('../images/rocket-bg.webp');">
+        <article class="game-box-center" style="background-color: #121212; color: #E1E1E1; padding: 2rem; border-radius: 1rem; max-width: 500px; margin: 2rem auto;">
             
             <header>
                 <h1 class="text-3xl font-bold">
@@ -47,74 +43,57 @@
             </header>
 
             <section id="nickname-setup" class="game-setup">
-                <label for="nickname-input">Commander's Name</label>
-                <input type="text" id="nickname-input" placeholder="Enter Star Commander" maxlength="15">
-                <button id="start-rocket-btn"
-                        class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl"
-                        style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;">
-                    
+                <label for="nickname-input" class="block mb-2">Commander's Name</label>
+                <input type="text" id="nickname-input" class="w-full p-2 mb-4 bg-gray-800 rounded" placeholder="Enter Star Commander" maxlength="15">
+                <button id="start-rocket-btn" class="group w-full py-4 rounded-xl font-black tracking-[0.2em] uppercase transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl" style="background: rgba(37, 99, 235, 0.15); backdrop-filter: blur(10px); border: 2px solid rgba(37, 99, 235, 0.4); color: #60a5fa;">
                     <span class="flex items-center justify-center gap-3">
-                        <i class="fas fa-door-open mr-2"></i>START ADVENTURE<span class="h-2 border-t-2 border-r-2 border-current rotate-45 transition-transform duration-300 group-hover:translate-x-2 translate-y-[1px]"></span>
+                        <i class="fas fa-door-open"></i>START ADVENTURE
                     </span>
                 </button>
             </section>
 
-            <section id="rocket-instructions" class="hidden instruction-box">
-                <h2 class="text-2xl font-bold mb-4">
-                    <i class="fas fa-scroll"></i>How to Play
-                </h2>
-                
-                <div class="instruction-content">
-                    <p>Use the <strong><i class="fas fa-arrow-left"></i> Left</strong> and <strong><i class="fas fa-arrow-right"></i> Right</strong> arrow keys to move your ship and avoid the falling space rocks.</p>
-                    
-                    <div class="fighter-tag">
-                        <p>Current Commander</p>
-                        <span id="current-player-name"></span>
+            <section id="rocket-instructions" class="hidden">
+                <h2 class="text-2xl font-bold mb-4"><i class="fas fa-scroll mr-2"></i>How to Play</h2>
+                <div class="mb-6">
+                    <p>Use <strong><i class="fas fa-arrow-left"></i> Left</strong> and <strong><i class="fas fa-arrow-right"></i> Right</strong> keys to survive.</p>
+                    <div class="mt-4 p-3 bg-blue-900/20 rounded-lg">
+                        <p class="text-sm opacity-70">Current Commander</p>
+                        <span id="current-player-name" class="font-bold text-blue-400"></span>
                     </div>
                 </div>
-
-                <button id="start-round-btn" class="btn">
-                    <i class="fas fa-space-shuttle"></i>Rocket Avoider: Mission Start!
+                <button id="start-round-btn" class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                    <i class="fas fa-space-shuttle mr-2"></i>Mission Start!
                 </button>
             </section>
             
-            <section id="game-display" class="game-canvas-area hidden">
-                <footer class="game-stats">
-                    <p>Score: <span id="rocket-score">0</span> | High Score: <span id="rocket-high-score">0</span></p>
+            <section id="game-display" class="hidden text-center">
+                <canvas id="rocket-canvas" width="400" height="500" class="mx-auto bg-black/50 rounded-lg border border-white/10"></canvas>
+                <footer class="mt-4 text-xl">
+                    Score: <span id="rocket-score" class="font-mono">0</span>
                 </footer>
             </section>
 
-            <section id="dodge-game-over" class="hidden message-box loser">
-                <h2 class="text-2xl font-bold">Game Over!</h2>
+            <section id="dodge-game-over" class="hidden text-center">
+                <h2 class="text-3xl font-bold text-red-500">Game Over!</h2>
                 <p id="final-score-message" class="my-4 text-lg"></p>
-                <button id="play-again-rocket-btn" class="btn-small">Play Again</button>
+                <button id="play-again-rocket-btn" class="px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full transition-all">Play Again</button>
             </section>
 
-
-            <section id="leaderboard" class="leaderboard-section">
-                <h2 class="text-xl font-bold">
-                    <i class="fas fa-rocket mr-2" aria-hidden="true"></i> 
-                    Starship Commanders
-                </h2>
-                <ul class="leaderboard-list" id="rocket-leaderboard-list">
-                    </ul>
+            <section id="leaderboard" class="mt-8 pt-6 border-t border-white/10">
+                <h2 class="text-xl font-bold mb-4"><i class="fas fa-rocket mr-2"></i>Starship Commanders</h2>
+                <ul id="rocket-leaderboard-list" class="space-y-2 text-sm opacity-80"></ul>
             </section>
             
-            <nav>
-                <a href="../index.html" class="btn-dark"><i class="fas fa-home"></i>
-                </a>
+            <nav class="mt-6 flex justify-between items-center">
+                <a href="../index.html" class="p-2 hover:text-blue-400"><i class="fas fa-home"></i></a>
+                <button id="musicToggle" class="p-2 hover:text-blue-400">
+                    <i id="musicIcon" class="fas fa-volume-up"></i>
+                </button>
             </nav>
 
             <audio id="gameMusic" loop>
                 <source src="../audio/rocket-396890.mp3" type="audio/mpeg">
             </audio>
-
-            <div class="music-controls">
-                <button id="musicToggle" class="btn-music">
-                    <i id="musicIcon" class="fas fa-volume-up"></i>
-                </button>
-            </div>
-
         </article>
     </main>
 
