@@ -1,23 +1,23 @@
 import { fadeInAudio } from './utils/audio-helper.js';
-const GAME_CONFIG = {
-    DURATION: 10,
-    MIN_NAME_LENGTH: 2,
-    MAX_ENTRIES: 5
+const gameConfig = {
+    duration: 10,
+    minNameLength: 2,
+    maxEntries: 5
 };
-const UI_ICONS = {
-    MEDAL: 'fas fa-medal',
-    VOL_ON: 'fa-volume-up',
-    VOL_OFF: 'fa-volume-mute'
+const uiIcons = {
+    medal: 'fas fa-medal',
+    volOn: 'fa-volume-up',
+    volOff: 'fa-volume-mute'
 };
-const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
+const medalColors = ['#FFD700', '#C0C0C0', '#CD7F32'];
 var AudioConfig;
 (function (AudioConfig) {
-    AudioConfig[AudioConfig["TARGET_VOLUME"] = 0.5] = "TARGET_VOLUME";
-    AudioConfig[AudioConfig["FADE_STEP"] = 0.01] = "FADE_STEP";
-    AudioConfig[AudioConfig["FADE_INTERVAL"] = 100] = "FADE_INTERVAL";
+    AudioConfig[AudioConfig["targetVolume"] = 0.5] = "targetVolume";
+    AudioConfig[AudioConfig["fadeStep"] = 0.01] = "fadeStep";
+    AudioConfig[AudioConfig["fadeInterval"] = 100] = "fadeInterval";
 })(AudioConfig || (AudioConfig = {}));
-const STORAGE = {
-    LEADERBOARD: 'turbo_click_safe_v3'
+const storageKeys = {
+    leaderboard: 'clickerLeaderboard'
 };
 document.addEventListener('DOMContentLoaded', () => {
     var _a, _b, _c, _d, _e;
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const refreshLeaderboard = () => {
         if (!ui.leadList)
             return;
-        const data = localStorage.getItem(STORAGE.LEADERBOARD);
+        const data = localStorage.getItem(storageKeys.leaderboard);
         const list = JSON.parse(data || '[]');
         while (ui.leadList.firstChild)
             ui.leadList.removeChild(ui.leadList.firstChild);
@@ -68,14 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameWrap = document.createElement('span');
             const scoreWrap = document.createElement('span');
             li.className = "flex justify-between items-center p-3 mb-2 rounded-lg bg-white/5 border border-white/10";
-            if (index < MEDAL_COLORS.length) {
+            if (index < medalColors.length) {
                 const medal = document.createElement('i');
-                medal.className = UI_ICONS.MEDAL;
-                medal.style.color = MEDAL_COLORS[index];
+                medal.className = uiIcons.medal;
+                medal.style.color = medalColors[index];
                 medal.style.marginRight = '12px';
                 nameWrap.appendChild(medal);
-                li.style.color = MEDAL_COLORS[index];
-                li.style.borderColor = `${MEDAL_COLORS[index]}44`;
+                li.style.color = medalColors[index];
+                li.style.borderColor = `${medalColors[index]}44`;
             }
             const nameTxt = document.createTextNode(entry.name);
             nameWrap.appendChild(nameTxt);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const startGame = () => {
         score = 0;
-        let timeLeft = GAME_CONFIG.DURATION;
+        let timeLeft = gameConfig.duration;
         isGameActive = true;
         if (ui.scoreSpan)
             ui.scoreSpan.textContent = '0';
@@ -112,17 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
         (_b = sections.gameOver) === null || _b === void 0 ? void 0 : _b.classList.remove('hidden');
         if (ui.finalMsg)
             ui.finalMsg.textContent = `Score: ${score} Clicks!`;
-        const data = localStorage.getItem(STORAGE.LEADERBOARD);
+        const data = localStorage.getItem(storageKeys.leaderboard);
         let list = JSON.parse(data || '[]');
         list.push({ name: playerName, score });
         list.sort((a, b) => b.score - a.score);
-        localStorage.setItem(STORAGE.LEADERBOARD, JSON.stringify(list.slice(0, GAME_CONFIG.MAX_ENTRIES)));
+        localStorage.setItem(storageKeys.leaderboard, JSON.stringify(list.slice(0, gameConfig.maxEntries)));
         refreshLeaderboard();
     };
     (_a = ui.startBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
         var _a, _b, _c;
         const val = ((_a = ui.nickInput) === null || _a === void 0 ? void 0 : _a.value.trim()) || '';
-        if (val.length >= GAME_CONFIG.MIN_NAME_LENGTH) {
+        if (val.length >= gameConfig.minNameLength) {
             playerName = val;
             (_b = sections.setup) === null || _b === void 0 ? void 0 : _b.classList.add('hidden');
             (_c = sections.instructions) === null || _c === void 0 ? void 0 : _c.classList.remove('hidden');
@@ -157,11 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         if (audio.music.paused) {
             audio.music.play().catch(() => { });
-            audio.icon.classList.replace(UI_ICONS.VOL_OFF, UI_ICONS.VOL_ON);
+            audio.icon.classList.replace(uiIcons.volOff, uiIcons.volOn);
         }
         else {
             audio.music.pause();
-            audio.icon.classList.replace(UI_ICONS.VOL_ON, UI_ICONS.VOL_OFF);
+            audio.icon.classList.replace(uiIcons.volOn, uiIcons.volOff);
         }
     });
     refreshLeaderboard();

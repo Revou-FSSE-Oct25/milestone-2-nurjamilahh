@@ -1,11 +1,11 @@
 import { fadeInAudio } from './utils/audio-helper.js';
-const GAME_CONFIG = {
-    MAX_ATTEMPTS: 5,
-    MIN_NUMBER: 1,
-    MAX_NUMBER: 100,
-    STORAGE_KEYS: {
-        HIGH_SCORE: 'guessHighScore',
-        LEADERBOARD: 'guessLeaderboard'
+const gameConfig = {
+    maxAttempts: 5,
+    minNumber: 1,
+    maxNumber: 100,
+    storageKeys: {
+        highScore: 'guessHighScore',
+        leaderboard: 'guessLeaderboard'
     }
 };
 let gameState;
@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     gameState = {
         playerName: '',
         secretNumber: 0,
-        attemptsLeft: GAME_CONFIG.MAX_ATTEMPTS,
+        attemptsLeft: gameConfig.maxAttempts,
         totalAttemptsUsed: 0,
         gameActive: false,
-        highScore: Number(localStorage.getItem(GAME_CONFIG.STORAGE_KEYS.HIGH_SCORE)) || 0
+        highScore: Number(localStorage.getItem(gameConfig.storageKeys.highScore)) || 0
     };
     const nicknameSetup = document.getElementById('nickname-setup');
     const nicknameInput = document.getElementById('nickname-input');
@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initGame();
     });
     function initGame() {
-        gameState.secretNumber = Math.floor(Math.random() * GAME_CONFIG.MAX_NUMBER) + GAME_CONFIG.MIN_NUMBER;
-        gameState.attemptsLeft = GAME_CONFIG.MAX_ATTEMPTS;
+        gameState.secretNumber = Math.floor(Math.random() * gameConfig.maxNumber) + gameConfig.minNumber;
+        gameState.attemptsLeft = gameConfig.maxAttempts;
         gameState.totalAttemptsUsed = 0;
         gameState.gameActive = true;
         if (attemptsSpan)
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!gameState.gameActive)
             return;
         const guess = parseInt(guessInput.value);
-        if (isNaN(guess) || guess < GAME_CONFIG.MIN_NUMBER || guess > GAME_CONFIG.MAX_NUMBER)
+        if (isNaN(guess) || guess < gameConfig.minNumber || guess > gameConfig.maxNumber)
             return;
         gameState.attemptsLeft--;
         gameState.totalAttemptsUsed++;
@@ -120,14 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function saveScore(name, score) {
-        const rawData = localStorage.getItem(GAME_CONFIG.STORAGE_KEYS.LEADERBOARD);
+        const rawData = localStorage.getItem(gameConfig.storageKeys.leaderboard);
         let leaderboard = JSON.parse(rawData || '[]');
         leaderboard.push({ name, score });
         leaderboard.sort((a, b) => a.score - b.score);
         leaderboard = leaderboard.slice(0, 5);
-        localStorage.setItem(GAME_CONFIG.STORAGE_KEYS.LEADERBOARD, JSON.stringify(leaderboard));
+        localStorage.setItem(gameConfig.storageKeys.leaderboard, JSON.stringify(leaderboard));
         if (gameState.highScore === 0 || score < gameState.highScore) {
-            localStorage.setItem(GAME_CONFIG.STORAGE_KEYS.HIGH_SCORE, score.toString());
+            localStorage.setItem(gameConfig.storageKeys.highScore, score.toString());
             gameState.highScore = score;
             if (highScoreSpan)
                 highScoreSpan.textContent = score.toString();
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateLeaderboard() {
         if (!leaderboardList)
             return;
-        const rawData = localStorage.getItem(GAME_CONFIG.STORAGE_KEYS.LEADERBOARD);
+        const rawData = localStorage.getItem(gameConfig.storageKeys.leaderboard);
         const leaderboard = JSON.parse(rawData || '[]');
         leaderboardList.innerHTML = '';
         if (leaderboard.length === 0) {

@@ -5,29 +5,29 @@ interface LeaderboardEntry {
     score: number;
 }
 
-const GAME_CONFIG = {
-    DURATION: 10,
-    MIN_NAME_LENGTH: 2,
-    MAX_ENTRIES: 5
+const gameConfig = {
+    duration: 10,
+    minNameLength: 2,
+    maxEntries: 5
 };
 
-const UI_ICONS = {
-    MEDAL: 'fas fa-medal',
-    VOL_ON: 'fa-volume-up',
-    VOL_OFF: 'fa-volume-mute'
-};
+const uiIcons = {
+    medal: 'fas fa-medal',
+    volOn: 'fa-volume-up',
+    volOff: 'fa-volume-mute'
+} as const;
 
-const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
+const medalColors = ['#FFD700', '#C0C0C0', '#CD7F32'];
 
 enum AudioConfig {
-    TARGET_VOLUME = 0.5, 
-    FADE_STEP = 0.01,
-    FADE_INTERVAL = 100
+    targetVolume = 0.5, 
+    fadeStep = 0.01,
+    fadeInterval = 100
 }
 
-const STORAGE = {
-    LEADERBOARD: 'turbo_click_safe_v3'
-};
+const storageKeys = {
+    leaderboard: 'clickerLeaderboard'
+} as const;
 
 document.addEventListener('DOMContentLoaded', () => {
     let playerName = '';
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const refreshLeaderboard = (): void => {
         if (!ui.leadList) return;
-        const data = localStorage.getItem(STORAGE.LEADERBOARD);
+        const data = localStorage.getItem(storageKeys.leaderboard);
         const list: LeaderboardEntry[] = JSON.parse(data || '[]');
 
         while (ui.leadList.firstChild) ui.leadList.removeChild(ui.leadList.firstChild);
@@ -84,14 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.className = "flex justify-between items-center p-3 mb-2 rounded-lg bg-white/5 border border-white/10";
 
-            if (index < MEDAL_COLORS.length) {
+            if (index < medalColors.length) {
                 const medal = document.createElement('i');
-                medal.className = UI_ICONS.MEDAL;
-                medal.style.color = MEDAL_COLORS[index];
+                medal.className = uiIcons.medal;
+                medal.style.color = medalColors[index];
                 medal.style.marginRight = '12px';
                 nameWrap.appendChild(medal);
-                li.style.color = MEDAL_COLORS[index];
-                li.style.borderColor = `${MEDAL_COLORS[index]}44`;
+                li.style.color = medalColors[index];
+                li.style.borderColor = `${medalColors[index]}44`;
             }
 
             const nameTxt = document.createTextNode(entry.name);
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startGame = (): void => {
         score = 0;
-        let timeLeft = GAME_CONFIG.DURATION;
+        let timeLeft = gameConfig.duration;
         isGameActive = true;
 
         if (ui.scoreSpan) ui.scoreSpan.textContent = '0';
@@ -127,17 +127,17 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.gameOver?.classList.remove('hidden');
         if (ui.finalMsg) ui.finalMsg.textContent = `Score: ${score} Clicks!`;
 
-        const data = localStorage.getItem(STORAGE.LEADERBOARD);
+        const data = localStorage.getItem(storageKeys.leaderboard);
         let list: LeaderboardEntry[] = JSON.parse(data || '[]');
         list.push({ name: playerName, score });
         list.sort((a, b) => b.score - a.score);
-        localStorage.setItem(STORAGE.LEADERBOARD, JSON.stringify(list.slice(0, GAME_CONFIG.MAX_ENTRIES)));
+        localStorage.setItem(storageKeys.leaderboard, JSON.stringify(list.slice(0, gameConfig.maxEntries)));
         refreshLeaderboard();
     };
 
     ui.startBtn?.addEventListener('click', () => {
         const val = ui.nickInput?.value.trim() || '';
-        if (val.length >= GAME_CONFIG.MIN_NAME_LENGTH) {
+        if (val.length >= gameConfig.minNameLength) {
             playerName = val;
             sections.setup?.classList.add('hidden');
             sections.instructions?.classList.remove('hidden');
@@ -167,10 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!audio.music || !audio.icon) return;
         if (audio.music.paused) {
             audio.music.play().catch(() => {});
-            audio.icon.classList.replace(UI_ICONS.VOL_OFF, UI_ICONS.VOL_ON);
+            audio.icon.classList.replace(uiIcons.volOff, uiIcons.volOn);
         } else {
             audio.music.pause();
-            audio.icon.classList.replace(UI_ICONS.VOL_ON, UI_ICONS.VOL_OFF);
+            audio.icon.classList.replace(uiIcons.volOn, uiIcons.volOff);
         }
     });
 

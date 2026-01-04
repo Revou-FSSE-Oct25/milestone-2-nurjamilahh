@@ -5,17 +5,19 @@ type Commander = {
     score: number;
 };
 
-const ROCKET_CONFIG = {
-    CANVAS_WIDTH: 400,
-    CANVAS_HEIGHT: 500,
-    PLAYER_SIZE: 40,
-    METEOR_SIZE: 35,
-    PLAYER_SPEED: 8,
-    INITIAL_METEOR_SPEED: 3,
-    SPEED_INCREMENT: 0.05,
-    METEOR_SPAWN_RATE: 0.02,
-    STORAGE_KEY: 'rocket_leaderboard',
-    FADE_DURATION: 1500
+const rocketConfig = {
+    canvasWidth: 400,
+    canvasHeight: 500,
+    playerSize: 40,
+    meteorSize: 35,
+    playerSpeed: 8,
+    initialMeteorSpeed: 3,
+    speedIncrement: 0.05,
+    meteorSpawnRate: 0.02,
+    storageKeys: {
+        leaderboard: 'rocketLeaderboard' 
+    },
+    fadeDuration: 1500
 };
 
 class RocketGame {
@@ -74,7 +76,7 @@ class RocketGame {
         document.getElementById('game-display')?.classList.remove('hidden');
         
         this.isRunning = true;
-        fadeInAudio(this.gameMusic, ROCKET_CONFIG.FADE_DURATION);
+        fadeInAudio(this.gameMusic, rocketConfig.fadeDuration);
         this.musicIcon.className = 'fas fa-volume-up';
         this.gameLoop();
     }
@@ -95,17 +97,17 @@ class RocketGame {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         if (this.keys['ArrowLeft'] && this.playerX > 25) {
-            this.playerX -= ROCKET_CONFIG.PLAYER_SPEED;
+            this.playerX -= rocketConfig.playerSpeed;
         }
         if (this.keys['ArrowRight'] && this.playerX < this.canvas.width - 25) {
-            this.playerX += ROCKET_CONFIG.PLAYER_SPEED;
+            this.playerX += rocketConfig.playerSpeed;
         }
 
-        if (Math.random() < ROCKET_CONFIG.METEOR_SPAWN_RATE) {
+        if (Math.random() < rocketConfig.meteorSpawnRate) {
             this.meteors.push({
                 x: Math.random() * (this.canvas.width - 40) + 20,
                 y: -40,
-                speed: ROCKET_CONFIG.INITIAL_METEOR_SPEED + (this.score * ROCKET_CONFIG.SPEED_INCREMENT)
+                speed: rocketConfig.initialMeteorSpeed + (this.score * rocketConfig.speedIncrement)
             });
         }
 
@@ -136,7 +138,7 @@ class RocketGame {
             }
         }
 
-        this.animationId = requestAnimationFrame(this.gameLoop);
+        this.animationId = requestAnimationFrame(() => this.gameLoop());
     };
 
     private endGame(): void {
@@ -168,10 +170,10 @@ class RocketGame {
     }
 
     private saveScore(): void {
-        const scores: Commander[] = JSON.parse(localStorage.getItem(ROCKET_CONFIG.STORAGE_KEY) || '[]');
+        const scores: Commander[] = JSON.parse(localStorage.getItem(rocketConfig.storageKeys.leaderboard) || '[]');
         scores.push({ name: this.nickname, score: this.score });
         scores.sort((a, b) => b.score - a.score);
-        localStorage.setItem(ROCKET_CONFIG.STORAGE_KEY, JSON.stringify(scores.slice(0, 5)));
+        localStorage.setItem(rocketConfig.storageKeys.leaderboard, JSON.stringify(scores.slice(0, 5)));
         this.renderLeaderboard();
     }
 
@@ -179,7 +181,7 @@ class RocketGame {
         const list = document.getElementById('rocket-leaderboard-list');
         if (!list) return;
 
-        const scores: Commander[] = JSON.parse(localStorage.getItem(ROCKET_CONFIG.STORAGE_KEY) || '[]');
+        const scores: Commander[] = JSON.parse(localStorage.getItem(rocketConfig.storageKeys.leaderboard) || '[]');
         const medals = ['🥇', '🥈', '🥉'];
 
         list.innerHTML = scores.map((s, i) => `
