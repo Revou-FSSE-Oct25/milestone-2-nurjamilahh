@@ -73,11 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 fadeInAudio(gameMusic, 1000); 
-            } catch {
+            } catch (error) {
+                console.warn("Manual music play failed", error);
 
             } 
         }
-});
+    });
 
     startRoundBtn?.addEventListener('click', () => {
         instructionBox.classList.add('hidden');
@@ -114,14 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.totalAttemptsUsed++;
         if (attemptsSpan) attemptsSpan.textContent = gameState.attemptsLeft.toString();
 
-        if (guess === gameState.secretNumber) {
-            endGame(true);
-        } else if (gameState.attemptsLeft === 0) {
-            endGame(false);
-        } else {
-            if (guessMessage) {
-                guessMessage.textContent = guess < gameState.secretNumber ? "📉 Too Low!" : "📈 Too High!";
-            }
+        switch (true) {
+            case (guess === gameState.secretNumber):
+                endGame(true);
+                break;
+            case (gameState.attemptsLeft === 0):
+                endGame(false);
+                break;
+            default:
+                if (guessMessage) {
+                    guessMessage.textContent = guess < gameState.secretNumber ?  "📉 Too Low!" : "📈 Too High!";
+                }
+                break;
         }
         guessInput.value = '';
     });
@@ -202,7 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gameMusic.paused) {
         try {
             fadeInAudio(gameMusic, 1000);
-        } catch {
+        } catch (error) {
+            console.error("Manual music play failed:", error);
         }
         musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
     } else {
