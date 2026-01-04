@@ -104,24 +104,24 @@ function initRPSGame() {
         let result = "";
         let resultClass = "message-box";
         let statusIcon = "";
-        if (playerChoice === computerChoice) {
-            result = "DRAW!";
-            statusIcon = STATUS_ICONS.draw;
-        }
-        else if ((playerChoice === 'rock' && computerChoice === 'scissors') ||
-            (playerChoice === 'paper' && computerChoice === 'rock') ||
-            (playerChoice === 'scissors' && computerChoice === 'paper')) {
-            rpsState.playerScore++;
-            result = "YOU WIN!";
-            resultClass = "message-box winner";
-            statusIcon = STATUS_ICONS.winner;
-            saveToLeaderboard();
-        }
-        else {
-            rpsState.computerScore++;
-            result = "COMPUTER WINS!";
-            resultClass = "message-box loser";
-            statusIcon = STATUS_ICONS.loser;
+        switch (true) {
+            case playerChoice === computerChoice:
+                result = "DRAW!";
+                statusIcon = STATUS_ICONS.draw;
+                break;
+            case (playerChoice === 'rock' && computerChoice === 'scissors'):
+            case (playerChoice === 'paper' && computerChoice === 'rock'):
+            case (playerChoice === 'scissors' && computerChoice === 'paper'):
+                rpsState.playerScore++;
+                result = "YOU WIN!";
+                resultClass = "message-box winner";
+                statusIcon = STATUS_ICONS.winner;
+                saveToLeaderboard();
+                break;
+                deafult: rpsState.computerScore++;
+                result = "COMPUTER WINS!";
+                resultClass = "message-box loser";
+                statusIcon = STATUS_ICONS.loser;
         }
         if (roundResultMsg) {
             roundResultMsg.textContent = "";
