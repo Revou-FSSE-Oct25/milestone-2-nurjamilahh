@@ -64,12 +64,26 @@ The RevoFun Gaming Hub features a minimum of three fully implemented, browser-ba
 This project was built using core web development technologies, focusing on foundational front-end skills:
 * **HTML5:** Used for structuring the content, ensuring semantic and accessible markup.
 * **CSS3 & Tailwind CSS:** Tailwind is used as the primary styling framework to build a responsive, utility-first layout, while custom CSS handles other components.
-* **TypeScript:** The source language for game settings and audio logic. It implements Type Safety to ensure reliable volume control and robust state management, reducing runtime errors during development.
+* **TypeScript:** Used as the source language for game logic and core utilities. It implements strict Type Safety, Interfaces, and Generics to ensure reliable state management and minimize runtime errors.
 * **JavaScript (ES6+):** The primary engine for game logic, DOM manipulation, and interactivity, compiled from TypeScript source files.
 * **Swiper.js:** An external library used to create the interactive, touch-friendly game selection slider.
 * **JSDelivr CDN:** Used to deliver external libraries (Swiper, Fonts) efficiently, ensuring fast load times and optimized asset delivery.
 * **Google Fonts & Font Awesome:** Utilized for high-quality typography and consistent iconography across the platform.
 * **Deployment:** Hosted on GitHub Pages, utilizing a build-to-deploy workflow from the dist directory.
+
+---
+
+## Technical Excellence
+
+During the development process, the codebase was refactored to adhere to professional software standards:
+
+* **XSS Prevention:** All dynamic content (such as player nicknames and scores) is handled using textContent and createTextNode instead of innerHTML. This ensures a secure environment by preventing Cross-Site Scripting (XSS) attacks.
+* **Robust Data Handling:** Implemented try...catch blocks for all localStorage and JSON.parse operations. This prevents the application from crashing if the browser's persistent data becomes corrupted.
+* **Audio API Resilience:** Game audio utilizes a custom helper with error boundaries to gracefully handle browser autoplay restrictions and asynchronous loading.
+* **Clean Code Principles:**
+    * **No Magic Numbers:** All game parameters (speed, duration, limits) are centralized in configuration objects.
+    * **Zero 'any'Types:** Fully typed codebase for better IDE support and bug prevention.
+    * **Modern Logic Patterns:** Used switch (true) and Enum-based states for cleaner and more readable conditional logic. 
 
 ---
 
