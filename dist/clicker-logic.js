@@ -20,7 +20,7 @@ const storageKeys = {
     leaderboard: 'clickerLeaderboard'
 };
 document.addEventListener('DOMContentLoaded', () => {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d;
     let playerName = '';
     let score = 0;
     let timer = null;
@@ -43,16 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
         leadList: getEl('rps-leaderboard-list'),
         finalMsg: getEl('final-score-message')
     };
-    const audio = {
-        music: getEl('gameMusic'),
-        toggle: getEl('musicToggle'),
-        icon: getEl('musicIcon')
-    };
+    const gameMusic = getEl('gameMusic');
+    const musicToggle = getEl('musicToggle');
+    const musicIcon = getEl('musicIcon');
     const refreshLeaderboard = () => {
         if (!ui.leadList)
             return;
         const data = localStorage.getItem(storageKeys.leaderboard);
-        const list = JSON.parse(data || '[]');
+        let list;
+        try {
+            list = JSON.parse(data || '[]');
+        }
+        catch (error) {
+            console.error("Leaderboard parsing failed", error);
+            list = [];
+        }
         while (ui.leadList.firstChild)
             ui.leadList.removeChild(ui.leadList.firstChild);
         if (list.length === 0) {
@@ -113,7 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ui.finalMsg)
             ui.finalMsg.textContent = `Score: ${score} Clicks!`;
         const data = localStorage.getItem(storageKeys.leaderboard);
-        let list = JSON.parse(data || '[]');
+        let list;
+        try {
+            list = JSON.parse(data || '[]');
+        }
+        catch (error) {
+            console.error("Failed to update leaderboard", error);
+            list = [];
+        }
         list.push({ name: playerName, score });
         list.sort((a, b) => b.score - a.score);
         localStorage.setItem(storageKeys.leaderboard, JSON.stringify(list.slice(0, gameConfig.maxEntries)));
@@ -127,10 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
             (_b = sections.setup) === null || _b === void 0 ? void 0 : _b.classList.add('hidden');
             (_c = sections.instructions) === null || _c === void 0 ? void 0 : _c.classList.remove('hidden');
             try {
-                if (audio.music)
-                    fadeInAudio(audio.music, 1000);
+                if (gameMusic)
+                    fadeInAudio(gameMusic, 1000);
             }
-            catch (_d) { }
+            catch (error) {
+                console.warn("Audio fade-in failed", error);
+            }
         }
     });
     (_b = ui.readyBtn) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
@@ -152,16 +166,24 @@ document.addEventListener('DOMContentLoaded', () => {
         (_b = sections.display) === null || _b === void 0 ? void 0 : _b.classList.remove('hidden');
         startGame();
     });
-    (_e = audio.toggle) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
-        if (!audio.music || !audio.icon)
+    musicToggle === null || musicToggle === void 0 ? void 0 : musicToggle.addEventListener('click', () => {
+        if (!gameMusic || !musicIcon)
             return;
-        if (audio.music.paused) {
-            audio.music.play().catch(() => { });
-            audio.icon.classList.replace(uiIcons.volOff, uiIcons.volOn);
-        }
-        else {
-            audio.music.pause();
-            audio.icon.classList.replace(uiIcons.volOn, uiIcons.volOff);
+        switch (gameMusic.paused) {
+            case true:
+                try {
+                    fadeInAudio(gameMusic, 1000);
+                }
+                catch (error) {
+                    console.error("Music playback error", error);
+                    gameMusic.play().catch(() => { });
+                }
+                musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                break;
+            case false:
+                gameMusic.pause();
+                musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+                break;
         }
     });
     refreshLeaderboard();

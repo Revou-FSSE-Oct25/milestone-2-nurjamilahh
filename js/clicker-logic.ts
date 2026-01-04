@@ -56,16 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
         finalMsg: getEl<HTMLElement>('final-score-message')
     };
 
-    const audio = {
-        music: getEl<HTMLAudioElement>('gameMusic'),
-        toggle: getEl<HTMLButtonElement>('musicToggle'),
-        icon: getEl<HTMLElement>('musicIcon')
-    };
+    const gameMusic = getEl<HTMLAudioElement>('gameMusic');
+    const musicToggle = getEl<HTMLButtonElement>('musicToggle');
+    const musicIcon = getEl<HTMLElement >('musicIcon');
 
     const refreshLeaderboard = (): void => {
         if (!ui.leadList) return;
         const data = localStorage.getItem(storageKeys.leaderboard);
-        const list: LeaderboardEntry[] = JSON.parse(data || '[]');
+        
+        let list: LeaderboardEntry[];
+        try {
+            list = JSON.parse(data || '[]');
+        } catch (error) {
+            console.error("Leaderboard parsing failed", error);
+            list = [];
+        }
 
         while (ui.leadList.firstChild) ui.leadList.removeChild(ui.leadList.firstChild);
 
@@ -128,7 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ui.finalMsg) ui.finalMsg.textContent = `Score: ${score} Clicks!`;
 
         const data = localStorage.getItem(storageKeys.leaderboard);
-        let list: LeaderboardEntry[] = JSON.parse(data || '[]');
+        
+        let list: LeaderboardEntry[];
+        try {
+            list = JSON.parse(data || '[]');
+        } catch (error) {
+            console.error("Failed to update leaderboard", error);
+            list = [];
+        }
+
         list.push({ name: playerName, score });
         list.sort((a, b) => b.score - a.score);
         localStorage.setItem(storageKeys.leaderboard, JSON.stringify(list.slice(0, gameConfig.maxEntries)));
@@ -141,7 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
             playerName = val;
             sections.setup?.classList.add('hidden');
             sections.instructions?.classList.remove('hidden');
-            try { if (audio.music) fadeInAudio(audio.music, 1000); } catch {}
+            try { 
+                if (gameMusic) fadeInAudio(gameMusic, 1000); 
+            } catch (error) {
+                console.warn("Audio fade-in failed", error);
+            }
         }
     });
 
@@ -163,14 +180,23 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame();
     });
 
-    audio.toggle?.addEventListener('click', () => {
-        if (!audio.music || !audio.icon) return;
-        if (audio.music.paused) {
-            audio.music.play().catch(() => {});
-            audio.icon.classList.replace(uiIcons.volOff, uiIcons.volOn);
-        } else {
-            audio.music.pause();
-            audio.icon.classList.replace(uiIcons.volOn, uiIcons.volOff);
+    musicToggle?.addEventListener('click', () => {
+        if (!gameMusic || !musicIcon) return;
+        switch (gameMusic.paused) {
+            case true:
+                try {
+                    fadeInAudio(gameMusic, 1000);
+                } catch (error) {
+                    console.error("Music playback error", error);    
+                    gameMusic.play().catch(() => {});
+                }
+                musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                break;
+            
+            case false:
+                gameMusic.pause();
+                musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+                break;
         }
     });
 

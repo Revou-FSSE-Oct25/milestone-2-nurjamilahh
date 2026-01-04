@@ -124,7 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function saveScore(name, score) {
         const rawData = localStorage.getItem(gameConfig.storageKeys.leaderboard);
-        let leaderboard = JSON.parse(rawData || '[]');
+        let leaderboard;
+        try {
+            leaderboard = JSON.parse(rawData || '[]');
+        }
+        catch (error) {
+            console.error("Failed to parse leaderboard data, resetting to empty list.", error);
+            leaderboard = [];
+        }
         leaderboard.push({ name, score });
         leaderboard.sort((a, b) => a.score - b.score);
         leaderboard = leaderboard.slice(0, 5);
@@ -141,7 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!leaderboardList)
             return;
         const rawData = localStorage.getItem(gameConfig.storageKeys.leaderboard);
-        const leaderboard = JSON.parse(rawData || '[]');
+        let leaderboard;
+        try {
+            leaderboard = JSON.parse(rawData || '[]');
+        }
+        catch (error) {
+            console.error("Failed to load leaderboard, initializing empty array.", error);
+            leaderboard = [];
+        }
         leaderboardList.innerHTML = '';
         if (leaderboard.length === 0) {
             const emptyMsg = document.createElement('li');

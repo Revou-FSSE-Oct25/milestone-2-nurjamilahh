@@ -8,13 +8,23 @@ export function stopAllAudio() {
 export function fadeInAudio(audio, targetVolume, step = 0.01, interval = 100) {
     stopAllAudio();
     audio.volume = 0;
-    audio.play().catch(() => {
+    audio.play().catch((error) => {
+        console.warn("Autoplay was prevented by the browser:", error);
     });
     const fadeIn = setInterval(() => {
-        if (audio.volume < targetVolume) {
-            audio.volume = Math.min(targetVolume, audio.volume + step);
+        try {
+            if (audio.volume < targetVolume) {
+                let nextVolume = Math.min(targetVolume, audio.volume + step);
+                if (nextVolume > 1)
+                    nextVolume = 1;
+                audio.volume = Number(nextVolume.toFixed(2));
+            }
+            else {
+                clearInterval(fadeIn);
+            }
         }
-        else {
+        catch (error) {
+            console.error("Audio fade failed:", error);
             clearInterval(fadeIn);
         }
     }, interval);

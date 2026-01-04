@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 fadeInAudio(gameMusic, 1000); 
             } catch (error) {
                 console.warn("Manual music play failed", error);
-
             } 
         }
     });
@@ -151,7 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function saveScore(name: string, score: number): void {
         const rawData = localStorage.getItem(gameConfig.storageKeys.leaderboard);
-        let leaderboard: LeaderboardEntry[] = JSON.parse(rawData || '[]');
+        
+        let leaderboard: LeaderboardEntry[];
+        try {
+            leaderboard = JSON.parse(rawData || '[]');
+        } catch (error) {
+            console.error("Failed to parse leaderboard data, resetting to empty list.", error);
+            leaderboard = [];
+        }
         
         leaderboard.push({ name, score });
         leaderboard.sort((a, b) => a.score - b.score);
@@ -171,7 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!leaderboardList) return;
         
         const rawData = localStorage.getItem(gameConfig.storageKeys.leaderboard);
-        const leaderboard: LeaderboardEntry[] = JSON.parse(rawData || '[]');
+        
+        let leaderboard: LeaderboardEntry[];
+        try {
+            leaderboard = JSON.parse(rawData || '[]');
+        } catch (error) {
+            console.error("Failed to load leaderboard, initializing empty array.", error);
+            leaderboard = [];
+        }
         
         leaderboardList.innerHTML = '';
 
@@ -204,18 +217,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     musicToggle?.addEventListener('click', () => {
-    if (gameMusic.paused) {
-        try {
-            fadeInAudio(gameMusic, 1000);
-        } catch (error) {
-            console.error("Manual music play failed:", error);
+        if (gameMusic.paused) {
+            try {
+                fadeInAudio(gameMusic, 1000);
+            } catch (error) {
+                console.error("Manual music play failed:", error);
+            }
+            musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+        } else {
+            gameMusic.pause();
+            musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
         }
-        musicIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
-    } else {
-        gameMusic.pause();
-        musicIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
-    }
-});
+    });
 
     resetBtn?.addEventListener('click', () => {
         gameOverSection.classList.add('hidden');

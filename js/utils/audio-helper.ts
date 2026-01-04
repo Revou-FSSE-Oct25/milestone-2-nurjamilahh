@@ -5,7 +5,6 @@ export function stopAllAudio(): void {
         audio.currentTime = 0;
     });
 }
-
 export function fadeInAudio(
     audio: HTMLAudioElement, 
     targetVolume: number, 
@@ -15,12 +14,21 @@ export function fadeInAudio(
     stopAllAudio(); 
     
     audio.volume = 0;
-    audio.play().catch(() => {
+    audio.play().catch((error) => {
+        console.warn("Autoplay was prevented by the browser:", error);
     });
+
     const fadeIn = setInterval(() => {
-        if (audio.volume < targetVolume) {
-            audio.volume = Math.min(targetVolume, audio.volume + step);
-        } else {
+        try {
+            if (audio.volume < targetVolume) {
+                let nextVolume = Math.min(targetVolume, audio.volume + step);
+                if (nextVolume > 1) nextVolume = 1;
+                audio.volume = Number(nextVolume.toFixed(2));
+            } else {
+                clearInterval(fadeIn);
+            }
+        } catch (error) {
+            console.error("Audio fade failed:", error);
             clearInterval(fadeIn);
         }
     }, interval);

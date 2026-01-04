@@ -11,7 +11,7 @@ const STATUS_ICONS = {
     loser: 'fas fa-robot',
     draw: 'fas fa-handshake'
 };
-const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
+const medalColors = ['#FFD700', '#C0C0C0', '#CD7F32'];
 var AudioConfig;
 (function (AudioConfig) {
     AudioConfig[AudioConfig["TARGET_VOLUME"] = 0.1] = "TARGET_VOLUME";
@@ -50,7 +50,13 @@ function initRPSGame() {
     };
     function getLeaderboard() {
         const board = localStorage.getItem('rpsLeaderboard');
-        return board ? JSON.parse(board) : [];
+        try {
+            return board ? JSON.parse(board) : [];
+        }
+        catch (error) {
+            console.error("Failed to parse RPS leaderboard", error);
+            return [];
+        }
     }
     function saveToLeaderboard() {
         if (rpsState.playerScore === 0)
@@ -85,7 +91,7 @@ function initRPSGame() {
             if (index < 3) {
                 const medal = document.createElement('i');
                 medal.className = 'fas fa-medal';
-                medal.style.color = MEDAL_COLORS[index];
+                medal.style.color = medalColors[index];
                 medal.style.marginRight = '8px';
                 rankSpan.appendChild(medal);
             }
@@ -118,7 +124,8 @@ function initRPSGame() {
                 statusIcon = STATUS_ICONS.winner;
                 saveToLeaderboard();
                 break;
-                deafult: rpsState.computerScore++;
+            default:
+                rpsState.computerScore++;
                 result = "COMPUTER WINS!";
                 resultClass = "message-box loser";
                 statusIcon = STATUS_ICONS.loser;
@@ -138,7 +145,7 @@ function initRPSGame() {
             sIcon.className = statusIcon;
             sIcon.style.marginRight = '8px';
             if (result === "YOU WIN!")
-                sIcon.style.color = MEDAL_COLORS[0];
+                sIcon.style.color = medalColors[0];
             const statusText = document.createElement('strong');
             statusText.textContent = result;
             statusDiv.append(sIcon, statusText);
@@ -153,11 +160,15 @@ function initRPSGame() {
     startRPSBtn.addEventListener('click', () => {
         const nick = nicknameInput.value.trim();
         if (nick.length < MIN_NICKNAME_LENGTH) {
-            alert(`Nickname minimal ${MIN_NICKNAME_LENGTH} karakter!`);
             return;
         }
-        if (rpsMusic)
-            fadeInAudio(rpsMusic, AudioConfig.TARGET_VOLUME);
+        try {
+            if (rpsMusic)
+                fadeInAudio(rpsMusic, AudioConfig.TARGET_VOLUME);
+        }
+        catch (error) {
+            console.warn("Initial audio playback failed", error);
+        }
         rpsState.nickname = nick;
         setupDiv === null || setupDiv === void 0 ? void 0 : setupDiv.classList.add('hidden');
         instructionsDiv === null || instructionsDiv === void 0 ? void 0 : instructionsDiv.classList.remove('hidden');
@@ -192,7 +203,12 @@ function initRPSGame() {
     if (musicToggle && rpsMusic) {
         musicToggle.addEventListener('click', () => {
             if (rpsMusic.paused) {
-                rpsMusic.play();
+                try {
+                    rpsMusic.play();
+                }
+                catch (error) {
+                    console.error("Playback error", error);
+                }
                 if (musicIcon)
                     musicIcon.className = 'fas fa-volume-up';
             }
